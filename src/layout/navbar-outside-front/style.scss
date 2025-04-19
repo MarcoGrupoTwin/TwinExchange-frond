@@ -1,0 +1,154 @@
+a.nav-link.crearCuenta {
+    background: #000;
+    border-radius: 50px;
+    height: 31px;
+    position: relative;
+    top: 5px;
+    color: #fff!important;
+    padding: 2px 15px;
+}
+li.nav-item {
+    margin-right: 20px;
+}
+input.form-control.buscadorInputMenu {
+    border-radius: 20px;
+    text-align: center;
+}
+.input-group.buscadorMenu {
+    padding: 0px 10px;
+}
+.dropItemsMenu{
+    max-height: 200px; 
+    min-height: 200px;
+    overflow-y: auto;
+}
+.dropdown-menu.show {
+    border-radius: 20px;
+    border: none;
+    box-shadow: 0px 0px 3px 1px #e7e9ec;
+}
+.dropdown-menu.show:before {
+    content: "";
+    position: absolute;
+    top: -21px;
+    left: 50%;
+    margin-left: -10px;
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent transparent #dbdbdb transparent;
+}
+
+a.dropdown-item:hover {
+    background: #fff;
+}
+.dropdownBigSize{
+    width: 204px;
+    left: -50%;
+}
+.dropdown-toggle::after
+{
+    display: none;
+}
+i.fa.fa-angle-down {
+    font-size: 12px;
+    margin-left: 9px;
+}
+.dropdown-menu.dropdownCreateAccount.show {
+    width: 300px;
+    left: -72%;
+}
+.logoaccount > img {
+    width: 100%;
+    padding: 14px 33px 0px 33px;
+}
+p.crearCuentaTitled.text-center {
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+label.passwordLabel {
+    width: 100%;
+    color: #c2c2c2;
+    font-size: 11px;
+    margin-top: 10px;
+}
+i#faeye {
+    position: absolute;
+    top: 15px;
+    right: 5px;
+    z-index: 5000;
+}
+p.text-center.terminosCondiciones {
+    font-size: 11px;
+    padding: 15px 15px 0px 15px;
+}
+a.trcon {
+    text-decoration: underline;
+    color: #000;
+    font-weight: bold;
+}
+label#passVIHR:hover {
+    text-decoration: underline;
+    color: #000;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+    #navbarSupportedContent {
+        position: absolute;
+        top: 50px;
+        left: -310px;
+        background: #fff;
+        width: 100%;
+        min-width: 400px;
+        box-shadow: 0px 13px 6px #dededeab;
+        border-radius: 0px 0px 8px 8px;
+        padding: 15px;
+    }
+    #usuarioC{
+        display: none; 
+    }
+    #crearCuentaDropdown {
+        text-align: center;
+    }
+    .dropdown-menu.dropdownCreateAccount.show {
+        width: 100%!important;
+    }
+    .dropdown-menu.show:before{
+        display: none;
+    }
+    .dropdown-menu.dropdownBigSize.show {
+        width: 100%!important;
+    }
+    .dropdown-menu.dropdownBigSize.show {
+        width: 100%;
+    }
+    .dropdown-menu.show:before{
+        display: none;
+    }
+    .dropdown-menu.show:before{
+        display: none;
+    }
+}
+ul.firmaListado,ul.firmaListadoOne,ul.firmaListadoTwo,ul.firmaListadoThree,ul.firmaListadoFour,ul.firmaListadoFive {
+    list-style: none;
+    display: inline-flex;
+    padding: 7px 5px;
+    border: solid 1px #c2c2c230;
+    border-radius: 8px;
+    margin: 5px;
+}
+input.firmaInput,input.firmaInputOne,input.firmaInputTwo,input.firmaInputThree,input.firmaInputFour,input.firmaInputFive {
+    width: 30px;
+    margin-right: 5px;
+    border: none;
+    box-shadow: inset 0px 0px 3px 1px #c2c2c263;
+    border-radius: 6px;
+    text-align: center;
+}
+.validaElTelefono{
+    padding: 5px 10px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+}

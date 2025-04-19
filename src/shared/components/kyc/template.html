@@ -1,0 +1,275 @@
+  
+<!-- Verificación KYC -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header" style="justify-content: end;">
+          <button type="button" class="closeModalExchange" data-bs-dismiss="modal" aria-label="Close">
+            <span class="cierraModalExchange" aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="padding-bottom: 0px;">
+            <div id="advertencia" class="row" *ngIf="step == 1">
+                <div class="col-12">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-5">
+                            <img class="imagenLogoExchange" src="https://twin-exchange.s3.us-east-2.amazonaws.com/TWINEXCHANGE.png" alt="">
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="col-12">
+                    <div class="row d-flex justify-content-center mt-3">
+                        <div class="col-1 d-flex align-items-center">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </div>
+                        <div class="col-4">
+                            <div class="tituloAdvertencia">
+                                Tienes 7 días <br> Para llenar tus datos
+                            </div>
+                        </div>
+                        <div class="col-1 d-flex align-items-center">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="col-12">
+                    <p class="advertenciaKYC text-center mt-4 mb-4">Para gozar de los beneficios de la plataforma, se le solicita completar los siguientes campos.</p>
+                </div>
+                <div class="col-12 mt-3">
+                    <div class="listadoKYC" (click)="nextStep(2)" [ngClass]="{'disabled': kycData.identificacion.frontal != ''}">
+                        <div class="row">
+                            <div class="col-6">
+                                Identificación oficial
+                            </div>
+                            <div class="col-6 text-end">
+                                <i class="fa fa-image"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="listadoKYC" (click)="nextStep(4)" [ngClass]="{'disabled': kycData.selfie != ''}">
+                        <div class="row">
+                            <div class="col-6">
+                                Selfie
+                            </div>
+                            <div class="col-6 text-end">
+                                <i class="fa fa-camera"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="listadoKYC" (click)="nextStep(6)" [ngClass]="{'disabled': kycData.comprobante != ''}">
+                        <div class="row">
+                            <div class="col-6">
+                                Comprobante de domicilio
+                            </div>
+                            <div class="col-6 text-end">
+                                <i class="fa fa-paperclip"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="advertencia" class="row" *ngIf="step == 2">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-5">
+                                <p class="tituloIdentificacion">
+                                    Ingresa tu identificación por ambos lados
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-8">
+                                <ul class="cambioEstado d-flex justify-content-center">
+                                    <li class="cambioestadoList" [ngClass]="{'active': identificacion == 1}" (click)="changeIdentificacion(1)">
+                                        Identificación
+                                    </li>
+                                    <li class="cambioestadoList" [ngClass]="{'active': identificacion == 2}" (click)="changeIdentificacion(2)">
+                                        Pasaporte
+                                    </li>
+                                    <li class="cambioestadoList" [ngClass]="{'active': identificacion == 3}" (click)="changeIdentificacion(3)">
+                                        Otro
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-8 mt-4 d-flex justify-content-center">
+                                <ul class="listadoIdentificacion">
+                                    <li class="listaIdentificacion" *ngIf="identificacion == 1 && kycData.identificacion.frontal == ''" (click)="loadPicture(1)">
+                                        <i class="fa-solid fa-id-card"></i>
+                                        <p class="frenteIdent">Frente</p>
+                                    </li>
+                                    <li class="listaIdentificacion" *ngIf="identificacion == 1 && kycData.identificacion.frontal != ''" (click)="loadPicture(1)">
+                                        <img src="{{kycData.identificacion.frontal}}" class="imagenIdentificacion">
+                                    </li>
+                                    <li class="listaIdentificacion" *ngIf="identificacion == 1 && kycData.identificacion.trasera == ''" (click)="loadPicture(2)">
+                                        <i class="fa-regular fa-id-card"></i>
+                                        <p class="frenteIdent">Reverso</p>
+                                    </li>
+                                    <li class="listaIdentificacion" *ngIf="identificacion == 1 && kycData.identificacion.trasera != ''" (click)="loadPicture(2)">
+                                        <img src="{{kycData.identificacion.trasera}}" class="imagenIdentificacion">
+                                    </li>
+                                    <li class="listaIdentificacion" *ngIf="identificacion == 2 && kycData.identificacion.frontal == ''" (click)="loadPicture(1)">
+                                        <i class="fa-solid fa-passport"></i>
+                                        <p class="frenteIdent">Pasaporte</p>
+                                    </li>
+                                    <li class="listaIdentificacion" *ngIf="identificacion == 2 && kycData.identificacion.frontal != ''" (click)="loadPicture(1)">
+                                        <img src="{{kycData.identificacion.frontal}}" class="imagenIdentificacion">
+                                    </li>
+                                    <li class="listaIdentificacion" *ngIf="identificacion == 3 && kycData.identificacion.frontal == ''" (click)="loadPicture(1)">
+                                        <i class="fa-regular fa-id-badge"></i>
+                                        <p class="frenteIdent">Identificación oficial</p>
+                                    </li>
+                                    <li class="listaIdentificacion" *ngIf="identificacion == 3 && kycData.identificacion.frontal != ''" (click)="loadPicture(1)">
+                                        <img src="{{kycData.identificacion.frontal}}" class="imagenIdentificacion">
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="advertencia" class="row" *ngIf="step == 3">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <img class="imglOGOchECKdoNE" src="https://twinexchange-sandbox.s3.us-west-1.amazonaws.com/TWINEXCHANGE.png" alt="">
+                    </div>
+                    <div class="col-12 text-center">
+                        <img src="assets/images/green-shield-and-checkmark-icon-png.png" class="imagencheckDone">
+                    </div>
+                    <div class="col-12">
+                        <p class="exitoIdent">
+                            Tu identificación se ha guardado con éxito
+                        </p>
+                    </div>
+                    <div class="col-12">
+                        <p class="pasoTresExit text-center mt-3">
+                            Estas a dos pasos de completar tu registro
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div id="advertencia" class="row" *ngIf="step == 4">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-5">
+                                <p class="tituloIdentificacion">
+                                    Selfie
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-center">
+                        <div>
+                            <video #videoElement autoplay [width]="300" [height]="300" [ngStyle]="mostrarVideo ? {'display': 'block'} : {'display': 'none'}"></video>
+                            <canvas #canvas [width]="300" [height]="300" [ngStyle]="!mostrarVideo ? {'display': 'block', 'border-radius': '8px'} : {'display': 'none'}"></canvas>
+                        </div>
+                        <button id="startbutton" class="btn btn-primary" (click)="capture()" [ngStyle]="mostrarVideo ? {'display': 'block'} : {'display': 'none'}">
+                            <i class="fa fa-camera"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div id="advertencia" class="row" *ngIf="step == 5">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <img class="imglOGOchECKdoNE" src="https://twinexchange-sandbox.s3.us-west-1.amazonaws.com/TWINEXCHANGE.png" alt="">
+                    </div>
+                    <div class="col-12 text-center">
+                        <img src="assets/images/green-shield-and-checkmark-icon-png.png" class="imagencheckDone">
+                    </div>
+                    <div class="col-12">
+                        <p class="exitoIdent">
+                            Tu selfie se ha guardado con éxito
+                        </p>
+                    </div>
+                    <div class="col-12">
+                        <p class="pasoTresExit text-center mt-3">
+                            Estas a un paso de completar tu registro
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div id="advertencia" class="row" *ngIf="step == 6">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-5">
+                                <p class="tituloIdentificacion">
+                                    Ingresa tu comprobante de domicilio
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-8 mt-4 d-flex justify-content-center">
+                                <ul class="listadoIdentificacion">
+                                    <li class="listaIdentificacion" *ngIf="kycData.comprobante == ''" (click)="loadPicture(3)">
+                                        <i class="fa-regular fa-file-lines"></i>
+                                        <p class="frenteIdent">Comprobante de domicilio</p>
+                                    </li>
+                                    <li class="listaIdentificacion" *ngIf="kycData.comprobante != ''" (click)="loadPicture(3)">
+                                        <img src="{{kycData.comprobante}}" class="imagenIdentificacion">
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="advertencia" class="row" *ngIf="step == 7">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <img class="imglOGOchECKdoNE" src="https://twinexchange-sandbox.s3.us-west-1.amazonaws.com/TWINEXCHANGE.png" alt="">
+                    </div>
+                    <div class="col-12 text-center">
+                        <img src="assets/images/green-shield-and-checkmark-icon-png.png" class="imagencheckDone">
+                    </div>
+                    <div class="col-12">
+                        <p class="exitoIdent">
+                            Tu comprobante de domicilio se ha guardado con éxito
+                        </p>
+                    </div>
+                    <div class="col-12">
+                        <p class="pasoTresExit text-center mt-3">
+                            Estas a un paso de completar tu registro
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div id="advertencia" class="row" *ngIf="step == 8">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <p class="envioExitoso">¡Envío de datos exitoso!</p>
+                    </div>
+                    <div class="col-12 text-center">
+                        <img src="assets/images/green-shield-and-checkmark-icon-png.png" class="imagencheckDone">
+                    </div>
+                    <div class="col-12">
+                        <p class="publicidad">
+                            Publicidad
+                        </p>
+                        <div class="contenidoPublicitario" style="background-image: url('assets/images/ad.svg');"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer" style="justify-content: center; padding-top:0px">
+          <button id="cancelarAccionModal" type="button" data-bs-dismiss="modal" *ngIf="showBack">En otro momento</button>
+          <button id="cancelarAccionModal" type="button" *ngIf="showBackFlow" (click)="nextStep(1)">{{textBack}}</button>
+          <button id="aceptarAccionModal" type="button" *ngIf="showNext" (click)="nextStep(step + 1)">{{textNext}}</button>
+          <button id="aceptarAccionModal" type="button" *ngIf="showFinal" (click)="completaKYC()" [disabled]="isLoading">{{isLoading ? 'Cargando...' : 'Validar mis datos'}}</button>
+        </div>
+      </div>
+    </div>
+</div>
+<!-- FIN Verificación KYC -->

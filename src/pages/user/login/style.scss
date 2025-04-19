@@ -1,0 +1,73 @@
+.pointer {cursor: pointer;}
+
+
+// // input {
+// //   width: 100%;
+// //   padding: 12px;
+// //   border: 1px solid #ccc;
+// //   border-radius: 4px;
+// //   box-sizing: border-box;
+// //   margin-top: 6px;
+// //   margin-bottom: 16px;
+// // }
+
+// /* Style the submit button */
+// input[type=submit] {
+//   background-color: #04AA6D;
+//   color: white;
+// }
+
+// /* Style the container for inputs */
+.container {
+  background-color: #f1f1f1;
+  padding: 20px;
+}
+
+// /* The message box is shown when the user clicks on the password field */
+#message {
+  background: #ffffff;
+  color: #000;
+  position: absolute;
+  z-index: 5;
+  border-radius: 8px;
+  padding: 10px;
+  width: 390px;
+}
+
+#message p label {
+  padding-left: 35px;
+  font-size: 18px;
+}
+
+// /* Add a green text color and a checkmark when the requirements are right */
+.valid {
+  color: green;
+  padding-left: 35px;
+}
+
+.invalid {
+    color: red;
+    padding-left: 35px;
+  }
+
+.valid:before {
+  position: relative;
+  left: -35px;
+  content: "✔";
+}
+
+.invalid:before {
+  position: relative;
+  left: -35px;
+  content: "✖";
+}
+.vy8o9u{
+  background: rgb(59, 87, 158);
+  background: linear-gradient(0deg, rgb(79 87 132) 0%, rgb(45 54 110) 100%);
+}
+form.theme-form.login-form.ng-untouched.ng-pristine.ng-valid {
+  border-radius: 8px;
+} 
+.login-form .form-group label {
+  text-transform: inherit;
+}

@@ -1,0 +1,523 @@
+<div class="spinner-overlay" *ngIf="loading"><div class="spinnerS"></div></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="contenidoShadow">
+               <div class="row">
+                    <div class="col-12 col-md-4 col-lg-4">
+                        <div class="contenidoShadow text-center">
+                            <h4 class="textHeader">Monedero personal</h4>
+                            <p class="ouy2">REMESAS TWIN</p>
+                            <p class="p92f38h">Fondea Twins para realizar tus remesas, sin costos de envío.</p>                        
+                            <button class="botonSendPay mb-2" [ngClass]="{'active': sendPay == 1}" (click)="changeTab(1)">Enviar remesa</button>
+                            <br>
+                            <button class="botonSendPay mb-2" [ngClass]="{'active': sendPay == 2}"  (click)="changeTab(2)">Cobrar remesa</button>
+                            <br>
+                            <!-- <button class="botonSendPay mb-2" [ngClass]="{'active': sendPay == 3}"  (click)="changeTab(3)">Qr para recibir remesa</button> -->
+                            <p class="ouy2">Importante</p>
+                            <div class="row d-flex justify-content-center">
+                                <div class="col-8">
+                                    <ul class="ovirn">
+                                        <li class="cwnij">
+                                            Tus Twins los podrás enviar a cualquier parte del mundo, sin costo de envío.
+                                        </li>
+                                        <li class="cwnij">
+                                            Tendrás la opción de canjear a tu moneda local, en cualquier momento o conservar tus Twins.
+                                        </li>
+                                        <li class="cwnij">
+                                            No es necesario canjear tus Twins, realiza compras dentro del Mall digital, sin comisiones.
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 col-lg-4">
+                        <div class="contenidoShadow text-center" *ngIf="sendPay == 1">
+                            <h4 class="textHeader">Remesas</h4>
+                            <p class="ouy2 mb-2">Envios de remesas</p>
+                            <label for="" style="width: 100%;text-align: left;"><b>Monedero que envía</b></label>
+                            <div class="contenidoShadow mb-2" style="height: 85px;">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <img src="../assets/images/cripto/iconMXN.png" class="btcTrade">
+                                    </div>
+                                    <div class="col-10 text-start">
+                                        <p class="monederoPer">
+                                            Monedero Personal
+                                        </p>
+                                        <p class="SaldoDisp">
+                                            Saldo disponible
+                                        </p>
+                                        <p class="saldoDispEy">
+                                            <span class="btnSlo" *ngIf="!isCrypto">{{showCantidad ? (current_balance | currency:'':true:'1.2-2') : '**********'}}</span>
+                                            <span class="btnSlo" *ngIf="isCrypto">{{showCantidad ? current_balance : '**********'}}</span>
+                                            <span class="eyeSlo" (click)="showCantidadToggle()"><i class="fa fa-eye"></i></span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row d-flex justify-content-center mt-3">
+                                <div class="col-9 mb-3">
+                                    <label for="" style="width: 100%;text-align: left;"><b>Cantidad a enviar en {{monedaSeleccionada}}</b></label>
+                                    <div class="row" style="border-radius: 8px; box-shadow: 0px 0px 3px #c2c2c2; padding-top: 13px;">
+                                        <div class="col-5">
+                                          <label for="twinsInput"><b>TWIN</b></label>
+                                          <input
+                                            type="number"
+                                            id="twinsInput"
+                                            [(ngModel)]="cantidadTwins"
+                                            (input)="actualizarMXN()"
+                                            class="form-control"
+                                            placeholder="Ej: 100"
+                                            style="border: none;"
+                                            [disabled]="monedaSeleccionada == 'MXN'"
+                                          />
+                                        </div>
+                                        <div class="col-2 d-flex align-items-center justify-content-center">
+                                          <b>=</b>
+                                        </div>
+                                        <div class="col-5">
+                                          <label for="mxnInput"><b>MXN</b></label>
+                                          <input
+                                            type="number"
+                                            id="mxnInput"
+                                            [(ngModel)]="totalMXN"
+                                            (input)="actualizarTwins()"
+                                            class="form-control text-end"
+                                            placeholder="Ej: 1200.00"
+                                            style="border: none;"
+                                            [disabled]="monedaSeleccionada == 'TWIN'"
+                                          />
+                                        </div>
+                                      </div>                                      
+                                </div>
+                                <!-- <div class="col-6">
+                                    <button class="botonSendPay mb-2">Enviar a usuarios TWIN</button>
+                                </div>
+                                <div class="col-6">
+                                    <button class="botonSendPay mb-2">Enviar a usuario Nuevo</button>
+                                </div> -->
+                                <div class="col-12">
+                                    <p class="mdjsend text-start">Buscar destinatario de la remesa</p>
+                                </div>  
+                                <div class="col-12 d-flex justify-content-center mt-2">
+                                    <ul class="contenidoEnvia">
+                                        <li class="listadoInput">
+                                            <input id="busquedaText" type="text" class="enviaBusca" placeholder="Buscar teléfono por {{crypto ? ', correo o wallet' : ' o correo'}}" style="width: 354px;">
+                                        </li>
+                                        <li class="iconBusca" (click)="buscaTexto()">
+                                            <i class="fa fa-search"></i>
+                                        </li>
+                                    </ul>
+                                </div>  
+                                <div class="col-12">
+                                    <ul class="listadoContactos">
+                                        <li class="listadoContactosItem" *ngIf="resultadosUsuarios.length == 0">
+                                            <div class="row">
+                                                <div class="col-12 d-flex justify-content-center align-items-center"  style="height: 50px;">
+                                                    <p class="noResultados mb-0">No se encontraron resultados</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="listadoContactosItem" *ngFor="let u of resultadosUsuarios"  [ngClass]="{'selectUserActive': u == user}" (click)="selectUser(u)">
+                                            <div class="row">
+                                                <div class="col-3 d-flex justify-content-center align-items-center">
+                                                    <div class="nombreSolo">{{getFirst(u.nombre)}}</div>
+                                                </div>
+                                                <div class="col-9">
+                                                    <p class="nombreContacto text-start">{{ u.nombre }}</p>
+                                                    <p class="IDContacto text-start">ID: {{ u.uuid }}</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="contenidoShadow text-center" *ngIf="sendPay == 2">
+                            <h4 class="textHeader">Cobrar remesa</h4>
+                            <div class="row">
+                                <div class="col-12">
+                                    <ul class="cambioEstado d-flex justify-content-center">
+                                        <li class="cambioestadoList" (click)="getRemesas(2)" [ngClass]="{'active': tipoRemesa == 2}">
+                                            Pendientes
+                                        </li>
+                                        <li class="cambioestadoList active" (click)="getRemesas(1)" [ngClass]="{'active': tipoRemesa == 1}">
+                                            Cobradas
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="row d-flex justify-content-center mt-4" style="height: 407px;overflow-y: auto;padding-top: 5px;">
+                                <div class="col-9 mb-2" *ngFor="let rem of remesas" [ngClass]="{'active': rem == remesaSeleccionada}">
+                                    <div class="row">
+                                        <div class="contenidoRem">
+                                            <div class="row">
+                                                <div class="row mb-2">
+                                                    <div class="col-8 text-start">
+                                                        <span style="color:green;">{{tipoRemesa == 2 ? 'Remesa pendiente a cobrar' : ''}}</span>
+                                                    </div>
+                                                    <div class="col-2 text-end p-0">
+                                                        {{rem.created_at | date: 'HH:mm'}}
+                                                    </div>
+                                                    <div class="col-2 text-end">
+                                                        {{rem.created_at | date: 'dd/MM/yy'}}
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="contenidoShadow mb-2" style="height: 75px;">
+                                                        <div class="row">
+                                                            <div class="col-2" style="padding-top: 7px;">
+                                                                <div class="nombreSolo" style="height: 25px;">{{getFirst(rem.user_envia_name)}}</div>
+                                                            </div>
+                                                            <div class="col-10 text-start">
+                                                                <p class="monederoPer">
+                                                                    {{rem.user_envia_name}}
+                                                                </p>
+                                                                <p class="SaldoDisp">
+                                                                    Correo: {{rem.user_envia_email}}
+                                                                </p>
+                                                                <p class="saldoDispEy" style="width: 105px;right: -172px;">
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="border-bottom: solid 1px #c2c2c2;margin: 0px 0px;padding: 0px 31px 0px 4px;">
+                                                    <div class="col-8 text-start">
+                                                        Recibido en {{rem.moneda_envia}}
+                                                    </div>
+                                                    <div class="col-3 text-end">
+                                                        {{rem.moneda_envia == 'TWIN' ? rem.enviado : rem.enviado | currency:'':true:'1.2-2'}}
+                                                    </div>
+                                                    <div class="col-1 text-end">
+                                                        {{rem.moneda_envia}}
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3" style="padding: 0px 16px;">
+                                                    <div class="col-8 text-start">
+                                                    </div>
+                                                    <div class="col-3 text-end">
+                                                    </div>
+                                                    <div class="col-1 text-end">
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-2">
+                                                    <div class="col-8 text-start">
+                                                        Comisión por cambiar a <br>
+                                                        moneda local 3%
+                                                    </div>
+                                                    <div class="col-4 text-end">
+                                                        <button class="pviwyr" (click)="seleccionaRemesa(rem)" *ngIf="tipoRemesa == 2">Cobrar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 text-center" *ngIf="remesas.length == 0">
+                                    {{tipoRemesa == 1 ? 'No hay remesas cobradas' : 'No hay remesas pendientes'}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="contenidoShadow" *ngIf="sendPay == 3">
+                            <div class="contenidoVertical d-flex justify-content-end">
+                                <i class="fa-solid fa-ellipsis-vertical" style="cursor: pointer;"></i>
+                                <div class="menuSmall" *ngIf="smallMenu">
+                                    <ul class="menuSmallS">
+                                        <li class="iconMenSmall" style="display: flex;justify-content: space-between;">
+                                            <span style="font-weight: bold;">Acciones</span>
+                                            <i class="fa fa-times" style="position: relative;right: -14px;cursor: pointer;"></i>
+                                        </li>
+                                        <li class="iconMenSmall">
+                                            <span>
+                                                <i class="fa-solid fa-download"></i>
+                                                Descargar
+                                            </span>
+                                        </li>
+                                        <li class="iconMenSmall">
+                                            <span>
+                                                <i class="fa-solid fa-share-nodes"></i>
+                                                Compartir
+                                            </span>
+                                        </li>
+                                        <li class="iconMenSmall">
+                                            <span>
+                                                <i class="fa-solid fa-print"></i>
+                                                Imprimir
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <h4 class="textHeader">QR de remesa</h4>
+                            <div class="contenedorQR text-center">
+                                <img class="QRgenerated" src="assets/images/Qr.png">
+                                <p class="text-center" *ngIf="cryptoAddress">0x27386r92873yd0m89yu832j3d0j30jdf0</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 col-lg-4">
+                        <div class="contenidoShadow text-center" *ngIf="sendPay == 1">
+                            <h4 class="textHeader">Envio de remesas</h4>
+                            <label for="" style="width: 100%;text-align: left;"><b>Monedero que envía</b></label>
+                            <div class="contenidoShadow mb-2" style="height: 85px;">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <img src="../assets/images/cripto/iconMXN.png" class="btcTrade">
+                                    </div>
+                                    <div class="col-10 text-start">
+                                        <p class="monederoPer">
+                                            Monedero Personal
+                                        </p>
+                                        <p class="SaldoDisp">
+                                            Saldo disponible
+                                        </p>
+                                        <p class="saldoDispEy">
+                                            <span class="btnSlo" *ngIf="!isCrypto">{{showCantidad ? (current_balance | currency:'':true:'1.2-2') : '**********'}}</span>
+                                            <span class="btnSlo" *ngIf="isCrypto">{{showCantidad ? current_balance : '**********'}}</span>
+                                            <span class="eyeSlo" (click)="showCantidadToggle()"><i class="fa fa-eye"></i></span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <label for="" style="width: 100%;text-align: left;"><b>{{user ? 'Perfil que recibe' : 'Selecciona un usuario para enviar la remesa'}}</b></label>
+                            <div class="contenidoShadow mb-2" style="height: 85px;" *ngIf="user">
+                                <div class="row">
+                                    <div class="col-3 d-flex justify-content-center align-items-center">
+                                        <div class="nombreSolo">{{getFirst(user['nombre'])}}</div>
+                                    </div>
+                                    <div class="col-9 text-start">
+                                        <p class="monederoPer">
+                                            {{user['nombre']}}
+                                        </p>
+                                        <p class="SaldoDisp">
+                                            Correo: {{user['email']}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contenidoShadow mb-2" style="height: 85px;" *ngIf="!user">
+                                Selecciona un usuario para continuar
+                            </div>
+                            <!--  -->
+                            <div class="row d-flex justify-content-center mt-3">
+                                <div class="col-9 mb-3">
+                                    <label for="" style="width: 100%;text-align: left;"><b>Cantidad a enviar en {{monedaSeleccionada}}</b></label>
+                                    <div class="row"  style="border-radius: 8px;box-shadow: 0px 0px 3px #c2c2c2;padding-top: 13px;">
+                                        <div class="col-5">
+                                            <b>{{cantidadTwins}} TWIN</b>
+                                        </div>
+                                        <div class="col-2 text-center">
+                                            <p class="pwiuer"><b>=</b></p>
+                                        </div>
+                                        <div class="col-5 text-end">
+                                            <b>{{totalMXN}} MXN</b>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="col-12">
+                                    <button class="botonSendPay mb-2">Ver orden de envío</button>
+                                </div> -->
+                                <div class="col-12">
+                                    <ul class="firmaListadoOne" #digitInputsOne>
+                                        <li class="firmaListaItemOne" *ngFor="let input of [1, 2, 3, 4, 5, 6]; let i = index">
+                                          <input
+                                            type="password"
+                                            class="firmaInputOne"
+                                            maxlength="1"
+                                            (input)="onDigitInputOne($event, i)"
+                                          />
+                                        </li>
+                                    </ul> 
+                                </div>
+                                <div class="col-12">
+                                    <p class="p92f38h">Firma del usuario que envia</p>
+                                    <button class="botonSendPay mb-2" (click)="sendRemesa()" [disabled]="!user || loading">Enviar remesa</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="contenidoShadow text-center" *ngIf="sendPay == 2">
+                            <h4 class="textHeader">Recibir</h4>
+                            <div class="row mb-3">
+                                <div class="col-12">
+                                    <div class="contenidoShadow mb-2" style="height: 75px;" *ngIf="remesaSeleccionada">
+                                        <div class="row">
+                                            <div class="col-2">
+                                                <img src="../assets/images/cripto/iconMXN.png" class="btcTrade">
+                                            </div>
+                                            <div class="col-10 text-start">
+                                                <p class="monederoPer">
+                                                    {{remesaSeleccionada.user_envia_name}}
+                                                </p>
+                                                <p class="SaldoDisp">
+                                                    Correo: {{remesaSeleccionada.user_envia_email}}
+                                                </p>
+                                                <p class="saldoDispEy" style="width: 105px;right: -172px;">
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p *ngIf="!remesaSeleccionada" class="text-center">Selecciona una remesa para continuar</p>
+                                </div>
+                                <div class="row mb-3 d-flex justify-content-center">
+                                    <div class="row mb-2">
+                                        <div class="col-5">
+                                            <label for="" style="width: 100%;text-align: left;"><b>Monedero que envía</b></label>
+                                        </div>
+                                        <div class="col-7" style="font-size: 11px;">
+                                        </div>
+                                    </div>
+                                    <div class="contenidoShadow mb-2" style="height: 85px;">
+                                        <div class="row">
+                                            <div class="col-2">
+                                                <img src="../assets/images/cripto/iconMXN.png" class="btcTrade">
+                                            </div>
+                                            <div class="col-10 text-start">
+                                                <p class="monederoPer">
+                                                    Monedero Personal
+                                                </p>
+                                                <p class="SaldoDisp">
+                                                    Saldo disponible
+                                                </p>
+                                                <p class="saldoDispEy">
+                                                    <span class="btnSlo" *ngIf="!isCrypto">{{showCantidad ? (current_balance | currency:'':true:'1.2-2') : '**********'}}</span>
+                                                    <span class="btnSlo" *ngIf="isCrypto">{{showCantidad ? current_balance : '**********'}}</span>
+                                                    <span class="eyeSlo" (click)="showCantidadToggle()"><i class="fa fa-eye"></i></span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-8">
+                                            <label for="" style="width: 100%;text-align: left;"><b>Tu remesa se recibió en Twins</b></label>
+                                        </div>
+                                        <div class="col-4" style="font-size: 11px;">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-6">
+                                            <div class="contenidoRyb">
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <img src="assets/images/cripto/twin24.svg" style="width: 29px;position: relative;top: -2px;">
+                                                    </div>
+                                                    <div class="col-8">
+                                                        {{twinsRecibidos}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="contenidoRyb">
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        MXN
+                                                    </div>
+                                                    <div class="col-8">
+                                                        {{mxnRecibidos | currency:'':true:'1.2-2'}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-12">
+                                            <label for="" style="width: 100%;text-align: left;"><b>Selecciona la moneda a recibir</b></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mb-2">
+                                        <ul class="listadoCrip">
+                                            <li class="listItemCrip" [ngClass]="{'active': monedaCambiar == 'TWIN'}" (click)="monedaCambiar = 'TWIN'">
+                                                <div class="row">
+                                                    <div class="col-2">
+                                                        <img src="assets/images/cripto/twin24.svg" class="btcTrade">
+                                                    </div>
+                                                    <div class="col-8 d-flex align-items-center">
+                                                        <b>TWIN </b>
+                                                        <br>
+                                                        <div class="ivebr"> Comisión del 0%</div>
+                                                    </div>
+                                                    <div class="col-2 d-flex align-items-center">
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="listItemCrip" [ngClass]="{'active': monedaCambiar == 'MXN'}" (click)="monedaCambiar = 'MXN'">
+                                                <div class="row">
+                                                    <div class="col-2">
+                                                        <img src="assets/images/cripto/iconMXN.png" class="btcTrade">
+                                                    </div>
+                                                    <div class="col-8 d-flex align-items-center">
+                                                        <b>MXN </b>
+                                                        <br>
+                                                        <div class="ivebr"> Comisión del 3%</div>
+                                                    </div>
+                                                    <div class="col-2 d-flex align-items-center">
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-12 mb-2">
+                                        <button class="botonSendPay mb-2" (click)="cobrarRemesa()" [disabled]="!remesaSeleccionada">Cobrar remesa</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="contenidoShadow text-center" *ngIf="sendPay == 3">
+                            <h4 class="textHeader">Compartir</h4>
+                            <div class="buscadorPersonas">
+                                <p class="oc284u9 text-center">Busca aquí el perfil previamente registrado en Twin para pdoer mandar QR de remesa.</p>
+                                <div class="input-container position-relative" style="padding: 0px 22px;">
+                                    <input type="text" class="form-control shadowBotonesIn" placeholder="Buscar" style="text-align: left;padding-left: 20px;" autocomplete="off">
+                                    <div class="monedaSend" style="cursor: pointer;"><i class="fa fa-search" style="color: #c2c2c2;"></i></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <ul class="listadoContactos">
+                                            <li class="listadoContactosItem">
+                                                <div class="row">
+                                                    <div class="col-3 d-flex justify-content-center align-items-center">
+                                                        <img src="../assets/images/cripto/iconMXN.png" class="imgSer">
+                                                    </div>
+                                                    <div class="col-9">
+                                                        <p class="nombreContacto">Nombre</p>
+                                                        <p class="IDContacto">ID: 1234-1234-123124-123123</p>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-2 mb-2">
+                                <div class="col-12">
+                                    <button class="pviwyr">Compartir</button>
+                                </div>
+                            </div>
+                            <div class="row mb-2 mt-4">
+                                <div class="col-12">
+                                    <ul class="redesCJND d-flex justify-content-center">
+                                        <li class="comimpihbc">
+                                            <i class="fa-brands fa-facebook-f"></i>
+                                        </li>
+                                        <li class="comimpihbc">
+                                            <i class="fa-brands fa-twitter"></i>
+                                        </li>
+                                        <li class="comimpihbc">
+                                            <i class="fa-brands fa-instagram"></i>
+                                        </li>
+                                        <li class="comimpihbc">
+                                            <i class="fa-brands fa-whatsapp"></i>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+               </div>
+            </div>
+        </div>
+    </div>
+</div>

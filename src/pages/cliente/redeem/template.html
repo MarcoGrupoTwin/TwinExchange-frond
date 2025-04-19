@@ -1,0 +1,143 @@
+<div class="spinner-overlay" *ngIf="loading"><div class="spinnerS"></div></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="contenidoShadow">
+               <div class="row">
+                <div class="col-12 col-md-4 col-lg-4">
+                    <div class="contenidoShadow text-center">
+                        <h4 class="textHeader">Monedero personal</h4>
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-7">
+                                <p class="ouy2">Tarjeta digital</p>
+                            </div>
+                        </div>
+                        <img src="assets/images/CardTWIN.png" class="tarjetaTwin">
+                        <p class="PIUBH">Solicita tu tarjeta física dando clic a este enlace <span class="spanPIUBH">Solicitúd de tarjeta</span></p>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 col-lg-4">
+                    <div class="contenidoShadow" *ngIf="sendPay == 1">
+                        <h4 class="textHeader">Canjear</h4>
+                        <p class="mdjsend text-start">Monedero de origen</p>
+                        <div class="contenidoShadow" style="height: 85px;">
+                            <div class="row">
+                                <div class="col-2">
+                                    <img src="../assets/images/cripto/iconMXN.png" class="btcTrade">
+                                </div>
+                                <div class="col-10 text-start">
+                                    <p class="monederoPer">
+                                        Monedero Personal
+                                    </p>
+                                    <p class="SaldoDisp">
+                                        Saldo disponible
+                                    </p>
+                                    <p class="saldoDispEy text-end" style="width: 130px;">
+                                        <span class="btnSlo">{{monedaSeleccionada.tipo == 1 ? (saldo_moneda_seleccionada | currency:'':true:'1.2-2') : saldo_moneda_seleccionada}} {{monedaSeleccionada.simbolo}}</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="mdjsend text-start">Cantidad a cambiar</p>
+                        <div class="contenidoShadow" style="height: 85px;">
+                            <div class="row">
+                                <div class="col-2">
+                                    <img [src]="monedaSeleccionada.icon" class="btcTrade">
+                                </div>
+                                <div class="col-10 text-start">
+                                    <p class="monederor" style="position: relative;top: 10px;">
+                                        {{monedaSeleccionada.moneda}}
+                                    </p>
+                                    <form autocomplete="off">
+                                        <p class="saldoDispEy" style="top: -25px;font-weight: bold;color: #000;right: -208px;">
+                                            <input id="changeSwapInput" type="text" class="cambiarl" style="border: 0px;text-align: right!important;font-weight: bold;" placeholder="0.00" (input)="keypressValidaNumeroTwin($event)" (keydown)="keypressValidaNumeroTwin($event)" (paste)="keypressValidaNumeroTwin($event)" autocomplete="off" pattern="\d*">
+                                            <span class="moendaiuh">{{monedaSeleccionada.simbolo}}</span>
+                                        </p>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="mdjsend text-start">Tipo de moneda a canjear</p>
+                        <ul class="listadoCrip">
+                            <li *ngFor="let lc of monedasShow" (click)="monedaSelected(lc)" class="sobrepasa">
+                                <div class="row listItemCrip" [ngClass]="{'active': lc.id == monedaRecibir.id}">
+                                    <div class="col-2">
+                                        <img [src]="lc.icon" class="btcTrade">
+                                    </div>
+                                    <div class="col-8 d-flex align-items-center">
+                                        <b>{{lc.moneda + ' - ' + lc.simbolo}}</b>
+                                    </div>
+                                    <div class="col-2 d-flex align-items-center">
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="row">
+                            <div class="col-12 d-flex justify-content-center">
+                                <button (click)="calcularCanjeo()" style="margin-top: 20px;background: #000;border: solid 1px #000;border-radius: 8px;color: #fff;width: 250px;padding: 6px;">Calcular canjeo</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 col-lg-4">
+                    <div class="contenidoShadow" *ngIf="sendPay == 1">
+                        <h4 class="textHeader">Canjear</h4>
+                        <p class="mdjsend text-start">Selecciona tu monedero de destino</p>
+                        <ul class="listadoCrip">
+                            <li class="listItemCrip" style="padding: 15px;">
+                                <div class="row">
+                                    <div class="col-10 d-flex align-items-center">
+                                        <b>Personal</b>
+                                    </div>
+                                    <div class="col-2 d-flex align-items-center">
+                                        <input type="radio" checked>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <p class="mdjsend text-start mb-3">Cantidad a obtener</p>
+                        <ul class="pf29873">
+                            <li class="fo8374">
+                                <div class="row">
+                                    <div class="col-8 d-flex align-items-center justify-content-start">
+                                        {{monedaRecibir.tipo == 1 ? (cantidadCambiar | currency:'':true:'1.2-2') : cantidadCambiar}}
+                                    </div>
+                                    <div class="col-4  d-flex align-items-center justify-content-end">
+                                        {{monedaRecibir.simbolo}}
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <ul class="firmaListado" #digitInputs>
+                                    <li class="firmaListaItem" *ngFor="let input of [1, 2, 3, 4, 5, 6]; let i = index">
+                                    <input
+                                        type="password"
+                                        class="firmaInput"
+                                        maxlength="1"
+                                        (input)="onDigitInput($event, i)"
+                                    />
+                                    </li>
+                                </ul> 
+                                <p class="texto-digitos text-center">Firma del usuario que cambia</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <button class="botonSendPay mt-1" (click)="cambiarMoneda()">Canjear</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 text-center mt-3">
+                                <p class="m-0"><b>Comisiones</b></p>
+                                <p>Al canjear MXN por Twin la comisión es del 0%</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               </div>
+            </div>
+        </div>
+    </div>
+</div>

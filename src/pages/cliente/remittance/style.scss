@@ -1,0 +1,421 @@
+.contenidoShadow {
+    border-radius: 15px;
+    box-shadow: 0px 0px 17px 6px #edeff3;
+    padding: 20px;
+    height: 100%;
+}
+h4.textHeader {
+    text-align: center;
+    font-weight: 400;
+    margin-bottom: 20px;
+    font-size: 30px;
+}
+.input-container {
+    display: flex;
+    align-items: center;
+}
+
+.form-control {
+    flex-grow: 1;
+    box-sizing: border-box;
+    text-align: end;
+    padding: 9px 56px;
+    padding-left: 0px;
+}
+
+.monedaSend {
+    position: absolute;
+    right:33px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+button.botonSendPay {
+    margin-top: 10px;
+    width: 200px;
+    border-radius: 8px;
+    background: #000;
+    border: none;
+    padding: 5px;
+    color: #fff;
+    box-shadow: 1px 1px 5px 2px #c2c2c2;
+}
+button.botonCancelPay {
+    margin-top: 10px;
+    width: 200px;
+    border-radius: 8px;
+    background: #fff;
+    border: none;
+    padding: 5px;
+    color: #c2c2c2;
+    box-shadow: 1px 1px 5px 2px #c2c2c2;
+}
+.buscarTelMail {
+    margin-top: 100px;
+}
+p.textTelMail {
+    font-size: 10px;
+}
+img.QRgenerated {
+    width: 250px;
+    margin-top: 10px;
+}
+img.btcTrade {
+    width: 40px;
+}
+p.monederoPer {
+    font-size: 15px;
+    font-weight: 500;
+    margin: 0px;
+}
+p.SaldoDisp,p.saldoDispEy {
+    font-size: 12px;
+    color: #7b7b7b;
+}
+p.saldoDispEy {
+    position: relative;
+    top: -33px;
+    right: -295px;
+    cursor: pointer;
+}
+span.btnSlo {
+    margin-right: 14px;
+}
+p.totSla.text-end {
+    font-size: 20px;
+    font-weight: 800;
+}
+p.monedaSl.text-center {
+    font-size: 35px;
+    font-weight: 300;
+}
+button.btnCancelarOp {
+    border: none;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 3px #c2c2c2b0;
+    width: 200px;
+    height: 34px;
+    color: #858e98;
+    font-weight: bold;
+    font-size: 13px;
+    margin-top: 20px;
+}
+button.botonSendPay.active {
+    background: #6d6d6d;
+}
+button.botonSendPay:hover {
+    background: #6d6d6d;
+}
+p.alid {
+    font-weight: 600;
+    margin: 0px;
+}
+p.ouy2 {
+    margin: 0px;
+}
+p.p92f38h {
+    font-size: 10px;
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+ul.cambioEstado {
+    padding: 5px 10px;
+    margin: 0;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px 3px #edeff5;
+    width: 100%;
+}
+li.cambioestadoList {
+    padding: 5px 10px;
+    color: #868d97;
+    font-weight: 600;
+    width: 100%;
+    text-align: center;
+}
+li.cambioestadoList.active {
+    box-shadow: inset 3px 4px 3px 0px #edeff5;
+    border-radius: 8px;
+}
+li.cambioestadoList:hover{
+    cursor: pointer;
+    box-shadow: inset 3px 4px 3px 0px #edeff5;
+    border-radius: 8px;
+}
+ul.listadoCambioMoneda, ul.cambioEstado {
+    list-style: none;
+    display: inline-flex;
+}
+p.mdjsend {
+    margin-top: 15px;
+    font-weight: 600;
+    margin-bottom: 0px;
+}
+ul.contenidoEnvia {
+    list-style: none;
+    display: inline-flex;
+}
+li.iconBusca {
+    font-size: 20px;
+}
+li.iconBusca>i {
+    margin-left: 5px;
+    border: solid 1px #c2c2c2;
+    border-radius: 8px;
+    padding: 4px;
+    cursor: pointer;
+}
+li.iconBusca:hover>i {
+    box-shadow: 0px 0px 3px #c2c2c2b0;
+}
+input.enviaBusca {
+    border-radius: 8px;
+    border: solid 1px #c2c2c2;
+    width: 210px;
+}
+ul.firmaListado,ul.firmaListadoOne,ul.firmaListadoTwo,ul.firmaListadoThree,ul.firmaListadoFour,ul.firmaListadoFive {
+    list-style: none;
+    display: inline-flex;
+    padding: 7px 5px;
+    border: solid 1px #c2c2c230;
+    border-radius: 8px;
+    margin: 5px;
+}
+input.firmaInput,input.firmaInputOne,input.firmaInputTwo,input.firmaInputThree,input.firmaInputFour,input.firmaInputFive {
+    width: 30px;
+    margin-right: 5px;
+    border: none;
+    box-shadow: inset 0px 0px 3px 1px #c2c2c263;
+    border-radius: 6px;
+    text-align: center;
+}
+ul.listadoContactos {
+    height: 230px;
+    overflow-y: auto;
+    margin: 20px 0px;
+    list-style: none;
+    padding: 0px 21px;
+
+}
+li.listadoContactosItem {
+    border-radius: 8px;
+    box-shadow: 0px 0px 2px #c2c2c2a3;
+    margin-bottom: 5px;
+    margin-top: 1px;
+}
+p.nombreContacto {
+    margin: 10px 5px;
+    font-weight: 500;
+}
+p.IDContacto {
+    color: #c2c2c2;
+    font-size: 10px;
+    margin: 0px 5px;
+}
+.selectMoned{
+    cursor: pointer;
+}
+.selectMoned:hover{
+    box-shadow: 0px 0px 3px #c2c2c2b0;
+}
+.selectMoned.active{
+    box-shadow: 0px 0px 3px #c2c2c2b0;
+}
+input.vuerbh {
+    border: none;
+    box-shadow: inset 0px 0px 2px 2px #c2c2c24a;
+    border-radius: 8px;
+    height: 37px;
+    margin-top: 8px;
+    width: 100%;
+    font-weight: bold;
+    padding: 0px 12px;
+    font-size: 20px;
+}
+.ihrwv {
+    text-align: left;
+    color: #818181;
+    font-size: 11px;
+    padding-left: 20px;
+}
+.contenidoB {
+    box-shadow: 0px 0px 3px 1px #c2c2c270;
+    border-radius: 8px;
+    margin: 0px 20px;
+    padding: 10px;
+}
+
+label.vueoryb {
+    text-align: left!important;
+    width: 100%;
+    padding-left: 20px;
+}
+.cuwyrb {
+    position: absolute;
+}
+span.owuvrn {
+    position: relative;
+    top: -29px;
+    left: 362px;
+    font-size: 9px;
+    background: #c2c2c2;
+    border-radius: 8px;
+    color: #fff;
+    padding: 4px 3px;
+    width: 58px;
+    display: block;
+    cursor: pointer;
+}
+span.owuvrnT {
+    position: relative;
+    top: -30px;
+    left: 362px;
+    font-size: 9px;
+    background: #000;
+    border-radius: 8px;
+    color: #fff;
+    padding: 4px 3px;
+    width: 58px;
+    display: block;
+    cursor: pointer;
+}
+.contenidoContrato {
+    max-height: 350px;
+    overflow-y: auto;
+    padding: 10px;
+    text-align: justify;
+}
+li.cwnij {
+    text-align: justify;
+}
+ul.listadoContactos {
+    height: 130px;
+    overflow-y: auto;
+    margin: 20px 0px;
+    list-style: none;
+    padding: 0px 21px;
+
+}
+li.listadoContactosItem {
+    border-radius: 8px;
+    box-shadow: 0px 0px 2px #c2c2c2a3;
+    margin-bottom: 5px;
+    margin-top: 1px;
+}
+li.listadoContactosItem:hover{
+    cursor: pointer;
+    box-shadow: inset 3px 4px 3px 0px #edeff5;
+    border-radius: 8px;
+}
+li.listadoContactosItem {
+    border-radius: 8px;
+    box-shadow: 0px 0px 2px #c2c2c2a3;
+    margin-bottom: 5px;
+    margin-top: 1px;
+}
+li.listadoContactosItem:hover{
+    cursor: pointer;
+    box-shadow: inset 3px 4px 3px 0px #edeff5;
+    border-radius: 8px;
+}
+li.listadoContactosItem.selectUserActive {
+    box-shadow: 0px 0px 1px 1px #000;
+}
+.imgSer{
+    width: 100%;
+    max-width: 50px;
+}
+p.nombreContacto {
+    margin: 10px 5px;
+    font-weight: 500;
+}
+p.IDContacto {
+    color: #c2c2c2;
+    font-size: 10px;
+    margin: 0px 5px;
+}
+.contenidoRem {
+    box-shadow: 0px 0px 2px 1px #c2c2c29e;
+    border-radius: 8px;
+    font-size: 10px;
+}
+button.pviwyr {
+    background: #000;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    padding: 9px 12px;
+}
+.contenidoRyb {
+    border-radius: 8px;
+    box-shadow: 0px 0px 3px 1px #c2c2c29c;
+    height: 40px;
+    padding: 8px;
+}
+.ivebr {
+    margin-left: 10px;
+    font-size: 10px;
+}
+ul.listadoCrip {
+    list-style: none;
+}
+li.listItemCrip {
+    border: solid 1px #c2c2c2;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+.menuSmall {
+    position: absolute;
+    z-index: 5;
+}
+ul.menuSmallS {
+    list-style: none;
+    background: #fff;
+    border: solid 5px #c2c2c269;
+    padding: 5px 17px;
+    position: relative;
+    top: -20px;
+    right: -20px;
+    border-radius: 14px;
+}
+li.iconMenSmall {
+    cursor: pointer;
+    margin-bottom: 9px;
+}
+ul.redesCJND {
+    list-style: none;
+    padding: 0px;
+}
+li.comimpihbc {
+    margin-right: 10px;
+    background: #fff;
+    border: solid 1px #c2c2c2;
+    border-radius: 5px;
+    padding: 10px 16px;
+    font-size: 20px;
+    cursor: pointer;
+}
+li.comimpihbc:hover {
+    background: #c2c2c2;
+    color: #fff;
+}
+.nombreSolo {
+    background: #000;
+    color: #fff;
+    border-radius: 3px;
+    padding: 4px 8px;
+}
+button.botonSendPay.mb-2:disabled {
+    background: #6d6d6d;
+    cursor: not-allowed;
+}
+li.listItemCrip.active {
+    background: #e0e0e0;
+    border: solid;
+}
+.col-9.mb-2.active {
+    background: #f4f4f4;
+    border: solid;
+    border-radius: 9px;
+}

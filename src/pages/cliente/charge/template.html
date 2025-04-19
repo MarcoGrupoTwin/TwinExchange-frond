@@ -1,0 +1,309 @@
+<div class="spinner-overlay" *ngIf="loading"><div class="spinnerS"></div></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="contenidoShadow">
+               <div class="row">
+                    <div class="col-12 col-md-4 col-lg-4">
+                        <div class="contenidoShadow text-center">
+                            <h4 class="textHeader">Monedero personal</h4>
+                            <div class="row d-flex justify-content-center mb-3">
+                                <div class="col-6">
+                                    <p class="text-center" style="font-weight: bold;">Cantidad a cobrar</p>
+                                </div>
+                                <div class="col-7">
+                                    <div class="enviarMoneda d-flex justify-content-center">
+                                        <div class="input-container position-relative">
+                                            <input id="montoArecibir" type="number" class="form-control shadowBotonesIn" placeholder="$0.00" style="text-align: left; padding-left: 21px; width: 350px;" (input)="keypressValidaNumero($event)">
+                                            <div class="monedaSend">MXN</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="botonSendPay" [ngClass]="{'active': sendPay == 3}" (click)="cobrarQrUnUsuario()">Cobrar</button>
+                            <br>
+                            <button class="botonSendPay" [ngClass]="{'active': sendPay == 2 && escannerActivo}" (click)="scannQr()">Cobrar Qr de retiro</button>
+                            <br>
+                            <button class="botonSendPay" [ngClass]="{'active': sendPay == 4}" (click)="dividePagoMonto()">Dividir por monto</button>
+                            <br>
+                            <button class="botonSendPay" [ngClass]="{'active': sendPay == 5}" (click)="dividirPartesIguales()">Dividir por partes iguales</button>
+                            <br>
+                            <!-- <button class="botonSendPay" [ngClass]="{'active': sendPay == 2}" (click)="sendPay = 2">Monedero a monedero</button> -->
+                            <button class="botonSendPay" (click)="proximamente()">Cobrar por punto de venta</button>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 col-lg-4">
+                        <div class="contenidoShadow" *ngIf="sendPay == 1">
+                            <div class="row d-flex justify-content-center">
+                                <div class="col-12 text-center">
+                                    <h4 class="textHeader">Cobro QR</h4>
+                                </div>
+                                <div class="col-12 d-flex justify-content-center">
+                                    <!-- <div class="contenidoQrEA" *ngIf="!escannerActivo">
+                                        <div class="contenidoQrE" style="background-image: url('assets/images/borroso.png');"></div>
+                                    </div> -->
+                                    <zxing-scanner
+                                        [(device)]="currentDevice"
+                                        [formats]="['QR_CODE', 'CODE_128']"
+                                        (camerasFound)="camerasFoundHandler($event)"
+                                        (scanSuccess)="scanSuccessHandler($event)"
+                                        *ngIf="escannerActivo"
+                                    ></zxing-scanner>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="contenidoShadow" *ngIf="sendPay == 5">
+                            <!-- cobro dividido por partes iguales -->
+                            <div class="row d-flex justify-content-center">
+                                <div class="col-12 text-center">
+                                    <h4 class="textHeader">Cobro QR</h4>
+                                </div>
+                                <div class="col-12 d-flex justify-content-center">
+                                    <!-- <div class="contenidoQrEA" *ngIf="!escannerActivo">
+                                        <div class="contenidoQrE" style="background-image: url('assets/images/borroso.png');"></div>
+                                    </div> -->
+                                    <zxing-scanner
+                                        [(device)]="currentDevice"
+                                        [formats]="['QR_CODE', 'CODE_128']"
+                                        (camerasFound)="camerasFoundHandler($event)"
+                                        (scanSuccess)="escanearUnUsuario($event)"
+                                        *ngIf="escannerActivo"
+                                    ></zxing-scanner>
+                                </div>
+                                <div class="col-12 text-center mt-3">
+                                    <button class="botonSendPay" *ngIf="escannerActivo" (click)="cancelaOperacionUsuario()">Cancelar operación</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="contenidoShadow" *ngIf="sendPay == 3">
+                            <div class="row d-flex justify-content-center">
+                                <div class="col-12 text-center">
+                                    <h4 class="textHeader">Cobro QR</h4>
+                                </div>
+                                <div class="col-12 d-flex justify-content-center">
+                                    <!-- <div class="contenidoQrEA" *ngIf="!escannerActivo">
+                                        <div class="contenidoQrE" style="background-image: url('assets/images/borroso.png');"></div>
+                                    </div> -->
+                                    <zxing-scanner
+                                        [(device)]="currentDevice"
+                                        [formats]="['QR_CODE', 'CODE_128']"
+                                        (camerasFound)="camerasFoundHandler($event)"
+                                        (scanSuccess)="cobrarQrUnUsuarioQR($event)"
+                                        *ngIf="escannerActivo"
+                                    ></zxing-scanner>
+                                </div>
+                                <div class="col-12 text-center mt-3">
+                                    <button class="botonSendPay" *ngIf="escannerActivo" (click)="cancelaOperacion()">Cancelar operación</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="contenidoShadow" *ngIf="sendPay == 4">
+                            <div class="row d-flex justify-content-center">
+                                <div class="col-12 text-center">
+                                    <h4 class="textHeader">Cobro QR</h4>
+                                </div>
+                                <div class="col-12 d-flex justify-content-center">
+                                    <!-- <div class="contenidoQrEA" *ngIf="!escannerActivo">
+                                        <div class="contenidoQrE" style="background-image: url('assets/images/borroso.png');"></div>
+                                    </div> -->
+                                    <zxing-scanner
+                                        [(device)]="currentDevice"
+                                        [formats]="['QR_CODE', 'CODE_128']"
+                                        (camerasFound)="camerasFoundHandler($event)"
+                                        (scanSuccess)="lecturaMontoParticular($event)"
+                                        *ngIf="escannerActivo"
+                                    ></zxing-scanner>
+                                </div>
+                                <div class="col-12 text-center mt-3">
+                                    <button class="botonSendPay" *ngIf="escannerActivo" (click)="cancelaOperacionMonto()">Cancelar operación</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 col-lg-4">
+                        <div class="contenidoShadow" *ngIf="sendPay == 1 || usaQR == true">
+                            <h4 class="textHeader">Monedero MXN</h4>
+                            <div class="contenidoShadow" style="height: 85px;" *ngIf="method == 1">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <img src="../assets/images/cripto/iconMXN.png" class="btcTrade">
+                                    </div>
+                                    <div class="col-10 text-start">
+                                        <p class="monederoPer">
+                                            Monedero Personal
+                                        </p>
+                                        <p class="SaldoDisp">
+                                            Saldo disponible
+                                        </p>
+                                        <p class="saldoDispEy">
+                                            <span class="btnSlo">{{showCantidad ? (current_balance | currency:'':true:'1.2-2') : '**********'}}</span>
+                                            <span class="eyeSlo" (click)="showCantidadToggle()"><i class="fa fa-eye"></i></span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contenidoCorroboraPago">
+                                <div class="row d-flex justify-content-center">
+                                    <div class="col-{{isMobile ? '12' : '7'}} vugy4rvubi">
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-8">
+                                                    Total a cobrar:
+                                                </div>
+                                                <div class="col-4 text-end">
+                                                    <b>MXN</b>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 text-end">
+                                            <b>{{montoRetiro | currency:'':true:'1.2-2'}}</b>
+                                        </div>
+                                        <div class="col-12 d-flex justify-content-center mb-3">
+                                            <ul class="firmaListadoTwo" #digitInputsTwo>
+                                                <li class="firmaListaItemTwo" *ngFor="let input of [1, 2, 3, 4, 5, 6]; let i = index">
+                                                <input
+                                                    type="password"
+                                                    class="firmaInputTwo"
+                                                    maxlength="1"
+                                                    (input)="onDigitInputTwo($event, i)"
+                                                />
+                                                </li>
+                                            </ul> 
+                                        </div>
+                                        <div class="col-12 text-center" *ngIf="method == 1">
+                                            <button class="botonSendPay mt-1" (click)="generarPago()">Confirmar</button>
+                                            <button class="botonCancelPay mt-1" (click)="cancelarPago()">Cancelar</button>
+                                        </div>
+                                        <div class="col-12 text-center" *ngIf="method == 2">
+                                            <button class="botonSendPay mt-1" (click)="generarPagoUsuarios()">Confirmar</button>
+                                            <button class="botonCancelPay mt-1" (click)="cancelarPagoUsuarios()">Cancelar</button>
+                                        </div>
+                                        <div class="col-12 text-center" *ngIf="method == 3">
+                                            <button class="botonSendPay mt-1" (click)="confirmarPagoMonto()">Confirmar</button>
+                                            <button class="botonCancelPay mt-1" (click)="cancelarPagoMonto()">Cancelar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="contenidoShadow" *ngIf="sendPay == 5">
+                            <h4 class="textHeader">Monedero MXN</h4>
+                            <div class="contenidoCorroboraPago">
+                                <div class="row d-flex justify-content-center">
+                                    <div class="col-7">
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <b>Total a cobrar:</b>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 text-end mb-3" style="border-bottom: solid 1px;padding: 10px 5px;">
+                                            <b>{{cantidadFondeo | currency:'':true:'1.2-2'}} MXN</b>
+                                        </div> 
+                                        <div class="row" *ngIf="pasosDivision == 1">
+                                            <div class="col-12">
+                                                <p class="text-center"><b>Selecciona la cantidad de participantes</b></p>
+                                            </div>
+                                            <div class="col-8 p-0">
+                                                <input class="vuerbh" type="number" (input)="keypressNumeroUsuarios($event)" min="2" max="6" value="{{numeroUsuarios}}">
+                                            </div>
+                                            <div class="col-4 mb-3">
+                                                <button class="botonSendPay" (click)="continuarDivisionUsuarios()" style="width: 100%;">Ok</button>
+                                            </div>
+                                            <div class="col-12">
+                                                <p class="text-center"><b>La cantidad de participantes define en automático la cantidad que debe pagar cada uno</b></p>
+                                            </div>
+                                        </div>
+                                        <div class="row" *ngIf="pasosDivision == 2">
+                                            <div class="contenidoDivision mt-3 mb-5">
+                                                <div class="row">
+                                                    <div class="col-6" *ngFor="let u of usuarios; let i = index" (click)="selectUserForpay(u.id)">
+                                                        <div class="contenidoUsuario" [ngClass]="{'active': u.uuuid}">
+                                                            <div class="numeroUsuario">
+                                                                <span class="ouvyrbh">{{i + 1}}</span>
+                                                            </div>
+                                                            {{montoDivididoUsuarios | currency:'':true:'1.2-2'}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <p><b>Cantidad cobrada</b></p>
+                                            </div>
+                                            <div class="col-12">
+                                                <input class="vuerbh text-center" type="text" min="2" max="6" value="{{cantidadPagada | currency:'':true:'1.2-2'}}" disabled>
+                                            </div>
+                                            <div class="col-12 mb-3 text-center">
+                                                <button class="botonSendPay" style="width: 100%;" (click)="completarPagosDivididos()">Cerrar cuenta</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="contenidoShadow" *ngIf="sendPay == 4">
+                            <h4 class="textHeader">Dividir por monto</h4>
+                            <div class="contenidoCorroboraPago">
+                                <div class="row d-flex justify-content-center">
+                                    <div class="col-7">
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <b>Total a cobrar:</b>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 text-end mb-3" style="border-bottom: solid 1px;padding: 10px 5px;">
+                                            <b>{{cantidadFondeo | currency:'':true:'1.2-2'}} MXN</b>
+                                        </div> 
+                                        <div class="col-12">
+                                            <div class="contenidoDivision mt-3 mb-3">
+                                                <div class="row">
+                                                    <div class="col-12" *ngFor="let p of participantes; let i = index">
+                                                        <div class="contenidoUsuarioMonto">
+                                                            <div class="row">
+                                                                <div class="col-9 text-end p-0">
+                                                                    {{p.monto | currency:'':true:'1.2-2'}}
+                                                                </div>
+                                                                <div class="col-3 text-end">
+                                                                    <b>MXN</b>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row" *ngIf="pasosDivision == 1">
+                                            <div class="col-12" *ngIf="cantidadRestante > 0">
+                                                <p class="text-center"><b>Ingresa el monto a cobrar</b></p>
+                                            </div>
+                                            <div class="col-8 p-0" *ngIf="cantidadRestante > 0">
+                                                <input id="montoCobro" class="vuerbh" type="number" (input)="keypressNumeroCobrar($event)" min="1" max="6" placeholder="{{cobrarMonto}}">
+                                            </div>
+                                            <div class="col-4 mb-3" *ngIf="cantidadRestante > 0">
+                                                <button id="vbjdfhb" class="botonSendPay" (click)="cobrarMontoFunction()" style="width: 100%;">Ok</button>
+                                            </div>
+                                            <div class="col-12">
+                                                <label for=""><b>Cantidad cobrada:</b></label>
+                                                <input class="vuerbh text-center" type="text" min="2" max="6" value="{{cantidadCobrada | currency:'':true:'1.2-2'}}" disabled>
+                                            </div>
+                                            <div class="col-12">
+                                                <label for=""><b>Cantidad restante:</b></label>
+                                                <input class="vuerbh text-center" type="text" min="2" max="6" value="{{cantidadRestante | currency:'':true:'1.2-2'}}" disabled>
+                                            </div>
+                                            <div class="col-12 mb-3 text-center" *ngIf="cantidadRestante == 0">
+                                                <button class="botonSendPay" style="width: 100%;" (click)="cerrarCuentaMontos()">Cerrar cuenta</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

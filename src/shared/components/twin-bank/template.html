@@ -1,0 +1,116 @@
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="cerrarModal()"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row d-flex justify-content-center mb-3">
+                <div class="col-7">
+                    <input type="text" class="form-control" placeholder="Buscar país" (input)="buscarPais($event.target.value)">
+                </div>
+            </div>
+          <div class="row">
+            <!-- 5 bootstrap columns for each continent -->
+             <div class="col">
+                <h2 class="text-center">África</h2>
+                <div class="contenidoPais">
+                    <!-- <div class="banderaCambioPais" *ngFor="let af of africa" data-search="{{af.name}}" [ngClass]="{'selected': af.short_name === 'MXN'}">
+                        <div class="row">
+                            <div class="col-3 d-flex justify-content-center align-items-center">
+                                <img class="claseBandera" src="https://flagcdn.com/mx.svg" alt="méxico">
+                            </div>
+                            <div class="col-7">
+                                <p class="saldo mb-0">Saldo: $0.00</p>
+                                <p class="nombrepais mb-0">{{af.name}}</p>
+                                <p class="moneda mb-0">{{af.short_name}}</p>
+                            </div>
+                            <div class="col-2 d-flex justify-content-center">
+                                <i class="fa fa-eye"></i>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+             </div>
+             <div class="col">
+                <h2 class="text-center">Asia</h2>
+                <div class="contenidoPais">
+                    <!-- <div class="banderaCambioPais" *ngFor="let asi of asia" data-search="{{asi.name}}" [ngClass]="{'selected': asi.short_name === 'MXN'}">
+                        <div class="row">
+                            <div class="col-3 d-flex justify-content-center align-items-center">
+                                <img class="claseBandera" src="https://flagcdn.com/mx.svg" alt="méxico">
+                            </div>
+                            <div class="col-7">
+                                <p class="saldo mb-0">Saldo: $0.00</p>
+                                <p class="nombrepais mb-0">{{asi.name}}</p>
+                                <p class="moneda mb-0">{{asi.short_name}}</p>
+                            </div>
+                            <div class="col-2 d-flex justify-content-center">
+                                <i class="fa fa-eye"></i>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+             </div>
+             <div class="col">
+                <h2 class="text-center">América</h2>
+                <div class="contenidoPais">
+                    <div class="banderaCambioPais" *ngFor="let am of america" data-search="{{am.name}}" [ngClass]="{'selected': am.short_name === moneda}" (click)="seleccionarMoneda(am)">
+                        <div class="row">
+                            <div class="col-3 d-flex justify-content-center align-items-center">
+                                <img class="claseBandera" src="https://flagcdn.com/{{am.logo}}.svg" alt="méxico">
+                            </div>
+                            <div class="col-7">
+                                <p class="saldo mb-0">Saldo: {{am.saldo | currency}}</p>
+                                <p class="nombrepais mb-0">{{am.name}}</p>
+                                <p class="moneda mb-0">{{am.short_name}}</p>
+                            </div>
+                            <div class="col-2 d-flex justify-content-center">
+                                <!-- <i class="fa fa-eye"></i> -->
+                            </div>  
+                        </div>  
+                    </div>  
+                </div>  
+             </div>
+             <div class="col">
+                <h2 class="text-center">Europa</h2>
+                <!-- <div class="contenidoPais">
+                    <div class="banderaCambioPais" *ngFor="let eu of europa" data-search="{{eu.name}}" [ngClass]="{'selected': eu.short_name === 'MXN'}">
+                        <div class="row">
+                            <div class="col-3 d-flex justify-content-center align-items-center">
+                                <img class="claseBandera" src="https://flagcdn.com/mx.svg" alt="méxico">
+                            </div>
+                            <div class="col-7">
+                                <p class="saldo mb-0">Saldo: $0.00</p>
+                                <p class="nombrepais mb-0">{{eu.name}}</p>
+                                <p class="moneda mb-0">{{eu.short_name}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+             </div>
+             <div class="col">
+                <h2 class="text-center">Oceanía</h2>
+                <!-- <div class="contenidoPais">
+                    <div class="banderaCambioPais" *ngFor="let oc of oceania" data-search="{{oc.name}}" [ngClass]="{'selected': oc.short_name === 'MXN'}">
+                        <div class="row">
+                            <div class="col-3 d-flex justify-content-center align-items-center">
+                                <img class="claseBandera" src="https://flagcdn.com/mx.svg" alt="méxico">
+                            </div>
+                            <div class="col-7">
+                                <p class="saldo mb-0">Saldo: $0.00</p>
+                                <p class="nombrepais mb-0">{{oc.name}}</p>
+                                <p class="moneda mb-0">{{oc.short_name}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+             </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="cerrarModal()">Cerrar</button>
+        </div>
+      </div>
+    </div>
+</div>

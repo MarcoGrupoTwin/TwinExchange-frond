@@ -1,0 +1,74 @@
+@media only screen and (max-width: 600px) {
+  .abrirSidebar {
+    display: none;
+  }
+  .abirSideBarEllipsis{
+    top: 230px!important;
+    left: 16px!important;
+  }
+  #sidebar{
+    height: calc(100% - 0px);
+  }
+  .listadoMonedas{
+    display: inline-flex;
+  }
+}
+.abrirSidebar {
+  position: absolute;
+  top: 46px;
+  left: -20px;
+}
+.abirSideBarEllipsis {
+  position: absolute;
+  top: 250px;
+  left: 46px;
+  z-index: 100;
+  font-size: 30px;
+  cursor: pointer;
+}
+i.fa-solid.fa-ellipsis-vertical {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 2px 1px #5b5b5b57;
+  padding: 7px 3px;
+}
+div#sidebar {
+  width: 250px;
+  background: #fff;
+  border-radius: 0px 8px 8px 0px;
+  height: calc(100vh);
+  position: fixed;
+  top: 0px;
+  z-index: 501;
+  box-shadow: 0px 0px 4px 2px #a7a7a7;
+  left: -250px;
+  transition: left 0.5s ease; /* Agrega la propiedad de transición */
+}
+.cerrarTimes {
+  width: 100%;
+  text-align: right;
+  padding: 7px 14px;
+  font-size: 20px;
+  font-weight: normal;
+  cursor: pointer;
+}
+ul.sidebarL {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+li.sidebarItem {
+  font-weight: 500;
+  cursor: pointer;
+  border-bottom: solid 1px #c2c2c28a;
+  padding: 15px 0px 15px 15px;
+}
+li.sidebarItem:last-child {
+  border-bottom: none;
+}
+li.sidebarItem:hover{
+  background: #c2c2c226;
+}
+.backImgSide{
+  cursor: pointer;
+}

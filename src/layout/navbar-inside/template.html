@@ -1,0 +1,21 @@
+<!-- sidebar trading -->
+<div class="spinner-overlay" *ngIf="loading"><div class="spinnerS"></div></div>
+<div class="abrirSidebar">  
+    <img src="assets/images/regresar.svg" class="backImgSide" (click)="backAnyPage()">
+</div>
+<div class="abirSideBarEllipsis" (click)="openSidebar()">
+    <i class="fa-solid fa-ellipsis-vertical"></i>
+</div>
+<div id="sidebar" class="sidebar">
+    <div class="cerrarTimes" (click)="closeSidebar()">
+        <i class="fa fa-times"></i>
+    </div>
+    <ul class="sidebarL">
+        <li class="sidebarItem" [routerLink]="['usuario/support']">
+            <i class="fa-regular fa-life-ring mr-1" style="margin-right: 10px;"></i> {{ 'usuario.menu.soporte' | translate }}
+        </li>
+        <li class="sidebarItem" (click)="signOut()">
+            <i class="fa-solid fa-right-from-bracket mr-1" style="margin-right: 10px;"></i> {{ 'usuario.menu.salir' | translate }}
+        </li>
+    </ul>
+</div>

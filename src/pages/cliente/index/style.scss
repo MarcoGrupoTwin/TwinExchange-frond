@@ -1,0 +1,178 @@
+.contenidoShadow {
+    border-radius: 25px;
+    box-shadow: 0px 0px 17px 6px #edeff3;
+    padding: 20px;
+    height: 100%;
+}
+ul.listadoCambioMoneda, ul.cambioEstado {
+    list-style: none;
+    display: inline-flex;
+}
+.criptoTitle {
+    color: #868d97;
+    font-weight: bold;
+    font-size: 20px;
+}
+img.criptoIcon {
+    width: 40px;
+}
+.criptoTitle {
+    position: relative;
+    top: 4px;
+}
+ul.cambioEstado {
+    padding: 5px 10px;
+    margin: 0;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px 3px #edeff5;
+    width: 100%;
+}
+li.cambioestadoList {
+    padding: 5px 10px;
+    color: #868d97;
+    font-weight: 600;
+    width: 100%;
+    text-align: center;
+}
+li.cambioestadoList.active {
+    box-shadow: inset 3px 4px 3px 0px #edeff5;
+    border-radius: 8px;
+}
+li.cambioestadoList:hover{
+    cursor: pointer;
+    box-shadow: inset 3px 4px 3px 0px #edeff5;
+    border-radius: 8px;
+}
+li.CambioMoneda.fiatTrading {
+    background: color(display-p3 0 0.6549 0.5333);
+}
+li.CambioMoneda.criptoTrading {
+    background: color(display-p3 1 0.5882 0);
+}
+li.CambioMoneda {
+    padding: 6px;
+    border-radius: 5px;
+    color: #fff;
+    margin-right: 15px;
+    box-shadow: 1px 1px 1px #c2c2c2;
+    cursor: pointer;
+}
+li.CambioMoneda:hover{
+    box-shadow: 1px 1px 1px #000;
+}
+.CambioMoneda.active {
+    box-shadow: 1px 1px 1px #000;
+}
+.CambioMoneda.active:before {
+    content: "";
+    position: relative;
+    left: 22px;
+    bottom: -18px;
+    z-index: 500;
+    margin-left: -5px;
+    border-width: 5px 5px 0;
+    border-style: solid;
+    border-color: #000 transparent transparent transparent;
+    display: inline-block;
+}
+.textoTotal {
+    font-size: 24px;
+}
+.contenidoIntercambio {
+    padding: 23px;
+}
+.venderTrading {
+    border-radius: 10px;
+    background: color(display-p3 0.9412 0.9373 0.9529);
+    padding: 35px 20px;
+    height: 525px;
+}
+.comprarTrading {
+    border-radius: 10px;
+    background: color(display-p3 0.9412 0.9569 0.9647);
+    padding: 35px 20px;
+    height: 525px;
+}
+#tradingview_f7511{
+    box-shadow: 0px 0px 5px #c2c2c2;
+}
+h3.tituloTradingCripto {
+    text-align: center;
+    margin-bottom: 25px;
+}
+p.balanceCript {
+    font-size: 20px;
+}
+select#controlSelectMercado {
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+input#controlSelecCantidad {
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+.contenidoCripTotal {
+    background: #fff;
+    border-radius: 20px;
+    padding: 7px 19px;
+    border: solid 1px #dee2e6;
+    margin-bottom: 20px;
+}
+button.criptoTrandingVender {
+    background: color(display-p3 0.9922 0.051 0.1059);
+    border: navajowhite;
+    border-radius: 20px;
+    padding: 10px 50px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 15px;
+}
+button.criptoTrandingComprar {
+    background: color(display-p3 0 0.6549 0.5333);
+    border: navajowhite;
+    border-radius: 20px;
+    padding: 10px 50px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 15px;
+}
+.col-4.porcentajetrading {
+    text-align: center;
+    font-weight: bold;
+    color: #868d97;
+}
+.porcentajebarritaTrading {
+    margin: 30px 6px;
+}
+input.ventaTradingBarrilla {
+    width: 100%;
+    accent-color: #ff0000;
+}
+input.compraTradingBarrilla {
+    width: 100%;
+}
+input.compraTradingBarrilla {
+    width: 100%;
+    accent-color: #019979;
+}
+table.table.table-hover.table-sm>thead>tr>th,.contenidoTablaTwich {
+    color: #868d97;
+    font-weight: 300;
+}
+.tituloTablaTwich{
+    color: #000;
+    font-weight: 300;
+}
+.tablaTwich{
+    width: 17px;
+}
+.criptoTitle {
+    text-transform: uppercase;
+}
+h3.tituloTradingCripto {
+    text-transform: uppercase;
+}
+.labelmonedas {
+    font-weight: bold;
+    font-size: 12px;
+}

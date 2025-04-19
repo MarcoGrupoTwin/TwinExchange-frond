@@ -1,0 +1,142 @@
+<div class="spinner-overlay" *ngIf="loading"><div class="spinnerS"></div></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="contenidoShadow">
+               <div class="row">
+                    <div class="col-12 col-md-4 col-lg-4">
+                        <div class="contenidoShadow text-center">
+                            <h4 class="textHeader">Monedero personal</h4>
+                            <p class="ouy2">¿Deseas cambiar tu firma?</p>
+                            <p class="p92f38h">Ingresa tu firma actual</p>                        
+                            <div class="row">
+                                <div class="col-12 text-center">
+                                    <ul class="firmaListadoThree" #digitInputsThree>
+                                        <li class="firmaListaItemThree" *ngFor="let input of [1, 2, 3, 4, 5, 6]; let i = index">
+                                          <input
+                                            type="password"
+                                            class="firmaInputThree"
+                                            maxlength="1"
+                                            (input)="onDigitInputThree($event, i)"
+                                          />
+                                        </li>
+                                    </ul> 
+                                </div>
+                            </div>
+                            <p class="p92f38h">Ingresa tu nueva firma</p>
+                            <div class="row">
+                                <div class="col-12 text-center">
+                                    <ul class="firmaListadoFour" #digitInputsFour>
+                                        <li class="firmaListaItemFour" *ngFor="let input of [1, 2, 3, 4, 5, 6]; let i = index">
+                                          <input
+                                            type="text"
+                                            class="firmaInputFour"
+                                            maxlength="1"
+                                            (input)="onDigitInputFour($event, i)"
+                                          />
+                                        </li>
+                                    </ul> 
+                                </div>
+                            </div>
+                            <p class="p92f38h">Confirma tu nueva firma</p>
+                            <div class="row">
+                                <div class="col-12 text-center">
+                                    <ul class="firmaListadoFive" #digitInputsFive>
+                                        <li class="firmaListaItemFive" *ngFor="let input of [1, 2, 3, 4, 5, 6]; let i = index">
+                                          <input
+                                            type="text"
+                                            class="firmaInputFive"
+                                            maxlength="1"
+                                            (input)="onDigitInputFive($event, i)"
+                                          />
+                                        </li>
+                                    </ul> 
+                                </div>
+                            </div>
+                            <button class="botonSendPay" (click)="cambiarFirmaNew()">Cambiar firma</button>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 col-lg-4">
+                        <div class="contenidoShadow text-center" *ngIf="sendPay == 1">
+                            <h4 class="textHeader">Firma</h4>
+                            <p class="ouy2">¿Deseas cambiar tu firma?</p>
+                            <p class="p92f38h">Selecciona a donde quieres que se te envíe el correo de recuperación</p>
+                            <div class="row d-flex justify-content-center mt-3">
+                                <div class="col-9">
+                                    <p class="ouy2">Correo</p>
+                                    <button class="botonSendPay mt-4" (click)="solicitarViaCorreo()">Solicitar vía correo</button>
+                                </div>
+                            </div>
+                            <div class="row d-flex justify-content-center mt-3">
+                                <div class="col-9">
+                                    <p class="ouy2">Teléfono</p>
+                                    <button class="botonSendPay mt-4" (click)="solicitarViaTelefono()">Solicitar vía teléfono</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 col-lg-4">
+                        <div class="contenidoShadow text-center" *ngIf="sendPay == 1">
+                            <h4 class="textHeader">Monedero de MXN</h4>
+                            <p class="ouy2">Código de 6 dígitos</p>
+                            <div class="contenidoChangeFirma" *ngIf="changeCodeToggle">
+                                <p class="p92f38h" style="padding: 0px 50px;">Ingresa el código que fue enviado a tu correo o a tu celular vía SMS para cambiar tu contraseña</p>
+                                <p class="ouy2 mt-3"><b>Firma electrónica nueva</b></p>
+                                <p class="p92f38h">Ingresa tu nueva firma</p>
+                                <div class="row">
+                                    <div class="col-12 text-center">
+                                        <ul class="firmaListadoOne" #digitInputsOne>
+                                            <li class="firmaListaItemOne" *ngFor="let input of [1, 2, 3, 4, 5, 6]; let i = index">
+                                              <input
+                                                type="text"
+                                                class="firmaInputOne"
+                                                maxlength="1"
+                                                (input)="onDigitInputOne($event, i)"
+                                              />
+                                            </li>
+                                        </ul> 
+                                    </div>
+                                </div>
+                                <p class="p92f38h">Confirma tu nueva firma</p>
+                                <div class="row">
+                                    <div class="col-12 text-center">
+                                        <ul class="firmaListadoTwo" #digitInputsTwo>
+                                            <li class="firmaListaItemTwo" *ngFor="let input of [1, 2, 3, 4, 5, 6]; let i = index">
+                                              <input
+                                                type="text"
+                                                class="firmaInputTwo"
+                                                maxlength="1"
+                                                (input)="onDigitInputTwo($event, i)"
+                                              />
+                                            </li>
+                                        </ul> 
+                                    </div>
+                                </div>
+                                <button class="botonSendPay" (click)="cambiarFirma()">Cambiar firma</button>
+                            </div>
+                            <div class="solicitaCodigoIngresa" *ngIf="!changeCodeToggle">
+                                <div class="row mt-5">
+                                    <div class="col-12 text-center mt-3">
+                                        <ul class="firmaListado" #digitInputs>
+                                            <li class="firmaListaItem" *ngFor="let input of [1, 2, 3, 4, 5, 6]; let i = index">
+                                              <input
+                                                type="text"
+                                                class="firmaInput"
+                                                maxlength="1"
+                                                (input)="onDigitInput($event, i)"
+                                              />
+                                            </li>
+                                        </ul> 
+                                    </div>
+                                    <div class="col-12 mt-1">
+                                        <button class="botonSendPay" [ngClass]="{'active': sendPay == 2}" (click)="validaCodigo()">Validar código de recuperación</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+               </div>
+            </div>
+        </div>
+    </div>
+</div>

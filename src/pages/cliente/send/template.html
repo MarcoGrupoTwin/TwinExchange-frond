@@ -1,0 +1,311 @@
+<div class="spinner-overlay" *ngIf="loading"><div class="spinnerS"></div></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="contenidoShadow">
+               <div class="row">
+                <div class="col-12 col-md-4 col-lg-4">
+                    <div class="contenidoShadow text-center">
+                        <h4 class="textHeader">Monedero personal</h4>
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-7">
+                                <p class="alid">ENVIAR MXN</p>
+                                <p class="ouy2">Métodos de envío</p>
+                                <p class="p92f38h">Envía MXN por TwinExchange con las siguientes opciones</p>
+                            </div>
+                        </div>
+                        <button class="botonSendPay" [ngClass]="{'active': sendPay == 1}" (click)="sendPay = 1">Enviar a usuarios twin</button>
+                        <br>
+                        <button class="botonSendPay" (click)="proximamente()">Enviar a cuenta bancaria</button>
+                        <br>
+                        <button class="botonSendPay" (click)="proximamente()">Envios con SPEI</button>
+                        <br>
+                        <!-- <button class="botonSendPay" [ngClass]="{'active': sendPay == 2}" (click)="sendPay = 2">Monedero a monedero</button> -->
+                        <button class="botonSendPay" (click)="proximamente()">Monedero a monedero</button>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 col-lg-4">
+                    <div class="contenidoShadow text-center" *ngIf="sendPay == 2">
+                        <h4 class="textHeader">Monedero a Monedero</h4>
+                        <p class="mdjsend text-start">Monedero que envía</p>
+                        <div class="contenidoShadow" style="height: 85px;">
+                            <div class="row">
+                                <div class="col-2">
+                                    <img src="../assets/images/cripto/iconMXN.png" class="btcTrade">
+                                </div>
+                                <div class="col-10 text-start">
+                                    <p class="monederoPer">
+                                        Monedero Personal
+                                    </p>
+                                    <p class="SaldoDisp">
+                                        Saldo disponible
+                                    </p>
+                                    <p class="saldoDispEy">
+                                        <span class="btnSlo" *ngIf="!crypto">{{showCantidad ? (current_balance | currency:'':true:'1.2-2') : '**********'}}</span>
+                                        <span class="btnSlo" *ngIf="crypto">{{showCantidad ? current_balance : '**********'}}</span>
+                                        <span class="eyeSlo" (click)="showCantidadToggle()"><i class="fa fa-eye"></i></span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="mdjsend text-start">Cantidad a enviar</p>
+                        <div class="enviarMoneda d-flex justify-content-center">
+                            <div class="input-container position-relative">
+                                <input type="text" class="form-control shadowBotonesIn" value="$1,800.00" style="text-align: left;padding-left: 21px;width: 350px;">
+                                <div class="monedaSend">MXN</div>
+                            </div>
+                        </div>
+                        <p class="mdjsend text-start">Elige monedero destino</p>
+                        <div class="contenidoShadow selectMoned" style="height: 85px;">
+                            <div class="row">
+                                <div class="col-2">
+                                    <img src="../assets/images/cripto/iconMXN.png" class="btcTrade">
+                                </div>
+                                <div class="col-10 text-start">
+                                    <p class="monederoPer">
+                                        Monedero Empresarial
+                                    </p>
+                                    <p class="SaldoDisp">
+                                        Saldo disponible
+                                    </p>
+                                    <p class="saldoDispEy">
+                                        <span class="btnSlo">**********</span>
+                                        <span class="eyeSlo"><i class="fa fa-eye"></i></span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="contenidoShadow mt-2 selectMoned" style="height: 85px;">
+                            <div class="row">
+                                <div class="col-2">
+                                    <img src="../assets/images/cripto/iconMXN.png" class="btcTrade">
+                                </div>
+                                <div class="col-10 text-start">
+                                    <p class="monederoPer">
+                                        Monedero Invitado
+                                    </p>
+                                    <p class="SaldoDisp">
+                                        Saldo disponible
+                                    </p>
+                                    <p class="saldoDispEy">
+                                        <span class="btnSlo">**********</span>
+                                        <span class="eyeSlo"><i class="fa fa-eye"></i></span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="botonSendPay mt-4" (click)="sendPay = 1">Enviar usuarios twin</button>
+                    </div>
+                    <div class="contenidoShadow text-center" *ngIf="sendPay == 1">
+                        <h4 class="textHeader">Monedero a Monedero</h4>
+                        <p class="mdjsend text-start">Monedero que envía</p>
+                        <div class="contenidoShadow" style="height: 85px;">
+                            <div class="row">
+                                <div class="col-2">
+                                    <img src="../assets/images/cripto/iconMXN.png" class="btcTrade">
+                                </div>
+                                <div class="col-10 text-start">
+                                    <p class="monederoPer">
+                                        Monedero Personal
+                                    </p>
+                                    <p class="SaldoDisp">
+                                        Saldo disponible
+                                    </p>
+                                    <p class="saldoDispEy">
+                                        <span class="btnSlo" *ngIf="!crypto">{{showCantidad ? (current_balance | currency:'':true:'1.2-2') : '**********'}}</span>
+                                        <span class="btnSlo" *ngIf="crypto">{{showCantidad ? current_balance : '**********'}}</span>
+                                        <span class="eyeSlo" (click)="showCantidadToggle()"><i class="fa fa-eye"></i></span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="mdjsend text-start">Cantidad a enviar</p>
+                        <div class="enviarMoneda d-flex justify-content-center">
+                            <div class="input-container position-relative">
+                                <input id="fondeaCuenta" type="number" class="form-control shadowBotonesIn" placeholder="$0.00" style="text-align: left; padding-left: 21px; width: 350px;" (input)="keypressValidaNumero($event)" *ngIf="!crypto">
+                                <input id="fondeaCuenta" type="number" class="form-control shadowBotonesIn" placeholder="0.00000000" style="text-align: left; padding-left: 21px; width: 350px;" (focusout)="keypressValidaNumeroCrypto($event)" *ngIf="crypto">
+                                <div class="monedaSend">{{moneda}}</div>
+                            </div>
+                        </div>
+                        <button class="botonSendPay mt-4" (click)="sendPay = 1">Enviar usuarios twin</button>
+                        <p class="mdjsend text-start">Destinatario</p>
+                        <ul class="contenidoEnvia">
+                            <li class="listadoInput">
+                                <input id="busquedaText" type="text" class="enviaBusca" placeholder="Buscar teléfono{{crypto ? ', correo o wallet' : ' o correo'}}">
+                            </li>
+                            <li class="iconBusca" (click)="buscaTexto()">
+                                <i class="fa fa-search"></i>
+                            </li>
+                            <li class="iconBusca">
+                                <i class="fa fa-image" (click)="changeMuestra(3)"></i>
+                            </li>
+                            <li class="iconBusca">
+                                <i class="fa-regular fa-copy"></i>  
+                            </li>
+                            <li class="iconBusca">
+                                <i class="fa-solid fa-qrcode" (click)="changeMuestra(2)"></i>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 col-lg-4">
+                    <div class="contenidoShadow" *ngIf="sendPay == 1">
+                        <div class="buscadorPersonas" *ngIf="muestra == 1">
+                            <h4 class="textHeader">Usuarios Twin</h4>
+                            <p class="oc284u9 text-center">Busca el usuario Twin entre tus contactos para realizar el envío.</p>
+                            <div class="input-container position-relative" style="padding: 0px 22px;">
+                                <input type="text" class="form-control shadowBotonesIn" placeholder="Buscar" style="text-align: left;padding-left: 20px;" (input)="buscarUsuario($event.target.value)" autocomplete="off">
+                                <div class="monedaSend" style="cursor: pointer;"><i class="fa fa-search" style="color: #c2c2c2;"></i></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <ul class="listadoContactos">
+                                        <li class="listadoContactosItem" *ngIf="resultadosUsuarios.length == 0">
+                                            <div class="row">
+                                                <div class="col-12 d-flex justify-content-center align-items-center"  style="height: 50px;">
+                                                    <p class="noResultados mb-0">No se encontraron resultados</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="listadoContactosItem" *ngFor="let u of resultadosUsuarios"  [ngClass]="{'selectUserActive': u.uuid == userSelected}" (click)="selectUser(u.uuid)">
+                                            <div class="row">
+                                                <div class="col-3 d-flex justify-content-center align-items-center">
+                                                    <div class="nombreSolo">{{getFirst(u.nombre)}}</div>
+                                                </div>
+                                                <div class="col-9">
+                                                    <p class="nombreContacto text-start">{{ u.nombre }}</p>
+                                                    <p class="IDContacto text-start">ID: {{ u.uuid }}</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="leeQR" *ngIf="muestra == 2">
+                            <zxing-scanner
+                            [(device)]="currentDevice"
+                            [formats]="['QR_CODE', 'CODE_128']"
+                            (camerasFound)="camerasFoundHandler($event)"
+                            (scanSuccess)="scanSuccessHandler($event)"
+                            ></zxing-scanner>
+                        </div>
+                        <div class="leeQR" *ngIf="muestra == 3">
+                            <div id="dropzone" (drop)="onDrop($event)" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" class="d-flex justify-content-center align-items-center">
+                                <div class="contenidoDrop">
+                                    <input type="file" #fileInput style="display:none" (change)="onFileSelected($event)" accept="image/*">
+                                    Arrastra y suelta el código qr aquí
+                                    <button class="butonSelectImg" (click)="fileInput.click()">Selecciona el archivo</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <ul class="firmaListado" #digitInputs>
+                                    <li class="firmaListaItem" *ngFor="let input of [1, 2, 3, 4, 5, 6]; let i = index">
+                                      <input
+                                        type="password"
+                                        class="firmaInput"
+                                        maxlength="1"
+                                        (input)="onDigitInput($event, i)"
+                                      />
+                                    </li>
+                                </ul> 
+                                <p class="texto-digitos text-center">Firma del usuario que envía</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <button class="botonSendPay mt-1" (click)="sendMoney()">Enviar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contenidoShadow text-center" *ngIf="sendPay == 2">
+                        <h4 class="textHeader">Envío a Monedero</h4>
+                        <p class="mdjsend text-start">Monedero de origen</p>
+                        <div class="contenidoShadow" style="height: 85px;">
+                            <div class="row">
+                                <div class="col-2">
+                                    <img src="../assets/images/cripto/iconMXN.png" class="btcTrade">
+                                </div>
+                                <div class="col-10 text-start">
+                                    <p class="monederoPer">
+                                        Monedero Personal
+                                    </p>
+                                    <p class="SaldoDisp">
+                                        Saldo disponible
+                                    </p>
+                                    <p class="saldoDispEy">
+                                        <span class="btnSlo">{{showCantidad ? (current_balance | currency:'':true:'1.2-2') : '**********'}}</span>
+                                        <span class="eyeSlo" (click)="showCantidadToggle()"><i class="fa fa-eye"></i></span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="mdjsend text-start">Monedero de destino</p>
+                        <div class="contenidoShadow" style="height: 85px;">
+                            <div class="row">
+                                <div class="col-2">
+                                    <img src="../assets/images/cripto/iconMXN.png" class="btcTrade">
+                                </div>
+                                <div class="col-10 text-start">
+                                    <p class="monederoPer">
+                                        Monedero Personal
+                                    </p>
+                                    <p class="SaldoDisp">
+                                        Saldo disponible
+                                    </p>
+                                    <p class="saldoDispEy">
+                                        <span class="btnSlo">{{showCantidad ? (current_balance | currency:'':true:'1.2-2') : '**********'}}</span>
+                                        <span class="eyeSlo" (click)="showCantidadToggle()"><i class="fa fa-eye"></i></span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="mdjsend text-start">Cantidad a enviar</p>
+                        <div class="enviarMoneda d-flex justify-content-center">
+                            <div class="input-container position-relative">
+                                <input id="cantidadEnviar" type="text" class="form-control shadowBotonesIn" value="$1,800.00" style="text-align: left;padding-left: 21px;width: 350px;" disabled>
+                                <div class="monedaSend">MXN</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <ul class="firmaListado">
+                                    <li class="firmaListaItem">
+                                        <input type="password" class="firmaInput" maxlength="1">
+                                    </li>
+                                    <li class="firmaListaItem">
+                                        <input type="password" class="firmaInput" maxlength="1">
+                                    </li>
+                                    <li class="firmaListaItem">
+                                        <input type="password" class="firmaInput" maxlength="1">
+                                    </li>
+                                    <li class="firmaListaItem">
+                                        <input type="password" class="firmaInput" maxlength="1">
+                                    </li>
+                                    <li class="firmaListaItem">
+                                        <input type="password" class="firmaInput" maxlength="1">
+                                    </li>
+                                    <li class="firmaListaItem">
+                                        <input type="password" class="firmaInput" maxlength="1">
+                                    </li>
+                                </ul>
+                                <p class="texto-digitos text-center">Firma del usuario que envía</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <button class="botonSendPay mt-1">Enviar</button>
+                            </div>
+                            <div class="col-12 text-center">
+                                <button class="botonCancelPay mt-1">Cancelar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               </div>
+            </div>
+        </div>
+    </div>
+</div>

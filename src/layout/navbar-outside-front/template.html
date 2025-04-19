@@ -1,0 +1,254 @@
+<div class="spinner-overlay" *ngIf="loading"><div class="spinnerS"></div></div>
+<div class="component-fluid">
+    <div class="row pt-3">
+          <div class="col-6 col-md-6 col-lg-3 d-flex justify-content-center align-items-center">
+            <a href="" class="text-dark">
+              {{ 'cliente.menu.quienes_somos' | translate }}
+            </a>
+        </div>
+        <div class="col-6 col-md-6 col-lg-9 d-flex justify-content-end">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="container-fluid">
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">{{ 'usuario.menu.directorio_empresarial' | translate }}</a>
+                      </li>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="idiomaDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          {{ 'usuario.menu.idioma' | translate }}<i class="fa fa-angle-down"></i>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="idiomaDropdown">
+                          <div class="input-group buscadorMenu">
+                            <input type="text" class="form-control buscadorInputMenu shadowBotonesTwin" placeholder="Buscar">
+                          </div>
+                          <div class="menuDropItems dropItemsMenu">
+                            <a class="dropdown-item"  (click)="cambiarIdioma('en')">
+                                <div class="row shadowBotonesIn">
+                                    <div class="col-4 p-0">
+                                        <img src="assets/images/banderas/us.svg" alt="" class="img-fluid">
+                                    </div>
+                                    <div class="col-6">
+                                        <p class="text-dark mb-0">ENG</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="dropdown-item"  (click)="cambiarIdioma('es')">
+                                <div class="row shadowBotonesIn">
+                                    <div class="col-4 p-0">
+                                        <img src="assets/images/banderas/mx.svg" alt="" class="img-fluid">
+                                    </div>
+                                    <div class="col-6">
+                                        <p class="text-dark mb-0">ESP</p>
+                                    </div>
+                                </div>
+                            </a>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="monedaDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          {{ 'usuario.menu.moneda' | translate }}<i class="fa fa-angle-down"></i>
+                        </a>
+                        <div class="dropdown-menu dropdownBigSize" aria-labelledby="monedaDropdown">
+                          <div class="input-group buscadorMenu">
+                            <input type="text" class="form-control buscadorInputMenu shadowBotonesTwin" placeholder="Buscar">
+                          </div>
+                          <div class="menuDropItems dropItemsMenu">
+                            <a class="dropdown-item" href="#">
+                                <div class="row shadowBotonesIn">
+                                    <div class="col-4">
+                                        <img src="../assets/images/cripto/iconMXN.png" alt="" class="img-fluid">
+                                    </div>
+                                    <div class="col-4">
+                                        Pesos
+                                    </div>
+                                    <div class="col-4">
+                                        MXN
+                                    </div>
+                                </div>
+                            </a>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          {{ 'cliente.menu.ingresar.titulo' | translate }}
+                        </a>
+                        <div class="dropdown-menu dropdownCreateAccount" aria-labelledby="crearCuentaDropdown" style="left: -112px;">
+                            <div class="logoaccount">
+                                <img src="https://twin-exchange.s3.us-east-2.amazonaws.com/TWINEXCHANGE.png" alt="">
+                            </div>
+                            <p class="crearCuentaTitled text-center">{{ 'cliente.menu.ingresar.titulo' | translate }}</p>
+                            <div class="menuDropItems">
+                              <div class="dropdown-item">
+                                <div class="input-group">
+                                    <input class="form-control shadowBotonesIn" type="text" placeholder="{{ 'cliente.menu.ingresar.correo' | translate }}" id="mailLogin" (keyup.enter)="iniciarSesion()">
+                                </div>
+                              </div>
+                              <div class="dropdown-item">
+                                <div class="input-group">
+                                  <input class="form-control shadowBotonesIn" id="password" type="password" placeholder="{{ 'cliente.menu.ingresar.contrasena' | translate }}" id="passwordLogin" (keyup.enter)="iniciarSesion()">
+                                  <i id="faeye" class="fa fa-eye" (click)="showPassToggleS()"></i>
+                                </div>
+                                <label id="passVIHR" class="passwordLabel" for="password" (click)="forgotPassword()">{{ 'cliente.menu.ingresar.olvido_contrasena' | translate }}</label>
+                              </div>
+                            </div>
+                            <div class="input-group" style="padding: 0px 15px;">
+                              <button class="btn btn-dark w-100 radioBotonTwin" (click)="iniciarSesion()">{{ 'cliente.menu.ingresar.ingresar' | translate }}</button>
+                            </div>
+                            <p style="text-align: center;font-size: 11px;margin: 10px 0px 0px 0px;font-weight: bold;">{{ 'cliente.menu.social.login' | translate }}</p>
+                            <div class="input-group d-flex justify-content-center" style="padding: 0px 15px;margin-top: 10px;">
+                                <button id="crearCuenta" class="btn btn-dark radioBotonTwin" (click)="crearCuentaSocial('facebook')"><i class="fab fa-facebook"></i></button>
+                                <button id="crearCuenta" class="btn btn-dark radioBotonTwin" (click)="crearCuentaSocial('google')"><i class="fab fa-google"></i></button>
+                            </div>
+                        </div>
+                      </li>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link crearCuenta" href="#" id="crearCuentaDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          {{ 'cliente.menu.crear_cuenta.titulo' | translate }}
+                        </a>
+                        <div class="dropdown-menu dropdownCreateAccount" aria-labelledby="crearCuentaDropdown">
+                            <div class="logoaccount">
+                                <img src="https://twin-exchange.s3.us-east-2.amazonaws.com/TWINEXCHANGE.png" alt="">
+                            </div>
+                            <p class="crearCuentaTitled text-center">{{ 'cliente.menu.crear_cuenta.titulo' | translate }}</p>
+                            <div class="menuDropItems">
+                              <div class="dropdown-item">
+                                <div class="input-group">
+                                    <input class="form-control shadowBotonesIn" type="text" placeholder="{{ 'cliente.menu.crear_cuenta.nombre' | translate }}" id="nombre">
+                                </div>
+                              </div>
+                              <div class="dropdown-item">
+                                <div class="input-group">
+                                    <input class="form-control shadowBotonesIn" type="text" placeholder="{{ 'cliente.menu.crear_cuenta.apellido' | translate }}" id="apellido">
+                                </div>
+                              </div>
+                              <div class="dropdown-item" style="padding-right: 8px;">
+                                <div class="row">
+                                  <div class="col-4" style="padding-right: 0px;">
+                                    <select id="countrie" class="selectMenuDrop form-control shadowBotonesIn" id="prefijo" style="text-align: center;" (change)="getPhoneCode($event)">
+                                      <option *ngFor="let c of countries" [value]="c.id" [attr.data-code]="c.phonecode">{{c.iso}} +{{c.phonecode}}</option>
+                                    </select>
+                                  </div>
+                                  <div class="col-8" style="padding-left: 0px;">
+                                    <input class="form-control shadowBotonesIn" type="number" placeholder="{{ 'cliente.menu.crear_cuenta.telefono' | translate }}" id="celular" max="9999999999" min="1" [maxLength]="10">
+                                  </div>
+                                  <div class="col-12"><p style="font-size: 9px;max-width: 100%;word-wrap: break-word;white-space: normal;text-align: center;margin: 10px 0px;">Enviaremos un código de verificación a tu número de teléfono</p></div>
+                                </div>
+                              </div>
+                              <div class="dropdown-item">
+                                <div class="input-group">
+                                    <input class="form-control shadowBotonesIn" type="email" placeholder="{{ 'cliente.menu.crear_cuenta.correo' | translate }}" id="mail">
+                                </div>
+                              </div>
+                              <div class="dropdown-item">
+                                <label class="passwordLabel" for="password">{{ 'cliente.menu.crear_cuenta.minimo_8_caracteres' | translate }}</label>
+                                <div class="input-group">
+                                    <input class="form-control shadowBotonesIn" id="password" type="password" placeholder="{{ 'cliente.menu.crear_cuenta.contrasena' | translate }}" id="password">
+                                    <i id="faeye" class="fa fa-eye" (click)="showPassToggle()"></i>
+                                </div>
+                              </div>
+                              <div class="dropdown-item">
+                                <div class="input-group">
+                                    <input class="form-control shadowBotonesIn" type="password" placeholder="{{ 'cliente.menu.crear_cuenta.confirmar_contrasena' | translate }}" id="repearpass">
+                                    <i id="faeye" class="fa fa-eye" (click)="showPassToggle()"></i>
+                                </div>
+                              </div>
+                              <div class="dropdown-item">
+                                <div class="input-group">
+                                    <input class="form-control shadowBotonesIn" type="date" placeholder="Fecha de nacimiento" id="fechaNac">
+                                </div>
+                              </div>
+                              <div class="dropdown-item">
+                                <div class="input-group"> 
+                                    <select class="selectMenuDrop form-control shadowBotonesIn" id="genero">
+                                        <option value="0" selected>{{ 'cliente.menu.crear_cuenta.genero' | translate }} </option>
+                                        <option value="1">Masculino </option>
+                                        <option value="2">Femenino </option>
+                                    </select>
+                                </div>
+                              </div>
+                              <div class="dropdown-item">
+                                <div class="input-group">
+                                    <select class="selectMenuDrop form-control shadowBotonesIn" id="profesion">
+                                        <option value="0" selected>{{ 'cliente.menu.crear_cuenta.profesion' | translate }}</option>
+                                        <option *ngFor="let p of professions" [value]="p.id">{{p.name}}</option>
+                                    </select>
+                                </div>
+                              </div>
+                            </div>
+                            <p class="text-center terminosCondiciones">
+                              {{ 'cliente.menu.crear_cuenta.presionar' | translate }} 
+                                <b>{{ 'cliente.menu.crear_cuenta.crear' | translate }}</b>, 
+                                {{ 'cliente.menu.crear_cuenta.aceptas' | translate }}<br> 
+                                <a href="#" class="trcon">{{ 'cliente.menu.crear_cuenta.terminos_y_condiciones' | translate }}</a>
+                            </p>
+                            <div class="input-group" style="padding: 0px 15px;">
+                                <button id="crearCuenta" class="btn btn-dark w-100 radioBotonTwin" (click)="crearCuenta()">{{ 'cliente.menu.crear_cuenta.crear_cuenta' | translate }}</button>
+                            </div>
+                            <p style="text-align: center;font-size: 11px;margin: 10px 0px 0px 0px;font-weight: bold;">{{ 'cliente.menu.social.registro' | translate }}</p>
+                            <div class="input-group d-flex justify-content-center" style="padding: 0px 15px;margin-top: 10px;">
+                                <button id="crearCuenta" class="btn btn-dark radioBotonTwin" (click)="crearCuentaSocial('facebook')"><i class="fab fa-facebook"></i></button>
+                                <button id="crearCuenta" class="btn btn-dark radioBotonTwin" (click)="crearCuentaSocial('google')"><i class="fab fa-google"></i></button>
+                            </div>
+                          </div>
+                      </li>
+                      <li id="usuarioC" class="nav-item dropdown">
+                        <a class="nav-link" href="#">
+                            <i class="fa fa-user text-dark" style="font-size: 30px;"></i>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </nav>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Validación de teléfono</h5>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12 text-center">
+              Ingresa el código de 6 dígitos que te enviamos al número de teléfono +{{lada + telefono}}
+            </div>
+            <div class="col-12 text-center">
+              <ul class="firmaListadoThree" #digitInputsThree>
+                  <li class="firmaListaItemThree" *ngFor="let input of [1, 2, 3, 4, 5, 6]; let i = index">
+                    <input
+                      type="number"
+                      class="firmaInputThree"
+                      placeholder="0"
+                      maxlength="1"
+                      (input)="onDigitInputThree($event, i)"
+                    />
+                  </li>
+              </ul> 
+            </div>
+            <div class="col-12 text-center">
+              <button class="validaElTelefono" (click)="validarTelefono()">Validar teléfono</button>
+              <button class="validaElTelefono ml-2" *ngIf="isLogin" (click)="sendNewCode()">Envíar nuevo código</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="container-fluid">
+          <div class="row">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

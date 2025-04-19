@@ -1,0 +1,278 @@
+<div class="spinner-overlay" *ngIf="loading"><div class="spinnerS"></div></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="contenidoShadow">
+               <div class="row">
+                    <div class="col-12 col-md-4 col-lg-4">
+                        <div class="contenidoShadow text-center">
+                            <h4 class="textHeader">Opciones de ahorro</h4>
+                            <p class="ouy2">Ahorros</p>
+                            <p class="p92f38h">Métodos de ahorro</p>                        
+                            <button class="botonSendPay mb-2" [ngClass]="{'active': sendPay == 1}" (click)="sendPay = 1">Ingresar ahorros</button>
+                            <br>
+                            <button class="botonSendPay mb-2" [ngClass]="{'active': sendPay == 2 && !showRetiro}"  (click)="verAhorros()">Ver mis ahorros</button>
+                            <br>
+                            <button class="botonSendPay mb-2" [ngClass]="{'active': sendPay == 2 && showRetiro}"  (click)="realizarRetiro()">Retirar ahorros</button>
+                            <p class="ouy2">Importante</p>
+                            <p class="p92f38h">
+                                ¡Fondea tu billetera y comienza a ahorrar sin cargos adicionales!. <br>
+                                Haz crecer tus ahorros de manera fácil y conveviente. <br>
+                                Sin costo por fondeo, solo beneficios para tu futuro financiero.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 col-lg-4">
+                        <div class="contenidoShadow text-center" *ngIf="sendPay == 1">
+                            <h4 class="textHeader">Ingresar ahorros</h4>
+                            <div class="row d-flex justify-content-center">
+                                <div class="col-8">
+                                    <div class="row">
+                                        <div class="col-12 mb-3">
+                                            <label for=""><b>Monto de ahorro a ingresar:</b></label>
+                                            <input class="vuerbh" type="text" min="1" (input)="calcularRendimiento($event)" placeholder="0.00">
+                                        </div>
+                                        <div class="col-12 mb-3">
+                                            <label for=""><b>Rendimiento mensual {{configuracionAhorros.rendimiento}}%:</b></label>
+                                            <input class="vuerbh" type="text" min="2" max="6" value="{{rendimientoMensual | currency:'':true:'1.2-2'}}" disabled>
+                                        </div>
+                                        <div class="col-12 mb-3">
+                                            <label for=""><b>Impuesto por rendimientos {{configuracionAhorros.impuesto}}%:</b></label>
+                                            <input class="vuerbh" type="text" min="2" max="6" value="{{impuestosPorRendimiento | currency:'':true:'1.2-2'}}" disabled>
+                                        </div>
+                                        <div class="col-12 mt-2"> 
+                                            <p style="text-decoration: underline;cursor: pointer;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Ver términos y condiciones del servicio</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="contenidoShadow text-center" *ngIf="sendPay == 2">
+                            <h4 class="textHeader">Ahorros activos</h4>
+                            <h5>Ahorros totales: ${{totalAhorros | number}}</h5>
+                            <div class="row">
+                                <div class="col-12 mb-3" *ngFor="let a of listAhorros">
+                                    <label class="vueoryb"><b>último ahorro ingresado {{a.created_at | date: 'dd/MM/yyyy'}} Rendimiento 1.5%</b></label>
+                                    <div class="contenidoB">
+                                        ${{a.total | number}} + ${{(a.total * (a.rendimiento/100)) | number}} - ${{(a.total * (a.rendimiento/100)) * (a.impuesto/100)}} = ${{(a.total + (a.total * (a.rendimiento/100)) - ((a.total * (a.rendimiento/100)) * (a.impuesto/100))) | number}}MXN <div class="cuwyrb"  data-bs-toggle="modal" data-bs-target="#staticBackdrop"><span class="owuvrn">Contrato</span></div>
+                                    </div>
+                                    <div class="ihrwv">
+                                        Rendimiento por 28 dias
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <b>Fecha</b>
+                                </div>
+                                <div class="col-4">
+                                    <b>Monto</b>
+                                </div>
+                                <div class="col-4">
+                                    <b>Acción</b>
+                                </div>
+                            </div>
+                            <section class="historial">
+                                <div class="row" *ngFor="let h of historial">
+                                    <div class="col-4">
+                                        {{h.created_at | date: 'dd/MM/yyyy'}}
+                                    </div>
+                                    <div class="col-4">
+                                        ${{h.monto | number}} MXN
+                                    </div>
+                                    <div class="col-4">
+                                        {{h.tipo == 1 ? 'Ingreso' : (h.tipo == 2 ? 'Retiro' : 'Rendimiento')}}
+                                    </div>
+                                </div>
+                            </section>
+                            <div class="row" *ngIf="historial.length == 0">
+                                <div class="col-12">
+                                    <p class="text-center">No hay historial de ahorros</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 col-lg-4">
+                        <div class="contenidoShadow text-center" *ngIf="sendPay == 1">
+                            <h4 class="textHeader">Confirmar inversión</h4>
+                            <p class="ouy2">Perfil que ingresa el ahorro</p>
+                            <div class="contenidoShadow" style="height: 85px;">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <img src="../assets/images/cripto/iconMXN.png" class="btcTrade">
+                                    </div>
+                                    <div class="col-10 text-start">
+                                        <p class="monederoPer">
+                                            Monedero Personal
+                                        </p>
+                                        <p class="SaldoDisp">
+                                            Saldo disponible
+                                        </p>
+                                        <p class="saldoDispEy">
+                                            <span class="btnSlo">{{showCantidad ? (current_balance | currency:'':true:'1.2-2') : '**********'}}</span>
+                                            <span class="eyeSlo" (click)="changeSee()"><i class="fa fa-eye"></i></span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row d-flex justify-content-center mt-3">
+                                <div class="col-8">
+                                    <div class="row">
+                                        <div class="col-12 mb-3">
+                                            <label for=""><b>Monto de ahorro a ingresar:</b></label>
+                                            <input class="vuerbh text-end" type="text" min="1" value="{{montoAhorro | currency:'':true:'1.2-2'}}" disabled>
+                                        </div>
+                                        <div class="col-12 mb-3">
+                                            <label for=""><b>Total con rendimiento por 28 dias:</b></label>
+                                            <input class="vuerbh text-end" type="text" min="1" value="{{rendimientoTotalMensual | currency:'':true:'1.2-2'}}" disabled>
+                                        </div>
+                                        <div class="col-12">
+                                            <ul class="firmaListadoOne" #digitInputsOne>
+                                                <li class="firmaListaItemOne" *ngFor="let input of [1, 2, 3, 4, 5, 6]; let i = index">
+                                                  <input
+                                                    type="password"
+                                                    class="firmaInputOne"
+                                                    maxlength="1"
+                                                    (input)="onDigitInputOne($event, i)"
+                                                  />
+                                                </li>
+                                            </ul> 
+                                        </div>
+                                        <div class="col-12">
+                                            <button class="botonSendPay mb-2"(click)="insertSavings()">Ahorrar</button>
+                                            <br>
+                                            <p class="p92f38h">Firma para enviar tus fondos del monedero a tus ahorros.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="contenidoShadow text-center" style="display: none;">
+                            <h4 class="textHeader">Confirmar aumento</h4>
+                            <p class="ouy2">Perfil que retira el ahorro</p>
+                            <div class="contenidoShadow" style="height: 85px;">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <img src="../assets/images/cripto/iconMXN.png" class="btcTrade">
+                                    </div>
+                                    <div class="col-10 text-start">
+                                        <p class="monederoPer">
+                                            Monedero Personal
+                                        </p>
+                                        <p class="SaldoDisp">
+                                            Saldo disponible
+                                        </p>
+                                        <p class="saldoDispEy">
+                                            <span class="btnSlo">{{showCantidad ? (current_balance | currency:'':true:'1.2-2') : '**********'}}</span>
+                                            <span class="eyeSlo" (click)="changeSee()"><i class="fa fa-eye"></i></span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row d-flex justify-content-center mt-3">
+                                <div class="col-8">
+                                    <div class="row">
+                                        <div class="col-12 mb-3">
+                                            <label for=""><b>Monto de ahorro que aumenta:</b></label>
+                                            <input class="vuerbh text-end" type="text" min="1" value="$0.00">
+                                        </div>
+                                        <div class="col-12 mb-3">
+                                            <label for=""><b>Total de ahorro:</b></label>
+                                            <input class="vuerbh text-end" type="text" min="1" value="$0.00">
+                                        </div>
+                                        <div class="col-12">
+                                            <ul class="firmaListadoOne" #digitInputsOne>
+                                                <li class="firmaListaItemOne" *ngFor="let input of [1, 2, 3, 4, 5, 6]; let i = index">
+                                                  <input
+                                                    type="password"
+                                                    class="firmaInputOne"
+                                                    maxlength="1"
+                                                    (input)="onDigitInputOne($event, i)"
+                                                  />
+                                                </li>
+                                            </ul> 
+                                        </div>
+                                        <div class="col-12">
+                                            <button class="botonSendPay mb-2">Ahorrar</button>
+                                            <br>
+                                            <p class="p92f38h">Firma para enviar tus fondos y aumentar tu ahorro</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="contenidoShadow text-center" *ngIf="showRetiro">
+                            <h4 class="textHeader">Confirmar retiro</h4>
+                            <p class="ouy2">Perfil que retira el ahorro</p>
+                            <div class="contenidoShadow" style="height: 85px;">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <img src="../assets/images/cripto/iconMXN.png" class="btcTrade">
+                                    </div>
+                                    <div class="col-10 text-start">
+                                        <p class="monederoPer">
+                                            Monedero Personal
+                                        </p>
+                                        <p class="SaldoDisp">
+                                            Saldo disponible
+                                        </p>
+                                        <p class="saldoDispEy">
+                                            <span class="btnSlo">{{showCantidad ? (current_balance | currency:'':true:'1.2-2') : '**********'}}</span>
+                                            <span class="eyeSlo" (click)="changeSee()"><i class="fa fa-eye"></i></span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row d-flex justify-content-center mt-3">
+                                <div class="col-8">
+                                    <div class="row">
+                                        <div class="col-12 mb-3">
+                                            <label for=""><b>Monto de ahorro que se retira:</b></label>
+                                            <input id="totalRetiro" class="vuerbh text-end" type="text" min="1" placeholder="$0.00" (input)="calcularRetiro($event)">
+                                        </div>
+                                        <div class="col-12 mb-3">
+                                            <label for=""><b>Total con rendimiento por 28 días:</b></label>
+                                            <input class="vuerbh text-end" type="text" min="1" value="${{retiroRendimiento | number}}" disabled>
+                                        </div>
+                                        <div class="col-12">
+                                            <ul class="firmaListadoOne" #digitInputs>
+                                                <li class="firmaListaItemOne" *ngFor="let input of [1, 2, 3, 4, 5, 6]; let i = index">
+                                                  <input 
+                                                    type="password"
+                                                    class="firmaInput"
+                                                    maxlength="1"
+                                                    (input)="onDigitInput($event, i)"
+                                                  />
+                                                </li>
+                                            </ul> 
+                                        </div>
+                                        <div class="col-12">
+                                            <button class="botonSendPay mb-2" (click)="retirarAhorro()">Retirar ahorro</button>
+                                            <br>
+                                            <p class="p92f38h">Firma para enviar tus fondos y aumentar tu ahorro</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+               </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="staticBackdrop" class="modal fade modal-xl">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="padding: 10px 0px 0px 20px;text-align: center;display: flex;justify-content: center;">
+                <h5 class="modal-title">Términos y condiciones del servicio</h5>
+            </div>
+            <div class="modal-body">
+                <iframe [src]="configuracionAhorros.contract" frameborder="0" width="100%" height="500px"></iframe>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Entendido</button>
+            </div>
+        </div>
+    </div>
+</div>

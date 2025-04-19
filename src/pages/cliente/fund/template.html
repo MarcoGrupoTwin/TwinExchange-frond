@@ -1,0 +1,231 @@
+<div class="spinner-overlay" *ngIf="loading"><div class="spinnerS"></div></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="contenidoShadow">
+                <div class="row">
+                    <div class="col-12 col-md-4 col-lg-4">
+                        <div class="contenidoShadow text-center">
+                            <h4 class="textHeader">Monedero personal</h4>
+                            <div class="row d-flex justify-content-center">
+                                <div class="col-7">
+                                    <p class="alid">Fondear</p>
+                                    <p class="ouy2">Métodos de fondeo</p>
+                                    <p class="p92f38h">Selecciona un metodo para ralizar tu fondeo</p>
+                                </div>
+                            </div>
+                            <button class="botonSendPay" [ngClass]="{'active': sendPay == 2}" (click)="muestraTarjetas()">Tarjeta de débito o crédito</button>
+                            <br>
+                            <button class="botonSendPay" (click)="proximamente()">Tiendas autorizadas</button>
+                            <br>
+                            <button class="botonSendPay" (click)="proximamente()">Transferencias SPEI</button>
+                            <br>
+                            <!-- <button class="botonSendPay" [ngClass]="{'active': sendPay == 2}" (click)="sendPay = 2">Monedero a monedero</button> -->
+                            <button class="botonSendPay" (click)="proximamente()">Déposito</button>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 col-lg-4">
+                        <div class="contenidoShadow text-center" *ngIf="sendPay == 2 && !usaTarjeta && !usaQR">
+                            <h4 class="textHeader">Fondear</h4>
+                            <p class="mdjsend text-start">Cantidad a fonear</p>
+                            <div class="enviarMoneda d-flex justify-content-center">
+                                <div class="input-container position-relative">
+                                    <input id="fondeaCuenta" type="number" class="form-control shadowBotonesIn" placeholder="$0.00" style="text-align: left; padding-left: 21px; width: 350px;" (input)="keypressValidaNumero($event)" *ngIf="fund == 'mxn'">
+                                    <input id="fondeaCuentaTwin" type="number" class="form-control shadowBotonesIn" placeholder="0.00" style="text-align: left; padding-left: 21px; width: 350px;" (input)="keypressValidaNumeroTwin($event)" (keydown)="keypressValidaNumeroTwin($event)" (paste)="keypressValidaNumeroTwin($event)" *ngIf="fund == 'twin'">
+                                    <input id="fondeaCuentaTwin" type="number" class="form-control shadowBotonesIn" placeholder="0.00" style="text-align: left; padding-left: 21px; width: 350px;" (input)="keypressValidaNumeroTwin($event)" (keydown)="keypressValidaNumeroTwin($event)" (paste)="keypressValidaNumeroTwin($event)" *ngIf="fund == 'twincoin'">
+                                    <div class="monedaSend">{{moneda}}</div>
+                                </div>
+                            </div>
+                            <p class="mdjsend text-start">Selecciona una tarjeta</p>
+                            <div class="contenidoTarjetas">
+                                <div class="contenidoShadow selectMoned mt-2 selectCardActive" style="height: 85px;" *ngIf="cards.length == 0">
+                                    <div class="row">
+                                        <div class="col-12 text-center">
+                                            <p class="ouy2">No tienes tarjetas registradas</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="contenidoShadow selectMoned mt-2" style="height: 85px;" *ngFor="let c of cards" [ngClass]="{'selectCardActive': c.uuid == cardSelected}">
+                                    <div class="row">
+                                        <div class="col-11" (click)="selectCardRecharge(c.uuid)">
+                                            <div class="txtTargh"> {{c.brand}} **** {{c.last_4}}</div>
+                                            <div class="txtTargh"> {{c.exp_month + '/' +c.exp_year}}</div>
+                                        </div>
+                                        <div class="col-1 d-flex justify-content-center align-items-center" (click)="deleteCard(c.uuid)">
+                                            <div class="txtTargh" style="text-align: right;"> <i class="fa fa-trash"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="botonSendPay mt-4" (click)="addCard()">Nueva tarjeta</button>
+                        </div>
+                        <div class="contenidoShadow text-center" [ngStyle]="{'display': (sendPay == 2 && usaTarjeta && !usaTarjetaUSD) ? 'block' : 'none'}">
+                            <h4 class="textHeader">Fondear</h4>
+                            <p class="mdjsend text-center">N° de tarjeta</p>
+                            <div class="row d-flex justify-content-center mt-3">
+                                <div class="col-7">
+                                    <form id="card-element" action="">
+                                        <div class="row">
+                                            <div class="col-12" id="cardNumber">
+                                                <input id="card" type="text" placeholder="**** **** **** 4242" class="form-control shadowBotonesIn">
+                                            </div>
+                                            <div class="col-6 mt-2" id="expira">
+                                                <b>Expira</b>
+                                                <input id="expira" type="text" placeholder="MM/AA" class="form-control shadowBotonesIn">
+                                            </div>
+                                            <div class="col-6 mt-2" id="cardCvc">
+                                                <b>CVV</b>
+                                                <input id="cvv" type="text" placeholder="CVV" class="form-control shadowBotonesIn">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <p class="mdjsend text-center">Tarjetas de debito o crédito</p>
+                            <div class="row d-flex justify-content-center mt-3">
+                                <div class="col-7">
+                                    <img src="assets/images/CardTWIN.png" style="width: 100%;">
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-6">
+                                    <button class="botonCancelPay mt-3" (click)="usaTarjeta = false">Cancelar</button>
+                                </div>
+                                <div class="col-6">
+                                    <button class="botonSendPay mt-3" (click)="enviaTarjeta()">Añadir tarjeta</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="contenidoShadow text-center" [ngStyle]="{'display': (sendPay == 2 && usaTarjetaUSD) ? 'block' : 'none'}">
+                            <h4 class="textHeader">Fondear</h4>
+                            <div class="row d-flex justify-content-center mt-3">
+                                <div class="col-7">
+                                    <form id="card-element" action="">
+                                        <div class="row">
+                                            <div class="col-12" id="cardNumber">
+                                                <b>Nombre</b>
+                                                <input id="nombreUSD" type="text" placeholder="José Pérez" class="form-control shadowBotonesIn mb-2">
+                                            </div>
+                                            <div class="col-12" id="cardNumber">
+                                                <b>N° de tarjeta</b>
+                                                <input id="cardUSD" type="text" placeholder="**** **** **** 4242" class="form-control shadowBotonesIn" maxlength="16">
+                                            </div>
+                                            <div class="col-6 mt-2" id="expira">
+                                                <b>Expira</b>
+                                                <input id="expiraUSD" type="text" placeholder="MM/AAAA" class="form-control shadowBotonesIn" (input)="formatoFechaCard($event)" style="padding: 10px;text-align: center;">
+                                            </div>
+                                            <div class="col-6 mt-2" id="cardCvc">
+                                                <b>CVV</b>
+                                                <input id="cvvUSD" type="text" placeholder="CVV" class="form-control shadowBotonesIn">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <p class="mdjsend text-center">Tarjetas de debito o crédito</p>
+                            <div class="row d-flex justify-content-center mt-3">
+                                <div class="col-7">
+                                    <img src="assets/images/CardTWIN.png" style="width: 100%;">
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-6">
+                                    <button class="botonCancelPay mt-3" (click)="usaTarjeta = false;usaTarjetaUSD = false;usaTarjeta = false;usaQR = false">Cancelar</button>
+                                </div>
+                                <div class="col-6">
+                                    <button class="botonSendPay mt-3" (click)="enviaTarjetaUSD()">Añadir tarjeta</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 col-lg-4">
+                        <div class="contenidoShadow text-center" *ngIf="sendPay == 2 && usaQR == false">
+                            <h4 class="textHeader">Monedero {{moneda}}</h4>
+                            <p class="mdjsend text-start">Monedero que recibe</p>
+                            <div class="contenidoShadow" style="height: 85px;">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <img [src]="bandera" class="btcTrade">
+                                    </div>
+                                    <div class="col-10 text-start">
+                                        <p class="monederoPer">
+                                            Monedero Personal
+                                        </p>
+                                        <p class="SaldoDisp">
+                                            Saldo disponible
+                                        </p>
+                                        <p class="saldoDispEy">
+                                            <span class="btnSlo" *ngIf="fund == 'mxn'">{{showCantidad ? (current_balance | currency:'':true:'1.2-2') : '**********'}}</span>
+                                            <span class="btnSlo" *ngIf="fund == 'twin'">{{showCantidad ? currentBalanceTwin : '**********'}}</span>
+                                            <span class="btnSlo" *ngIf="fund == 'twincoin'">{{showCantidad ? currentBalanceTwin : '**********'}}</span>
+                                            <span class="eyeSlo" (click)="showCantidadToggle()"><i class="fa fa-eye"></i></span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="mdjsend text-start">Comisión</p>
+                            <div class="comisionContent">
+                                <div class="row">
+                                    <div class="col-4 text-center">
+                                        {{comisionTexto}}
+                                    </div>
+                                    <div class="col-4 text-center">
+                                        Uso de terminal 
+                                    </div>
+                                    <div class="col-4 text-center">
+                                        <b>{{moneda}}</b>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="mdjsend text-start">Limite de fondeo</p>
+                            <div class="comisionContent">
+                                <div class="row">
+                                    <div class="col-4 text-center">
+                                        Sin Límite
+                                    </div>
+                                    <div class="col-4 text-center">
+                                        
+                                    </div>
+                                    <div class="col-4 text-center">
+                                        <b>{{moneda}}</b>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="mdjsend text-start">Monto a fondear</p>
+                            <div class="enviarMoneda d-flex justify-content-center">
+                                <div class="input-container position-relative">
+                                    <input type="text" class="form-control shadowBotonesIn" value="{{cantidadFondeo | currency:'':true:'1.2-2'}}" style="text-align: left;padding-left: 21px;width: 350px;" disabled *ngIf="fund == 'mxn'">
+                                    <input type="text" class="form-control shadowBotonesIn" value="{{totalTwin}}" style="text-align: left;padding-left: 21px;width: 350px;" disabled *ngIf="fund == 'twin'">
+                                    <input type="text" class="form-control shadowBotonesIn" value="{{totalTwincoin}}" style="text-align: left;padding-left: 21px;width: 350px;" disabled *ngIf="fund == 'twincoin'">
+                                    <div class="monedaSend">{{moneda}}</div>
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <div class="col-12 text-center">
+                                    <ul class="firmaListado" #digitInputs>
+                                        <li class="firmaListaItem" *ngFor="let input of [1, 2, 3, 4, 5, 6]; let i = index">
+                                        <input
+                                            type="password"
+                                            class="firmaInput"
+                                            maxlength="1"
+                                            (input)="onDigitInput($event, i)"
+                                        />
+                                        </li>
+                                    </ul> 
+                                    <p class="texto-digitos text-center">Firma del usuario que fondea</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 text-center">
+                                    <button class="botonSendPay mt-1" (click)="fondearCuenta()" *ngIf="fund == 'mxn'">Fondear</button>
+                                    <button class="botonSendPay mt-1" (click)="adquirirTwin()" *ngIf="fund == 'twin'">Fondear</button>
+                                    <button class="botonSendPay mt-1" (click)="adquirirTwincoin()" *ngIf="fund == 'twincoin'">Fondear</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

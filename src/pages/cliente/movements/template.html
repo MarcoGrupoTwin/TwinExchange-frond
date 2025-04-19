@@ -1,0 +1,150 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="contenidoShadow">
+               <div class="row">
+                    <div class="col-12">
+                        <div class="text-center">
+                            <div class="row">
+                                <div class="col-4 text-center">
+                                    <h4 class="textHeader">Monedero personal</h4>
+                                </div>
+                                <div class="col-4 text-center">
+                                    <h4 class="textHeader">Movimientos</h4>
+                                </div>
+                                <div class="col-4 text-center">
+                                    <h4 class="textHeader">Monedero de {{moneda}}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+               </div>
+               <div class="row">
+                <div class="col-12">
+                    <div class="container-fluid mt-3">
+                        <div class="row">
+                            <div class="col-12">
+                                <ul class="listadoMonedas d-flex justify-content-center">
+                                    <li class="menuOpcionesList" (click)="onchangeButton('fondeos')" [ngClass]="{'active': categoria == 'fondeos'}">
+                                        <div class="row">
+                                            <div class="col-12 contenidoOpciones p-0 text-center">
+                                                <p class="menuOpciones">
+                                                    Fondeos
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="menuOpcionesList" (click)="onchangeButton('envios')" [ngClass]="{'active': categoria == 'envios'}">
+                                        <div class="row">
+                                            <div class="col-12 contenidoOpciones p-0 text-center">
+                                                <p class="menuOpciones">
+                                                    Envíos
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="menuOpcionesList" (click)="onchangeButton('pagos')" [ngClass]="{'active': categoria == 'pagos'}">
+                                        <div class="row">
+                                            <div class="col-12 contenidoOpciones p-0 text-center">
+                                                <p class="menuOpciones">
+                                                    Pago QR
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="menuOpcionesList" (click)="onchangeButton('lightning')" [ngClass]="{'active': categoria == 'lightning'}">
+                                        <div class="row">
+                                            <div class="col-12 contenidoOpciones p-0 text-center">
+                                                <p class="menuOpciones">
+                                                    Lightning
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="menuOpcionesList" (click)="onchangeButton('cobro')" [ngClass]="{'active': categoria == 'cobro'}">
+                                        <div class="row">
+                                            <div class="col-12 contenidoOpciones p-0 text-center">
+                                                <p class="menuOpciones">
+                                                    Cobro QR
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="menuOpcionesList" (click)="onchangeButton('remesas')" [ngClass]="{'active': categoria == 'remesas'}">
+                                        <div class="row">
+                                            <div class="col-12 contenidoOpciones p-0 text-center">
+                                                <p class="menuOpciones">
+                                                    Remesas
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="menuOpcionesList" (click)="onchangeButton('twinpay')" [ngClass]="{'active': categoria == 'twinpay'}">
+                                        <div class="row">
+                                            <div class="col-12 contenidoOpciones p-0 text-center">
+                                                <p class="menuOpciones">
+                                                    TwinPay
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="menuOpcionesList" (click)="onchangeButton('canjeos')" [ngClass]="{'active': categoria == 'canjeos'}">
+                                        <div class="row">
+                                            <div class="col-12 contenidoOpciones p-0 text-center">
+                                                <p class="menuOpciones">
+                                                    Canjeos
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="menuOpcionesList" (click)="onchangeButton('recibidos')" [ngClass]="{'active': categoria == 'recibidos'}">
+                                        <div class="row">
+                                            <div class="col-12 contenidoOpciones p-0 text-center">
+                                                <p class="menuOpciones">
+                                                    Recibidos
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               </div>
+               <div class="row mt-4">
+                    <div class="col-12">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr style="text-align: center;">
+                                <th scope="col">ID Movimiento</th>
+                                <th scope="col">MONEDA</th>
+                                <th scope="col">CANTIDAD</th>
+                                <th scope="col">FECHA</th>
+                                <th scope="col">HORA</th>
+                                <th scope="col">
+                                    {{categoria == 'fondeos' ? 'AUTORIZACIÓN' : (categoria == 'envios' ? 'DESTINO' : (categoria == 'pagos' ? 'DESTINO' : (categoria == 'lightning' ? 'DESTINO' : (categoria == 'cobro' ? 'ORIGEN' : (categoria == 'remesas' ? 'ORIGEN' : (categoria == 'twinpay' ? 'ORIGEN' : (categoria == 'canjeos' ? 'ORIGEN' : (categoria == 'recibidos' ? 'ORIGEN' : ''))))))))}}
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let m of movements" style="text-align: center;">
+                                    <td>{{m.id}}</td>
+                                    <td>MXN</td>
+                                    <td>{{m.amount | currency}}</td>
+                                    <td>{{m.created_at | date: 'dd/MM/yyyy'}}</td>
+                                    <td>{{m.created_at | date: 'HH:mm'}}</td>
+                                    <td *ngIf="categoria == 'fondeos'">{{getStripeIdSuffix(m.stripe_id)}}</td>
+                                    <td *ngIf="categoria == 'envios' || categoria == 'recibidos'">{{categoria == 'envios' ? 'Enviado a':'Enviado por'}}: {{m.nombre}}</td>
+                                </tr>
+                                <tr *ngIf="movements.length == 0">
+                                    <td colspan="6" style="text-align: center;">No hay movimientos</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

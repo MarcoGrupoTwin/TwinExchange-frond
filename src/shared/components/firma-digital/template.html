@@ -1,0 +1,95 @@
+<!-- Verificación KYC -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-body" style="padding-bottom: 0px;">
+            <div id="advertencia" class="row" *ngIf="step == 1">
+                <div class="col-12">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-5">
+                            <img class="imagenLogoExchange" src="https://twinexchange-sandbox.s3.us-west-1.amazonaws.com/TWINEXCHANGE.png" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="row d-flex justify-content-center mt-3">
+                        <div class="col-4">
+                            <div class="tituloAdvertencia">
+                                Firma Electrónica
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="tituloAdvertencia">
+                        Registra tu firma para realizar pagos
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="tituloAdvertenciaP">
+                        Es necesario que registres una firma personal, la cual utilizarás para realizar tus pagos y transferencias.
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-center">
+                    <div class="col-8">
+                        <div class="contenidoFirma">
+                            <div class="row">
+                                <div class="col-12 text-center">
+                                    <p class="texto-digitos text-center">Ingresa 6 dígitos</p>
+                                    <ul class="firmaListado" #digitInputs>
+                                        <li class="firmaListaItem" *ngFor="let input of [1, 2, 3, 4, 5, 6]; let i = index">
+                                          <input
+                                            type="password"
+                                            class="firmaInput"
+                                            maxlength="1"
+                                            (input)="onDigitInput($event, i)"
+                                          />
+                                        </li>
+                                    </ul>                                      
+                                </div>
+                                <div class="col-12 text-center">
+                                    <p class="texto-digitos text-center">Confirma tu firma</p>
+                                    <ul class="validationList" #validationInputs>
+                                        <li class="validationListItem" *ngFor="let input of [1, 2, 3, 4, 5, 6]; let i = index">
+                                          <input
+                                            type="password"
+                                            class="firmaInputValida"
+                                            maxlength="1"
+                                            (input)="onDigitInputValidation($event, i)"
+                                          />
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="advertencia" class="row" *ngIf="step == 2">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <img class="imglOGOchECKdoNE" src="https://twinexchange-sandbox.s3.us-west-1.amazonaws.com/TWINEXCHANGE.png" alt="">
+                    </div>
+                    <div class="col-12 text-center">
+                        <img src="assets/images/green-shield-and-checkmark-icon-png.png" class="imagencheckDone">
+                    </div>
+                    <div class="col-12">
+                        <p class="exitoIdent">
+                            Tu Firma ha sido registrada con éxito
+                        </p>
+                    </div>
+                    <div class="col-12">
+                        <p class="pasoTresExit text-center mt-3">
+                            Con esta firma podrás realizar tus pagos y transferencias
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer" style="justify-content: center; padding-top:0px">
+          <button id="aceptarAccionModal" type="button" (click)="completaFirma()">Registrar firma</button>
+        </div>
+      </div>
+    </div>
+</div>
+<!-- FIN Verificación KYC -->

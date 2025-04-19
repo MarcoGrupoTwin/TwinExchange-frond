@@ -1,0 +1,332 @@
+<div class="spinner-overlay" *ngIf="loading"><div class="spinnerS"></div></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-12 col-lg-6">
+            <div class="contenidoShadow">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="criptoTitle">
+                                    {{cryptoCurrency}}
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <img [src]="imagenCrypto" class="criptoIcon">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-8 text-end">
+                        <!-- <ul class="cambioEstado d-flex justify-content-center">
+                            <li class="cambioestadoList active">
+                                {{ 'usuario.paginas.trading.estadisticas' | translate }}
+                            </li>
+                            <li class="cambioestadoList">
+                                {{ 'usuario.paginas.trading.historial_trade' | translate }}
+                            </li>
+                        </ul> -->
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-6">
+                        <ul class="listadoCambioMoneda">
+                            <li class="CambioMoneda active fiatTrading">
+                                USD
+                            </li>
+                            <li class="CambioMoneda active criptoTrading">
+                                {{cryptoCurrency}}
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-6 text-end">
+                        <div class="textoTotal">
+                            {{priceCoin | currency: 'USD'}}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <!-- trading-view.component.html -->
+                        <div class="tradingview-widget-container" style="height: 500px; width: 100%">
+                            <div id="tradingview_f7512" style="height: calc(100% - 32px); width: 100%"></div>
+                        </div>
+                        <!-- END trading-view.component.html -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-12 col-lg-6">
+            <div class="contenidoShadow">
+                <div class="row">
+                    <div class="col-12">
+                        <ul class="cambioEstado d-flex justify-content-center">
+                            <li class="cambioestadoList">
+                                {{ 'usuario.paginas.trading.limite' | translate }}
+                            </li>
+                            <li class="cambioestadoList active">
+                                {{ 'usuario.paginas.trading.mercado' | translate }}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="contenidoIntercambio">
+                    <div class="row">
+                        <div class="col-12 col-md-12 col-lg-6 mt-1">
+                            <div class="venderTrading">
+                                <h3 class="tituloTradingCripto">{{ 'usuario.paginas.trading.vender' | translate }} {{ cryptoCurrency }}</h3>
+                                <p class="balanceCript">
+                                    <b>{{ 'usuario.paginas.trading.balance' | translate }}: </b> {{ balanceCrypto | number:'1.8-8' }} {{ cryptoCurrency }}
+                                </p>
+                        
+                                <!-- Precio modificable -->
+                                <label class="labelmonedas" for="venataUSD">Total USD</label>
+                                <input id="venataUSD" type="number" class="form-control" [(ngModel)]="sellPrice" (input)="calculateTotal('sell')" placeholder="Precio en USD">
+                                
+                                <label class="labelmonedas" for="venataCrypto">Total {{cryptoCurrency}}</label>
+                                <input id="venataCrypto" type="number" class="form-control mt-2" [(ngModel)]="sellAmount" (input)="calculateTotal('sell')" placeholder="Cantidad">
+                        
+                                <div class="porcentajebarritaTrading">
+                                    <input id="sellCrypto" class="ventaTradingBarrilla" type="range" min="0" max="100" [(ngModel)]="sellPercentage" (input)="updateFromPercentage('sell')" step="0.001" />
+                                    <div class="row">
+                                        <div class="col-4 porcentajetrading">0%</div>
+                                        <div class="col-4 porcentajetrading">50%</div>
+                                        <div class="col-4 porcentajetrading">100%</div>
+                                    </div>
+                                </div>
+                                <div class="contenidoCripTotal">
+                                    <div class="row">
+                                        <div class="col-3">{{ 'usuario.paginas.trading.TOTAL' | translate }}</div>
+                                        <div class="col-9 text-end text-uppercase">{{ sellTotal | number:'1.2-2' }} USD</div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 text-center">
+                                        <button class="criptoTrandingVender" (click)="submitOrder('sell')">{{ 'usuario.paginas.trading.vender' | translate }}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12 col-md-12 col-lg-6 mt-1">
+                            <div class="comprarTrading">
+                                <h3 class="tituloTradingCripto">{{ 'usuario.paginas.trading.comprar' | translate }} {{ cryptoCurrency }}</h3>
+                                <p class="balanceCript">
+                                    <b>{{ 'usuario.paginas.trading.balance' | translate }}: </b> {{ balanceFiat | number:'1.2-2' }} USD
+                                </p>
+                        
+                                <!-- Precio modificable -->
+                                <label class="labelmonedas" for="precioUSD">Total USD</label>
+                                <input id="precioUSD" type="number" class="form-control" [(ngModel)]="buyPrice" (input)="calculateTotal('buy')" placeholder="Precio en USD">
+
+                                <label class="labelmonedas" for="ventasCrypto">Total {{cryptoCurrency}}</label>
+                                <input id="ventasCrypto" type="number" class="form-control mt-2" [(ngModel)]="buyAmount" (input)="calculateTotal('buy')" placeholder="Cantidad">
+                        
+                                <div class="porcentajebarritaTrading">
+                                    <input id="butCrypto" class="compraTradingBarrilla" type="range" min="0" max="100" [(ngModel)]="buyPercentage" (input)="updateFromPercentage('buy')" />
+                                    <div class="row">
+                                        <div class="col-4 porcentajetrading">0%</div>
+                                        <div class="col-4 porcentajetrading">50%</div>
+                                        <div class="col-4 porcentajetrading">100%</div>
+                                    </div>
+                                </div>
+                        
+                                <div class="contenidoCripTotal">
+                                    <div class="row">
+                                        <div class="col-3">{{ 'usuario.paginas.trading.TOTAL' | translate }}</div>
+                                        <div class="col-9 text-end text-uppercase">{{ buyTotal | number:'1.2-2' }} USD</div>
+                                    </div>
+                                </div>
+                        
+                                <div class="row">
+                                    <div class="col-12 text-center">
+                                        <button class="criptoTrandingComprar" (click)="submitOrder('buy')">{{ 'usuario.paginas.trading.comprar' | translate }}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-12 col-md-12 col-lg-6">
+            <div class="contenidoShadow">
+                <div class="row">
+                    <div class="col-4 d-flex align-items-center">
+                        <h4 style="font-weight: bold;">{{ 'usuario.paginas.trading.mis_ordenes' | translate }}</h4>
+                    </div>
+                    <div class="col-8 text-end">
+                        <ul class="cambioEstado d-flex justify-content-center">
+                            <li class="cambioestadoList" (click)="changeTypeOrdes('open')" [ngClass]="{'active': seeOrderType == 1}">
+                                {{ 'usuario.paginas.trading.ordenes_activas' | translate }}
+                            </li>
+                            <li class="cambioestadoList" (click)="changeTypeOrdes('history')" [ngClass]="{'active': seeOrderType == 2}">
+                                {{ 'usuario.paginas.trading.historial' | translate }}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-12" style="height: 520px;overflow: auto;">
+                        <table class="table table-hover table-sm">
+                            <thead>
+                              <tr>
+                                <th scope="col">{{ 'usuario.paginas.trading.tiempo' | translate }}</th>
+                                <th scope="col">{{ 'usuario.paginas.trading.ID_trade' | translate }}</th>
+                                <th scope="col">{{ 'usuario.paginas.trading.TYPE' | translate }}</th>
+                                <th scope="col">{{ 'usuario.paginas.trading.STATE' | translate }}</th>
+                                <th scope="col">{{ 'usuario.paginas.trading.PRECIO' | translate }}</th>
+                                <th scope="col">{{ 'usuario.paginas.trading.MONTO' | translate }}</th>
+                                <th scope="col">{{ 'usuario.paginas.trading.TOTAL' | translate }}</th>
+                              </tr> 
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let order of orders">
+                                    <td>{{ order.created_at | date: 'dd-MM-yyyy HH:mm:ss' }}</td>
+                                    <td>{{ order.uuid }}</td>
+                                    <td>{{ order.type }}</td>
+                                    <td>{{ order.state }}</td>
+                                    <td>{{ order.operation | number:'1.8-8' }}</td>
+                                    <td>{{ order.price | number:'1.8-8' }}</td>
+                                    <td>{{ order.quantity | number:'1.8-8' }}</td>
+                                </tr>
+                                <tr *ngIf="orders.length == 0">
+                                    <td colspan="7" class="text-center">{{ 'usuario.paginas.trading.sin_ordenes' | translate }}</td>
+                                </tr>
+                            </tbody>
+                          </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-12 col-lg-6">
+            <div class="contenidoShadow">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <h4 style="font-weight: bold;">{{ 'usuario.paginas.trading.libro_ordenes' | translate }}</h4>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12 col-md-12 col-lg-6">
+                        <h4 class="text-center" style="font-weight: bold;">{{ 'usuario.paginas.trading.vendido' | translate }}</h4>
+                        <div class="venderTrading">
+                            <div class="row">
+                                <div class="col-6"><b>{{ 'usuario.paginas.trading.fecha' | translate }}</b></div>
+                                <div class="col-6 text-end"><b>{{ 'usuario.paginas.trading.precio' | translate }}</b></div>
+                            </div>
+                            <div class="contenidoOrdenes" style="height: 456px;overflow: auto;">
+                                <div class="row mt-3" *ngFor="let ventas of ordenesVendidas">
+                                    <div class="col-7">
+                                        {{ventas.created_at | date: 'dd-MM-yyyy HH:mm:ss'}}
+                                    </div>
+                                    <div class="col-5 text-end text-uppercase">
+                                        {{ventas.price}} {{cryptoCurrency}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-12 col-lg-6">
+                        <h4 class="text-center" style="font-weight: bold;">{{ 'usuario.paginas.trading.comprado' | translate }}</h4>
+                        <div class="comprarTrading">
+                            <div class="row">
+                                <div class="col-6"><b>{{ 'usuario.paginas.trading.fecha' | translate }}</b></div>
+                                <div class="col-6 text-end"><b>{{ 'usuario.paginas.trading.precio' | translate }}</b></div>
+                            </div>
+                            <div class="contenidoOrdenes" style="height: 456px;overflow: auto;">
+                                <div class="row mt-3" *ngFor="let compras of ordenesCompradas">
+                                    <div class="col-7">
+                                        {{compras.created_at | date: 'dd-MM-yyyy HH:mm:ss'}}
+                                    </div>
+                                    <div class="col-5 text-end text-uppercase">
+                                        {{compras.price}} {{cryptoCurrency}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5 mb-5">
+        <h3 style="font-weight: bold;">{{ 'usuario.paginas.trading.mercados_abiertos' | translate }}</h3>
+        <div class="contenidoShadow">
+            <div class="row">
+                <div class="col-12" style="overflow-x: auto;">
+                    <table class="table">
+                        <caption>{{ 'usuario.paginas.trading.precios_mostrados' | translate }}</caption>
+                        <thead>
+                          <tr>
+                            <th class="tituloTablaTwich" scope="col">{{ 'usuario.paginas.trading.mercado' | translate }}</th>
+                            <th class="tituloTablaTwich" scope="col">{{ 'usuario.paginas.trading.informacion' | translate }}</th>
+                            <th class="tituloTablaTwich" scope="col">{{ 'usuario.paginas.trading.precio' | translate }}</th>
+                            <th class="tituloTablaTwich" scope="col">{{ 'usuario.paginas.trading.volumen' | translate }}</th>
+                            <th class="tituloTablaTwich" scope="col">{{ 'usuario.paginas.trading.cambio_24h' | translate }}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th class="contenidoTablaTwich">
+                                <img src="assets/images/cripto/iconBTC.png" class="tablaTwich">
+                                BTC</th>
+                            <td class="contenidoTablaTwich"><a href="https://www.binance.com/en/trade/BTC_USDT?type=spot">BTC market</a></td>
+                            <td class="contenidoTablaTwich">{{ markets.BTC.price | currency: 'USD'}}</td>
+                            <td class="contenidoTablaTwich">{{ markets.BTC.volume | currency: 'USD'}}</td>
+                            <td class="contenidoTablaTwich">{{ markets.BTC.change}}%</td>
+                          </tr>
+                          <!-- <tr>
+                            <th class="contenidoTablaTwich">
+                                <img src="assets/images/cripto/twin24.svg" class="tablaTwich">
+                                TWIN</th>
+                            <td class="contenidoTablaTwich"><a href="#">TWIN market</a></td>
+                            <td class="contenidoTablaTwich">{{ markets.TWIN.price | currency: 'USD'}}</td>
+                            <td class="contenidoTablaTwich">{{ markets.TWIN.volume | currency: 'USD'}}</td>
+                            <td class="contenidoTablaTwich">{{ markets.TWIN.change}}%</td>
+                          </tr> -->
+                          <tr>
+                            <th class="contenidoTablaTwich">
+                                <img src="assets/images/cripto/icoTWC.png" class="tablaTwich">
+                                TWC</th>
+                            <td class="contenidoTablaTwich"><a href="#">TWC market</a></td>
+                            <td class="contenidoTablaTwich">{{ markets.TWINCOIN.price | currency: 'USD'}}</td>
+                            <td class="contenidoTablaTwich">{{ markets.TWINCOIN.volume | currency: 'USD'}}</td>
+                            <td class="contenidoTablaTwich">{{ markets.TWINCOIN.change}}%</td>
+                          </tr>
+                          <tr>
+                            <th class="contenidoTablaTwich">
+                                <img src="assets/images/cripto/iconETH.png" class="tablaTwich">
+                                ETH</th>
+                            <td class="contenidoTablaTwich"><a href="https://www.binance.com/en/trade/ETH_USDT?type=spot">ETH market</a></td>
+                            <td class="contenidoTablaTwich">{{ markets.ETH.price | currency: 'USD'}}</td>
+                            <td class="contenidoTablaTwich">{{ markets.ETH.volume | currency: 'USD'}}</td>
+                            <td class="contenidoTablaTwich">{{ markets.ETH.change}}%</td>
+                          </tr>
+                          <tr>
+                            <th class="contenidoTablaTwich">
+                                <img src="assets/images/cripto/iconLTC.png" class="tablaTwich">
+                                LTC</th>
+                            <td class="contenidoTablaTwich"><a href="https://www.binance.com/en/trade/LTC_USDT?type=spot">LTC market</a></td>
+                            <td class="contenidoTablaTwich">{{ markets.LTC.price | currency: 'USD'}}</td>
+                            <td class="contenidoTablaTwich">{{ markets.LTC.volume | currency: 'USD'}}</td>
+                            <td class="contenidoTablaTwich">{{ markets.LTC.change}}%</td>
+                          </tr>
+                          <tr>
+                            <th class="contenidoTablaTwich">
+                                <img src="assets/images/cripto/iconBNB.png" class="tablaTwich">
+                                BNB</th>
+                            <td class="contenidoTablaTwich"><a href="https://www.binance.com/en/trade/BNB_USDT?type=spot">BNB market</a></td>
+                            <td class="contenidoTablaTwich">{{ markets.BNB.price | currency: 'USD'}}</td>
+                            <td class="contenidoTablaTwich">{{ markets.BNB.volume | currency: 'USD'}}</td>
+                            <td class="contenidoTablaTwich">{{ markets.BNB.change}}%</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<kyc-component *ngIf="ejecutarKYC" [parametro]="userData" (kycCompletado)="manejarKYCCompletado($event)"></kyc-component>
+<firma-component *ngIf="ejecutarFirma" [parametro]="userData" (FirmaCompletado)="manejarFirmaCompletada($event)"></firma-component>

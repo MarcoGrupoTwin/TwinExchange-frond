@@ -1,0 +1,89 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="contenidoShadow d-flex justify-content-center">
+            <div class="col-9">
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <h3 class="text-center">Soporte</h3>
+                    </div>
+                    <div class="col-6 mb-5">
+                        <h4>¿Como podemos ayudarte?</h4>
+                    </div>
+                    <div class="col-6">
+                    <input id="buscarPregunta" type="text" placeholder="Buscar" class="form-control" 
+                            style="text-align: initial; padding: 10px 0px 10px 10px; border-radius: 25px;" 
+                            (input)="buscarPregunta($event)">
+                    </div>
+                    
+                    <div class="col-12">
+                    <p>Preguntas frecuentes</p>
+                    </div>
+                    
+                    <div class="col-12 mb-5">
+                    <div class="accordion" id="accordionPanelsStayOpenExample">
+                        <div class="accordion-item" *ngFor="let faq of filteredFaqs; let i = index">
+                        <h2 class="accordion-header" [attr.id]="'panelsStayOpen-heading-' + i">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                                    [attr.data-bs-target]="'#panelsStayOpen-collapse-' + i" 
+                                    aria-expanded="false" 
+                                    [attr.aria-controls]="'panelsStayOpen-collapse-' + i">
+                            {{ faq.title }}
+                            </button>
+                        </h2>
+                        <div [attr.id]="'panelsStayOpen-collapse-' + i" class="accordion-collapse collapse" 
+                                [attr.aria-labelledby]="'panelsStayOpen-heading-' + i">
+                            <div class="accordion-body">
+                            {{ faq.content }}
+                            </div>
+                        </div>
+                        </div>
+                        <p *ngIf="filteredFaqs.length === 0" class="text-center mt-3">No se encontraron preguntas.</p>
+                    </div>
+                    </div>                      
+                    <div class="col-12">
+                        <p class="text-center"><b>¿No encuentras la respuesta?</b></p>
+                        <p class="text-center">Prueba lo siguiente</p>
+                    </div>
+                    <div class="col-4">
+                        <div class="iconoCenter contenidoShadow d-flex justify-content-center align-items-center">
+                            <i class="fa-solid fa-comment-dots" style="margin-right: 20px;font-size: 40px;"></i> Chatea con nosotros
+                            <br>
+                            Pregunta directamente al equipo especializado de TwinBusiness
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="iconoCenter contenidoShadow d-flex justify-content-center align-items-center">
+                            <div class="contenidoIcon">
+                                <div class="row">
+                                    <div class="col-3 d-flex align-items-center">
+                                        <i class="fa-solid fa-phone" style="font-size: 31px;"></i> 
+                                    </div>
+                                    <div class="col-9">
+                                        Contáctanos
+                                        <br>
+                                        <a href="tel:+5233123412234">331 2341 2234</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="iconoCenter contenidoShadow d-flex justify-content-center align-items-center">
+                            <div class="contenidoIcon">
+                                <div class="row">
+                                    <div class="col-3 d-flex align-items-center justify-content-end">
+                                        <i class="fa-regular fa-envelope" style="font-size: 31px;"></i> 
+                                    </div> 
+                                    <div class="col-9">
+                                        Envía un Email
+                                        <a href="mailto:support@twinexchange.io">support@twinexchange.io</a>
+                                    </div>
+                                </div>
+                            </div>                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

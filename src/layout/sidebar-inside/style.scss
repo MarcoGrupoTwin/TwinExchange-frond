@@ -1,0 +1,349 @@
+a.nav-link.crearCuenta {
+    background: #000;
+    border-radius: 50px;
+    height: 31px;
+    position: relative;
+    top: 5px;
+    color: #fff!important;
+    padding: 2px 15px;
+}
+.nombrePerson {
+    color: #fff;
+    background: #000;
+    text-align: center;
+    width: 40px;
+    padding: 8px 0px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+li.nav-item {
+    margin-right: 20px;
+}
+input.form-control.buscadorInputMenu {
+    border-radius: 20px;
+    text-align: center;
+}
+.input-group.buscadorMenu {
+    padding: 0px 10px;
+}
+.dropItemsMenu{
+    max-height: 200px; 
+    min-height: 200px;
+    overflow-y: auto;
+}
+.dropdown-menu.show {
+    border-radius: 20px;
+    border: none;
+    box-shadow: 0px 0px 3px 1px #e7e9ec;
+}
+.dropdown-menu.show:before {
+    content: "";
+    position: absolute;
+    top: -21px;
+    left: 50%;
+    margin-left: -10px;
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent transparent #dbdbdb transparent;
+}
+
+a.dropdown-item:hover {
+    background: #fff;
+    cursor: pointer;
+}
+.dropdownBigSize{
+    width: 204px;
+    left: -50%;
+}
+.dropdown-toggle::after
+{
+    display: none;
+}
+i.fa.fa-angle-down {
+    font-size: 12px;
+    margin-left: 9px;
+}
+.dropdown-menu.dropdownCreateAccount.show {
+    width: 300px;
+    left: -72%;
+}
+.logoaccount > img {
+    width: 100%;
+    padding: 14px 33px 0px 33px;
+}
+p.crearCuentaTitled.text-center {
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+label.passwordLabel {
+    width: 100%;
+    color: #c2c2c2;
+    font-size: 11px;
+    margin-top: 10px;
+}
+i#faeye {
+    position: absolute;
+    top: 15px;
+    right: 5px;
+}
+p.text-center.terminosCondiciones {
+    font-size: 11px;
+    padding: 15px 15px 0px 15px;
+}
+a.trcon {
+    text-decoration: underline;
+    color: #000;
+    font-weight: bold;
+}
+ul.menuWallet {
+    list-style: none;
+    display: inline-flex;
+    background: #fff;
+}
+li.itemWallet {
+    margin-left: 20px;
+}
+a{
+    color: #000;
+}
+li.itemWallet.active {
+    box-shadow: inset 1px 1px 3px #d7e0ed;
+    border-radius: 8px;
+    padding: 5px 8px;
+}
+li.itemWallet {
+    align-items: center;
+    display: flex;
+}
+li.itemWallet:hover{
+    box-shadow: inset 1px 1px 3px #d7e0ed;
+    border-radius: 8px;
+    padding: 5px 8px;
+}
+.shadowBotonesInTrade{
+    border-radius: 13px;
+    box-shadow: 0px 0px 9px 1px #eef0f4;
+    margin: 0px -5px;
+    padding: 10px 5px;
+    border: none;
+}
+ul.navbar-nav.me-auto.mb-2.mb-lg-0>li {
+    margin-right: 0px;
+}
+ul.navbar-nav.me-auto.mb-2.mb-lg-0>li>a {
+    font-size: 15px;
+}
+ul.iconosMenuUl {
+    display: inline-flex;
+    list-style: none;
+    padding: 0px;
+    margin: 12px;
+}
+li.liMenuIcon {
+    margin-left: 30px;
+}
+.NombreNav{
+    font-size: 15px;font-weight: bold;   
+}
+.CorreoNav{
+    font-size: 10px;
+    color: #898989;
+}
+.puestoNav{
+    font-weight: bold;
+    font-size: 11px;
+}
+img.avatarUser {
+    position: relative;
+    top: 4px;
+    left: -10px;
+    width: 50px;
+}
+li.itemWallet {
+    padding: 0px 8px;
+}
+ul.listadoMonedas {
+    list-style: none;
+    padding: 10px 0px;
+    width: 100%;
+    overflow: auto;
+    white-space: nowrap;
+}
+li.criptoMonedasList {
+    border-radius: 8px;
+    box-shadow: 0px 0px 17px #eeeff5;
+    margin-right: 20px;
+    width: 200px;
+    padding: 10px;
+    height: 100px;
+    cursor: pointer;
+    display: inline-block
+}
+li.criptoMonedasList:hover {
+    box-shadow: inset 4px 5px 8px #eeeff5;
+}
+li.criptoMonedasList.active {
+    box-shadow: inset 4px 5px 8px #eeeff5;
+}
+li.menuOpcionesList {
+    border-radius: 8px;
+    box-shadow: 0px 0px 17px #eeeff5;
+    margin-right: 10px;
+    padding: 5px 11px 5px 9px;
+    cursor: pointer;
+}
+li.menuOpcionesList:hover {
+    box-shadow: inset 4px 5px 8px #eeeff5;
+}
+li.menuOpcionesList.active {
+    box-shadow: inset 4px 5px 8px #eeeff5;
+}
+p.criptotitle, p.criptoSaldo, p.criptoTotal,p.menuOpciones {
+    margin-bottom: 0px;
+    color: #858e98;
+    font-size: 13px;
+}
+p.menuOpciones{
+    margin-left: 10px;
+    color: #000!important;
+    font-weight: 400!important;
+    margin-top: 10px;
+}
+p.criptotitle {
+    font-weight: bold;
+}
+.contenidoCriptos{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 77px;
+}
+.contenidoOpciones{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 35px;
+}
+img.iamgenCripto {
+    position: relative;
+    top: 7px;
+    left: 9px;
+}
+img.iamgenOpciones {
+    position: relative;
+    top: 0px;
+    left: 9px;
+    width: 50px;
+}
+.linkWallet{
+    cursor: pointer;
+}
+@media only screen and (max-width: 600px) {
+    ul#eldeAbajo {
+        display: inline-flex;
+    }
+    #logotipoDentro{
+        display: none;
+    }
+    #navbarSupportedContent {
+        position: absolute;
+        top: 50px;
+        background: #fff;
+        z-index: 101;
+        min-width: 376px;
+        left: -300px;
+        box-shadow: 0px 8px 9px #e0e0e07a;
+        padding: 15px;
+    }
+    #walletchange{
+        display: none;
+    }
+    #perfilLateralArriba{
+        display: none;
+    }
+    #userProfileArriba{
+        display: none;
+    }
+    .listadoRowSB {
+        width: 145px;
+    }
+    .dropdown-menu.show {
+        width: 100%;
+    }
+    .dropdown-menu.show:before{
+        display: none;
+    }
+}
+.modal-dialog.modal-fullscreen {
+    padding: 20px;
+}
+.modal-content {
+    border: solid 10px #00000024 !important;
+}
+button.btn.btn-primary.twinBTN {
+    background: #fff;
+    border: none;
+    color: #c2c2c2;
+    box-shadow: inset 0px 0px 2px 0px #c2c2c2ab;
+}
+button.btn.btn-primary.twinBTN:hover {
+    background: #e0e0e0;
+    color: #000;
+}
+.contenidoShadow {
+    border-radius: 25px;
+    box-shadow: 0px 0px 17px 6px #edeff3;
+    padding: 20px;
+    height: 100%;
+}
+
+.tarjetaPersonal {
+    background: linear-gradient(to top right, #545454, #070707);
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+  }
+  .imagenCard{
+    width: 120px;
+  }
+  .nombreCard {
+    color: #fff;
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: 10px;
+}
+.correoCard {
+    color: #fff;
+    font-size: 13px;
+    margin-top: 10px;
+}
+.telCard {
+    color: #fff;
+    font-size: 13px;
+    margin-top: 10px;
+}
+.perfilCard {
+    color: #fff;
+    font-size: 13px;
+    margin-top: 10px;
+}
+button.guardarCambios {
+    font-weight: bold;
+    background: #000;
+    border: solid;
+    border-radius: 8px;
+    color: #fff;
+    width: 250px;
+    padding: 10px 0px;
+    font-size: 17px;
+}
+button.btn.btn-primary.twinBTN.activeBTN {
+    background: #f2ffec;
+}
+.nombreShort{
+    display: inline-block;
+    max-width: 60px; /* Ajusta el ancho según tu diseño */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

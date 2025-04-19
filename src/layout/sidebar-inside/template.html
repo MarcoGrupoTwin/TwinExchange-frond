@@ -1,0 +1,598 @@
+<!-- Header trading -->
+<div class="spinner-overlay" *ngIf="loading"><div class="spinnerS"></div></div>
+<div class="container-fluid">
+    <div class="row mt-3">
+        <div class="col-4" [ngStyle]="isMobile ? {'display': 'block'} : {'display': 'none'}">
+            <img src="assets/images/favicon.ico" width="50px" style="position: relative;top: 7px;">
+        </div>
+        <div class="col-{{isMobile ? '8 d-flex justify-content-end' :'5'}}" style="padding: 0px;">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="container-fluid">
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li id="logotipoDentro" class="nav-item">
+                            <a class="nav-link" href="#">
+                                <img src="assets/images/favicon.ico" width="50px" style="position: relative;top: -11px;">
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">{{ 'usuario.menu.contrato_inteligente' | translate }}</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="idiomaDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ 'usuario.menu.idioma' | translate }}<i class="fa fa-angle-down"></i>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="idiomaDropdown">
+                                <div class="input-group buscadorMenu">
+                                    <input type="text" class="form-control buscadorInputMenu shadowBotonesTwin" placeholder="Buscar">
+                                </div>
+                                <div class="menuDropItems dropItemsMenu">
+                                    <a class="dropdown-item" (click)="cambiarIdioma('en')">
+                                        <div class="row shadowBotonesIn">
+                                            <div class="col-4 p-0">
+                                                <img src="assets/images/banderas/us.svg" alt="" class="img-fluid">
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="text-dark mb-0">ENG</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a class="dropdown-item" (click)="cambiarIdioma('es')">
+                                        <div class="row shadowBotonesIn">
+                                            <div class="col-4 p-0">
+                                                <img src="assets/images/banderas/mx.svg" alt="" class="img-fluid">
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="text-dark mb-0">ESP</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="monedaDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ 'usuario.menu.moneda' | translate }}<i class="fa fa-angle-down"></i>
+                            </a>
+                            <div class="dropdown-menu dropdownBigSize" aria-labelledby="monedaDropdown">
+                                <div class="input-group buscadorMenu">
+                                    <input type="text" class="form-control buscadorInputMenu shadowBotonesTwin" placeholder="Buscar">
+                                </div>
+                                <div class="menuDropItems dropItemsMenu">
+                                    <a class="dropdown-item" href="#" *ngFor="let c of currencies" (click)="changeCurrency(c)">
+                                        <div class="row shadowBotonesIn">
+                                            <div class="col-6">
+                                                <img [src]="'https://flagcdn.com/' + c.logo + '.svg'" alt="" class="img-fluid">
+                                            </div>
+                                            <div class="col-6">
+                                                {{c.short_name}}
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">{{ 'usuario.menu.directorio_empresarial' | translate }}</a>
+                        </li>
+                    </ul>
+                  </div>
+                </div>
+              </nav>
+        </div>
+        <div id="walletchange" class="col-2 p-0">
+            <div class="menuCambioWallet">
+                <ul class="menuWallet shadowBotonesInTrade" style="padding-right:17px">
+                    <li class="itemWallet active">
+                        <a class="linkWallet">
+                            {{ 'usuario.menu.wallet.personal' | translate }}
+                        </a>
+                    </li>
+                    <li class="itemWallet">
+                        <a class="linkWallet" (click)="changeAccount('business')">
+                            {{ 'usuario.menu.wallet.empresarial' | translate }}
+                        </a>
+                    </li>
+                    <li class="itemWallet">
+                        <a class="linkWallet" (click)="changeAccount('guest')">
+                            {{ 'usuario.menu.wallet.invitado' | translate }}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="perfilLateralArriba" class="col-3">
+            <div class="iconosMenu d-flex justify-content-center">
+                <ul class="iconosMenuUl">
+                    <li class="liMenuIcon">
+                        <a href=""><img src="assets/images/logotwin.svg" class="iconMenu"></a>
+                    </li>
+                    <li class="liMenuIcon">
+                        <a href=""><img src="assets/images/calc.svg" class="iconMenu"></a>
+                    </li>
+                    <li class="liMenuIcon">
+                        <a href=""><img src="assets/images/chat.svg" class="iconMenu"></a>
+                    </li>
+                    <li class="liMenuIcon">
+                        <a href="/usuario/support"><img src="assets/images/userSupport.svg" class="iconMenu"></a>
+                    </li>
+                    <li class="liMenuIcon">
+                        <a href=""><img src="assets/images/bell.svg" class="iconMenu"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="userProfileArriba" class="col-2">
+            <div class="row">
+                <div class="col-9">
+                    <p class="NombreNav text-end mb-0">{{user.name}}</p>
+                    <p class="CorreoNav text-end mb-0">{{user.email}}</p>
+                    <p class="puestoNav text-end mb-0">Cuenta personal</p>
+                </div>
+                <div class="col-3" style="padding-top: 10px;" (click)="openModalProfile()">
+                    <div class="nombrePerson">{{nombre_recortato}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid mt-3">
+    <div class="row">
+        <div class="col-12">
+            <ul class="listadoMonedas" [ngClass]="isMobile ? '' : ' d-flex justify-content-center '">
+                <li class="criptoMonedasList" [ngClass]="{'active': monedaActiva == 'mxn'}">
+                    <div class="row">
+                        <div class="col-6" (click)="changeCryptoCurrency('mxn')">
+                            <img [src]="bandera" class="iamgenCripto" style="width: 100%;top: 17px;border-radius: 8px;">
+                        </div>
+                        <div class="col-6 contenidoCriptos">
+                            <p class="criptotitle" (click)="TwinBank()" style="text-transform: uppercase;">
+                                {{currencySeleccionada}} <i class="fa fa-angle-right"></i>
+                            </p>
+                            <p class="criptoSaldo" (click)="changeCryptoCurrency('mxn')">
+                                {{ 'usuario.menu.saldo' | translate }}
+                            </p>
+                            <p class="criptoTotal" (click)="changeCryptoCurrency('mxn')">
+                                ${{current_balanceMXN | number: '1.2-2'}}
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li class="criptoMonedasList" [ngClass]="{'active': monedaActiva == 'twin'}">
+                    <div class="row" (click)="changeCryptoCurrency('twin')">
+                        <div class="col-6">
+                            <img src="assets/images/cripto/twin24.svg" class="iamgenCripto" style="width: 83%;">
+                        </div>
+                        <div class="col-6 contenidoCriptos">
+                            <p class="criptotitle">
+                                TWIN
+                            </p>
+                            <p class="criptoSaldo">
+                                {{ 'usuario.menu.saldo' | translate }}
+                            </p>
+                            <p class="criptoTotal">
+                                {{twinBalance}}
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li class="criptoMonedasList" [ngClass]="{'active': monedaActiva == 'twincoin'}">
+                    <div class="row" (click)="changeCryptoCurrency('twincoin')">
+                        <div class="col-6">
+                            <img src="assets/images/cripto/icoTWC.png" class="iamgenCripto">
+                        </div>
+                        <div class="col-6 contenidoCriptos">
+                            <p class="criptotitle">
+                                TWC
+                            </p>
+                            <p class="criptoSaldo">
+                                {{ 'usuario.menu.saldo' | translate }}
+                            </p>
+                            <p class="criptoTotal">
+                                {{twincoinBalance}}
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li class="criptoMonedasList" [ngClass]="{'active': monedaActiva == 'btc'}">
+                    <div class="row" (click)="changeCryptoCurrency('btc')">
+                        <div class="col-6">
+                            <img src="assets/images/cripto/iconBTC.png" class="iamgenCripto">
+                        </div>
+                        <div class="col-6 contenidoCriptos">
+                            <p class="criptotitle">
+                                BTC
+                            </p>
+                            <p class="criptoSaldo">
+                                {{ 'usuario.menu.saldo' | translate }}
+                            </p>
+                            <p class="criptoTotal">
+                                {{current_balanceBTC}}
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li class="criptoMonedasList" [ngClass]="{'active': monedaActiva == 'eth'}">
+                    <div class="row" (click)="changeCryptoCurrency('eth')">
+                        <div class="col-6">
+                            <img src="assets/images/cripto/iconETH.png" class="iamgenCripto">
+                        </div>
+                        <div class="col-6 contenidoCriptos">
+                            <p class="criptotitle">
+                                ETH
+                            </p>
+                            <p class="criptoSaldo">
+                                {{ 'usuario.menu.saldo' | translate }}
+                            </p>
+                            <p class="criptoTotal">
+                                {{current_balanceETH}}
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li class="criptoMonedasList" [ngClass]="{'active': monedaActiva == 'ltc'}">
+                    <div class="row" (click)="changeCryptoCurrency('ltc')">
+                        <div class="col-6">
+                            <img src="assets/images/cripto/iconLTC.png" class="iamgenCripto">
+                        </div>
+                        <div class="col-6 contenidoCriptos">
+                            <p class="criptotitle">
+                                LTC
+                            </p>
+                            <p class="criptoSaldo">
+                                {{ 'usuario.menu.saldo' | translate }}
+                            </p>
+                            <p class="criptoTotal">
+                                {{current_balanceLTC}}
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li class="criptoMonedasList" [ngClass]="{'active': monedaActiva == 'bnb'}">
+                    <div class="row" (click)="changeCryptoCurrency('bnb')">
+                        <div class="col-6">
+                            <img src="assets/images/cripto/iconBNB.png" class="iamgenCripto">
+                        </div>
+                        <div class="col-6 contenidoCriptos">
+                            <p class="criptotitle">
+                                BNB
+                            </p>
+                            <p class="criptoSaldo">
+                                {{ 'usuario.menu.saldo' | translate }}
+                            </p>
+                            <p class="criptoTotal">
+                                {{current_balanceBNB}}
+                            </p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container-fluid mt-3">
+    <div class="row">
+        <div class="col-12">
+            <ul id="eldeAbajo" class="listadoMonedas" [ngClass]="isMobile ? '' : ' d-flex justify-content-center '">
+                <li class="menuOpcionesList active" [ngClass]="{'active': activeMenu == 'trading'}" (click)="goMenu('trading')">
+                    <div class="row listadoRowSB">
+                        <div class="col-4 d-flex justify-content-center p-0">
+                            <img src="assets/images/opciones/trading.svg" class="iamgenOpciones">
+                        </div>
+                        <div class="col-8 contenidoOpciones p-0">
+                            <p class="menuOpciones">
+                                {{'usuario.menu.opciones.Trading' | translate}}
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li class="menuOpcionesList" [ngClass]="{'active': activeMenu == 'wallet'}" (click)="goMenu('wallet')">
+                    <div class="row listadoRowSB">
+                        <div class="col-4 d-flex justify-content-center p-0">
+                            <img src="assets/images/opciones/monederos.svg" class="iamgenOpciones">
+                        </div>
+                        <div class="col-8 contenidoOpciones p-0">
+                            <p class="menuOpciones">
+                                {{'usuario.menu.opciones.Monederos' | translate}}
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li class="menuOpcionesList" [ngClass]="{'active': activeMenu == 'payment'}" (click)="goMenu('payment')">
+                    <div class="row listadoRowSB">
+                        <div class="col-4 d-flex justify-content-center p-0">
+                            <img src="assets/images/opciones/pagos.svg" class="iamgenOpciones">
+                        </div>
+                        <div class="col-8 contenidoOpciones p-0">
+                            <p class="menuOpciones">
+                                {{'usuario.menu.opciones.Pagos_qr' | translate}}
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li class="menuOpcionesList" [ngClass]="{'active': activeMenu == 'lightning'}" (click)="goMenu('lightning')" *ngIf="btcSelected">
+                    <div class="row listadoRowSB">
+                        <div class="col-4 d-flex justify-content-center p-0">
+                            <img src="assets/images/opciones/Lightning.png" class="iamgenOpciones" style="width: 23px;height: 26px;margin-top: 10px;">
+                        </div>
+                        <div class="col-8 contenidoOpciones p-0">
+                            <p class="menuOpciones">
+                                {{'usuario.menu.opciones.Lightning' | translate}}
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li class="menuOpcionesList" [ngClass]="{'active': activeMenu == 'charge'}" (click)="goMenu('charge')">
+                    <div class="row listadoRowSB">
+                        <div class="col-4 d-flex justify-content-center p-0">
+                            <img src="assets/images/opciones/cobros.svg" class="iamgenOpciones">
+                        </div>
+                        <div class="col-8 contenidoOpciones p-0">
+                            <p class="menuOpciones">
+                                {{'usuario.menu.opciones.Cobrar_qr' | translate}}
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li class="menuOpcionesList" [ngClass]="{'active': activeMenu == 'fund'}" (click)="goMenu('fund')">
+                    <div class="row listadoRowSB">
+                        <div class="col-4 d-flex justify-content-center p-0">
+                            <img src="assets/images/opciones/fondear.svg" class="iamgenOpciones">
+                        </div>
+                        <div class="col-8 contenidoOpciones p-0">
+                            <p class="menuOpciones">
+                                {{'usuario.menu.opciones.Fondear' | translate}}
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li class="menuOpcionesList" [ngClass]="{'active': activeMenu == 'send'}" (click)="goMenu('send')">
+                    <div class="row listadoRowSB">
+                        <div class="col-4 d-flex justify-content-center p-0">
+                            <img src="assets/images/opciones/enviar.svg" class="iamgenOpciones">
+                        </div>
+                        <div class="col-8 contenidoOpciones p-0">
+                            <p class="menuOpciones">
+                                {{'usuario.menu.opciones.Enviar' | translate}}
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li class="menuOpcionesList" [ngClass]="{'active': activeMenu == 'remittance'}" (click)="goMenu('remittance')">
+                    <div class="row listadoRowSB">
+                        <div class="col-4 d-flex justify-content-center p-0">
+                            <img src="assets/images/opciones/remesas.svg" class="iamgenOpciones">
+                        </div>
+                        <div class="col-8 contenidoOpciones p-0">
+                            <p class="menuOpciones">
+                                {{'usuario.menu.opciones.Remesas' | translate}}
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li class="menuOpcionesList" [ngClass]="{'active': activeMenu == 'saving'}" (click)="goMenu('saving')">
+                    <div class="row listadoRowSB">
+                        <div class="col-4 d-flex justify-content-center p-0">
+                            <img src="assets/images/opciones/ahorros.svg" class="iamgenOpciones">
+                        </div>
+                        <div class="col-8 contenidoOpciones p-0">
+                            <p class="menuOpciones">
+                                {{'usuario.menu.opciones.Ahorros' | translate}}
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li class="menuOpcionesList" [ngClass]="{'active': activeMenu == 'loan'}" (click)="goMenu('loan')">
+                    <div class="row listadoRowSB">
+                        <div class="col-4 d-flex justify-content-center p-0">
+                            <img src="assets/images/opciones/prestamos.svg" class="iamgenOpciones">
+                        </div>
+                        <div class="col-8 contenidoOpciones p-0">
+                            <p class="menuOpciones">
+                                {{'usuario.menu.opciones.Prestamos' | translate}}
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li class="menuOpcionesList" [ngClass]="{'active': activeMenu == 'fund'}" (click)="goMenu('fund')">
+                    <div class="row listadoRowSB">
+                        <div class="col-4 d-flex justify-content-center p-0">
+                            <img src="assets/images/opciones/twinpay.svg" class="iamgenOpciones">
+                        </div>
+                        <div class="col-8 contenidoOpciones p-0">
+                            <p class="menuOpciones">
+                                {{'usuario.menu.opciones.TwinPay' | translate}}
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li class="menuOpcionesList" [ngClass]="{'active': activeMenu == 'redeem'}" (click)="goMenu('redeem')">
+                    <div class="row listadoRowSB">
+                        <div class="col-4 d-flex justify-content-center p-0">
+                            <img src="assets/images/opciones/canjear.svg" class="iamgenOpciones">
+                        </div>
+                        <div class="col-8 contenidoOpciones p-0">
+                            <p class="menuOpciones">
+                                {{'usuario.menu.opciones.Canjear' | translate}}
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li class="menuOpcionesList" [ngClass]="{'active': activeMenu == 'movements'}" (click)="goMenu('movements')">
+                    <div class="row listadoRowSB">
+                        <div class="col-4 d-flex justify-content-center p-0">
+                            <img src="assets/images/opciones/movimientos.svg" class="iamgenOpciones">
+                        </div>
+                        <div class="col-8 contenidoOpciones p-0">
+                            <p class="menuOpciones">
+                                {{'usuario.menu.opciones.Movimientos' | translate}}
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li class="menuOpcionesList" [ngClass]="{'active': activeMenu == 'code'}" (click)="goMenu('code')">
+                    <div class="row listadoRowSB">
+                        <div class="col-4 d-flex justify-content-center p-0">
+                            <img src="assets/images/opciones/firma.svg" class="iamgenOpciones">
+                        </div>
+                        <div class="col-8 contenidoOpciones p-0">
+                            <p class="menuOpciones">
+                                {{'usuario.menu.opciones.Firma' | translate}}
+                            </p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModal" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-lg-6 col-12 mb-5">
+                    <h3 class="text-center" style="font-weight: 300;">Editar perfil</h3>
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-10">
+                            <form autocomplete="off" action="javascript:void(0)">
+                                <div class="row">
+                                    <div class="col-10">
+                                        <input 
+                                            type="text" 
+                                            class="form-control" 
+                                            placeholder="Nombre" 
+                                            [disabled]="optionSelected != 'nombre'" value="{{userData.nombre}}" 
+                                            (input)="userData.nombre = $event.target.value"
+                                        >
+                                    </div>
+                                    <div class="col-2">
+                                        <button 
+                                            class="btn btn-primary twinBTN" 
+                                            [ngClass]="optionSelected == 'nombre' ? 'activeBTN' : ''"
+                                            [innerHTML]="optionSelected == 'nombre' ? '<i class=\'fa fa-check\'></i>' : '<i class=\'fa fa-pencil\'></i>'" 
+                                            (click)="selectOption('nombre')" 
+                                        ></button>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-10">
+                                        <input type="text" class="form-control" placeholder="Apellidos" [disabled]="optionSelected != 'apellidos'" value="{{userData.apellidos}}" (input)="userData.apellidos = $event.target.value">
+                                    </div>
+                                    <div class="col-2">
+                                        <button class="btn btn-primary twinBTN" [innerHTML]="optionSelected == 'apellidos' ? '<i class=\'fa fa-check\'></i>' : '<i class=\'fa fa-pencil\'></i>'" (click)="selectOption('apellidos')"></button>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-10">
+                                        <select class="form-control" [disabled]="optionSelected != 'genero'" (change)="userData.genero = $event.target.value">
+                                            <option value="1" [selected]="userData.genero == '1'">Hombre</option>
+                                            <option value="2" [selected]="userData.genero == '2'">Mujer</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-2">
+                                        <button class="btn btn-primary twinBTN" [innerHTML]="optionSelected == 'genero' ? '<i class=\'fa fa-check\'></i>' : '<i class=\'fa fa-pencil\'></i>'" (click)="selectOption('genero')"></button>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-10">
+                                        <select class="selectMenuDrop form-control" id="profesion" [disabled]="optionSelected != 'oficio'" (change)="userData.oficio = $event.target.value">
+                                            <option value="0" selected>{{ 'cliente.menu.crear_cuenta.profesion' | translate }}</option>
+                                            <option *ngFor="let p of professions" [value]="p.id" [selected]="p.id == userData.oficio">{{p.name}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-2">
+                                        <button class="btn btn-primary twinBTN" [innerHTML]="optionSelected == 'oficio' ? '<i class=\'fa fa-check\'></i>' : '<i class=\'fa fa-pencil\'></i>'" (click)="selectOption('oficio')"></button>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-10">
+                                        <input type="date" class="form-control" placeholder="Fecha de nacimiento" [disabled]="optionSelected != 'fecha'" value="{{userData.fecha_nacimiento}}" (input)="userData.fecha_nacimiento = $event.target.value">
+                                    </div>
+                                    <div class="col-2">
+                                        <button class="btn btn-primary twinBTN" [innerHTML]="optionSelected == 'fecha' ? '<i class=\'fa fa-check\'></i>' : '<i class=\'fa fa-pencil\'></i>'" (click)="selectOption('fecha')"></button>
+                                    </div>
+                                </div>
+                                <div class="row mt-3"> 
+                                    <div class="col-3" style="padding-right: 0px;">
+                                        <select id="lada" class="selectMenuDrop form-control" id="lada" style="text-align: center;" [disabled]="optionSelected != 'telefono'" (change)="userData.lada = $event.target.value">
+                                            <option *ngFor="let c of countries" [value]="c.id" [attr.data-code]="c.phonecode" [selected]="c.id == userData.lada">{{c.iso}} +{{c.phonecode}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-7">
+                                        <input type="text" class="form-control" placeholder="Telefono" [disabled]="optionSelected != 'telefono'" value="{{userData.telefono}}" (input)="userData.telefono = $event.target.value">
+                                    </div>
+                                    <div class="col-2">
+                                        <button class="btn btn-primary twinBTN" [innerHTML]="optionSelected == 'telefono' ? '<i class=\'fa fa-check\'></i>' : '<i class=\'fa fa-pencil\'></i>'" (click)="selectOption('telefono')"></button>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-10">
+                                        <input type="text" class="form-control" placeholder="Correo" [disabled]="optionSelected != 'correo'" value="{{userData.correo}}" (input)="userData.correo = $event.target.value">
+                                    </div>
+                                    <div class="col-2">
+                                        <button class="btn btn-primary twinBTN" [innerHTML]="optionSelected == 'correo' ? '<i class=\'fa fa-check\'></i>' : '<i class=\'fa fa-pencil\'></i>'" (click)="selectOption('correo')"></button>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-10">
+                                        <input type="password" class="form-control" placeholder="Contraseña" disabled value="*************">
+                                    </div>
+                                    <div class="col-2">
+                                        <button class="btn btn-primary twinBTN" (click)="changePassword()"><i class="fa fa-pencil"></i></button>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-10">
+                                        <input type="text" class="form-control" placeholder="Firma electrónica" disabled>
+                                    </div>
+                                    <div class="col-2">
+                                        <button class="btn btn-primary twinBTN" (click)="editFirma()"><i class="fa fa-pencil"></i></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-12">
+                    <h3 class="text-center" style="font-weight: 300;">Perfil personal</h3>
+                    <div class="contenidoShadow" style="height:fit-content;">
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-10">
+                                <div class="tarjetaPersonal"> 
+                                    <div class="row">
+                                        <div class="col-7">
+                                            <div class="nombreCard">{{userData.nombre + ' ' +userData.apellidos}}</div>
+                                            <div class="correoCard">{{userData.correo}}</div>
+                                            <div class="telCard">Tel: +{{userData.lada ? userData.lada : '' + ' ' + userData.telefono ? userData.telefono : ''}}</div>
+                                            <div class="perfilCard">Perfil personal</div>
+                                        </div>
+                                        <div class="col-5 d-flex justify-content-center align-items-center">
+                                            <img class="imagenCard" alt="usuarioQR" [src]="userData.qr" style="background: #fff;border-radius: 8px;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 mt-4 text-center">
+                                <button class="guardarCambios" (click)="guardarCambios()">Guardar Cambios</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
+<!-- Solo abre el componente cuando el usuario de click en la función TwinBank() -->
+<twin-bank-component
+    [show]="showTwinBank"
+    (close)="showTwinBank = false"
+></twin-bank-component>

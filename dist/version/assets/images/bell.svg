@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="28.343" viewBox="0 0 24 28.343">
+  <g id="bell" transform="translate(-1620.625 -29)">
+    <g id="notificaciones" transform="translate(1620.625 29.914)">
+      <path id="Icon_awesome-bell" data-name="Icon awesome-bell" d="M12,27.429A3.428,3.428,0,0,0,15.427,24H8.573A3.428,3.428,0,0,0,12,27.429Zm11.539-8.02c-1.035-1.112-2.972-2.785-2.972-8.266a8.46,8.46,0,0,0-6.854-8.312V1.714a1.713,1.713,0,1,0-3.426,0V2.831a8.46,8.46,0,0,0-6.854,8.312c0,5.48-1.937,7.153-2.972,8.266A1.674,1.674,0,0,0,0,20.571a1.716,1.716,0,0,0,1.72,1.714H22.28A1.715,1.715,0,0,0,24,20.571a1.673,1.673,0,0,0-.461-1.163Z" transform="translate(0)" fill="#000"/>
+    </g>
+    <g id="Elipse_622" data-name="Elipse 622" transform="translate(1632.4 29)" fill="#ff2772" stroke="#f8f8fc" stroke-width="2">
+      <circle cx="5.642" cy="5.642" r="5.642" stroke="none"/>
+      <circle cx="5.642" cy="5.642" r="4.642" fill="none"/>
+    </g>
+    <text id="_1" data-name="1" transform="translate(1637.075 32.455)" fill="#fff" font-size="1" font-family="Heebo-Bold, Heebo" font-weight="700" letter-spacing="0.04em"><tspan x="-0.288" y="0">1</tspan></text>
+  </g>
+</svg>

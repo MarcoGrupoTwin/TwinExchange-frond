@@ -1,0 +1,92 @@
+.contenidoShadow {
+    border-radius: 15px;
+    box-shadow: 0px 0px 17px 6px #edeff3;
+    padding: 20px;
+    height: 100%;
+}
+h4.textHeader {
+    text-align: center;
+    font-weight: 400;
+    margin-bottom: 20px;
+    font-size: 30px;
+}
+.input-container {
+    display: flex;
+    align-items: center;
+}
+
+.form-control {
+    flex-grow: 1;
+    box-sizing: border-box;
+    text-align: end;
+    padding: 9px 56px;
+    padding-left: 0px;
+}
+
+.monedaSend {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+button.botonSendPay {
+    margin-top: 29px;
+    width: 200px;
+    border-radius: 8px;
+    background: #7d7d7d;
+    border: none;
+    padding: 5px;
+    color: #fff;
+    box-shadow: 1px 1px 5px 2px #c2c2c2;
+}
+.buscarTelMail {
+    margin-top: 100px;
+}
+p.textTelMail {
+    font-size: 10px;
+}
+img.QRgenerated {
+    width: 250px;
+    margin-top: 10px;
+}
+img.btcTrade {
+    width: 40px;
+}
+p.monederoPer {
+    font-size: 15px;
+    font-weight: 500;
+    margin: 0px;
+}
+p.SaldoDisp,p.saldoDispEy {
+    font-size: 12px;
+    color: #7b7b7b;
+}
+p.saldoDispEy {
+    position: relative;
+    top: -33px;
+    right: -295px;
+    cursor: pointer;
+}
+span.btnSlo {
+    margin-right: 14px;
+}
+p.totSla.text-end {
+    font-size: 20px;
+    font-weight: 800;
+}
+p.monedaSl.text-center {
+    font-size: 35px;
+    font-weight: 300;
+}
+button.btnCancelarOp {
+    border: none;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 3px #c2c2c2b0;
+    width: 200px;
+    height: 34px;
+    color: #858e98;
+    font-weight: bold;
+    font-size: 13px;
+    margin-top: 20px;
+}

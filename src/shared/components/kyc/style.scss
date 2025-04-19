@@ -1,0 +1,181 @@
+img.imagenLogoExchange {
+    width: 100%;
+}
+.tituloAdvertencia {
+    padding: 0px;
+    font-weight: 400;
+    text-align: center;
+    font-size: 21px;
+}
+.col-1.d-flex.align-items-center {
+    color: #fac227;
+    font-size: 25px;
+    filter: drop-shadow(2px 4px 4px #d7d7d7);
+}
+#advertencia{
+    position: relative;
+    top: -25px;
+}
+p.advertenciaKYC.text-center.mt-4.mb-4 {
+    padding: 0px 136px;
+    font-size: 17px;
+    font-weight: 800;
+}
+.listadoKYC {
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 14px 2px #d0d0d06e;
+    margin-bottom: 20px;
+}
+.listadoKYC {
+    padding: 12px 25px;
+    border-radius: 10px;
+    
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+.listadoKYC:hover {
+    box-shadow: 0px 0px 14px 2px #cfcfcf;
+}
+// menu 
+ul.menuWallet {
+    list-style: none;
+    display: inline-flex;
+    background: #fff;
+}
+li.itemWallet {
+    margin-left: 20px;
+}
+a{
+    color: #000;
+}
+li.itemWallet.active {
+    box-shadow: inset 1px 1px 3px #d7e0ed;
+    border-radius: 8px;
+    padding: 5px 8px;
+}
+li.itemWallet {
+    align-items: center;
+    display: flex;
+}
+li.itemWallet:hover{
+    box-shadow: inset 1px 1px 3px #d7e0ed;
+    border-radius: 8px;
+    padding: 5px 8px;
+}
+.shadowBotonesInTrade{
+    border-radius: 13px;
+    box-shadow: 0px 0px 9px 1px #eef0f4;
+    margin: 0px -5px;
+    padding: 10px 5px;
+    border: none;
+}
+ul.navbar-nav.me-auto.mb-2.mb-lg-0>li {
+    margin-right: 0px;
+}
+ul.navbar-nav.me-auto.mb-2.mb-lg-0>li>a {
+    font-size: 15px;
+}
+p.tituloIdentificacion {
+    font-size: 20px;
+    font-weight: 300;
+    text-align: center;
+}
+ul.listadoCambioMoneda, ul.cambioEstado {
+    list-style: none;
+    display: inline-flex;
+}
+ul.cambioEstado {
+    padding: 5px 10px;
+    margin: 0;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px 3px #edeff5;
+    width: 100%;
+}
+li.cambioestadoList {
+    padding: 5px 10px;
+    color: #868d97;
+    font-weight: 600;
+    width: 100%;
+    text-align: center;
+}
+li.cambioestadoList.active {
+    box-shadow: inset 3px 4px 3px 0px #edeff5;
+    border-radius: 8px;
+}
+li.cambioestadoList:hover{
+    cursor: pointer;
+    box-shadow: inset 3px 4px 3px 0px #edeff5;
+    border-radius: 8px;
+}
+ul.listadoIdentificacion {
+    list-style: none;
+    display: inline-flex;
+    text-align: center;
+}
+li.listaIdentificacion {
+    padding: 30px 20px;
+    box-shadow: 0px 0px 3px #c2c2c2;
+    border-radius: 12px;
+    height: 112px;
+    margin-right: 10px;
+    cursor: pointer;
+    width: 130px;
+}
+li.listaIdentificacion:hover{
+    box-shadow: 0px 0px 3px #9c9c9c;
+}
+p.frenteIdent {
+    font-weight: bold;
+    font-size: 15px;
+}
+i.fa-solid.fa-id-card, i.fa-regular.fa-id-card, i.fa-solid.fa-passport, i.fa-regular.fa-id-badge,i.fa-regular.fa-file-lines {
+    font-size: 30px;
+}
+img.imagencheckDone {
+    width: 50px;
+}
+img.imglOGOchECKdoNE {
+    width: 400px;
+}
+p.exitoIdent {
+    text-align: center;
+    margin-top: 30px;
+    font-weight: bold;
+    font-size: 21px;
+}
+.contenidoSelfie {
+    border: solid 4px;
+    width: 200px;
+    height: 300px;
+    font-size: 70px;
+    display: flex;
+    align-items: center;
+    border-radius: 50%;
+    justify-content: center;
+}
+p.envioExitoso {
+    font-weight: bold;
+    font-size: 25px;
+}
+p.publicidad {
+    font-weight: 600;
+    font-size: 12px;
+    margin: 0px;
+}
+.contenidoPublicitario {
+    height: 200px;
+    border-radius: 8px;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    box-shadow: 0px 0px 4px 1px #c2c2c282;
+}
+.listadoKYC.disabled {
+    background: #d5d5d5;
+    cursor: not-allowed;
+}
+img.imagenIdentificacion {
+    width: 100%;
+}

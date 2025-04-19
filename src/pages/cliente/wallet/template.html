@@ -1,0 +1,423 @@
+<div class="spinner-overlay" *ngIf="loading"><div class="spinnerS"></div></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="contenidoShadow">
+               <div class="row">
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="contenidoShadow text-center">
+                        <h4 class="textHeader">Monedero personal</h4>
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-7">
+                                <p class="ouy2">Tarjeta digital</p>
+                            </div>
+                        </div>
+                        <img src="assets/images/frente.png" class="tarjetaTwin" alt="Anverso" *ngIf="!isFlipped" (click)="flipCard()">
+                        <img src="assets/images/reverso.png" class="tarjetaTwin" alt="Reverso" *ngIf="isFlipped" (click)="flipCard()">
+                        <p class="PIUBH">Solicita tu tarjeta física dando clic a este enlace <span class="spanPIUBH">Solicitúd de tarjeta</span></p>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="contenidoShadow text-center" *ngIf="sendPay == 2 && !usaTarjeta && !usaQR">
+                        <h4 class="textHeader">Fondear</h4>
+                        <p class="mdjsend text-start">Cantidad a fonear</p>
+                        <div class="enviarMoneda d-flex justify-content-center">
+                            <div class="input-container position-relative">
+                                <input id="fondeaCuenta" type="number" class="form-control shadowBotonesIn" placeholder="$1,800.00" style="text-align: left; padding-left: 21px; width: 350px;" (input)="keypressValidaNumero($event)">
+                                <div class="monedaSend">MXN</div>
+                            </div>
+                        </div>
+                        <p class="mdjsend text-start">Selecciona una tarjeta</p>
+                        <div class="contenidoTarjetas">
+                            <div class="contenidoShadow selectMoned mt-2 selectCardActive" style="height: 85px;" *ngIf="cards.length == 0">
+                                <div class="row">
+                                    <div class="col-12 text-center">
+                                        <p class="ouy2">No tienes tarjetas registradas</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contenidoShadow selectMoned mt-2" style="height: 85px;" *ngFor="let c of cards" [ngClass]="{'selectCardActive': c.uuid == cardSelected}">
+                                <div class="row">
+                                    <div class="col-11" (click)="selectCardRecharge(c.uuid)">
+                                        <div class="txtTargh"> {{c.brand}} **** {{c.last_4}}</div>
+                                        <div class="txtTargh"> {{c.exp_month + '/' +c.exp_year}}</div>
+                                    </div>
+                                    <div class="col-1 d-flex justify-content-center align-items-center" (click)="deleteCard(c.uuid)">
+                                        <div class="txtTargh" style="text-align: right;"> <i class="fa fa-trash"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="botonSendPay mt-4" (click)="addCard()">Añadir tarjeta</button>
+                        <button class="botonCancelPay mt-4" (click)="sendPay = 1">Cancelar operación</button>
+                    </div>
+                    <div class="contenidoShadow text-center" *ngIf="sendPay == 2 && usaTarjeta">
+                        <h4 class="textHeader">Fondear</h4>
+                        <p class="mdjsend text-center">N° de tarjeta</p>
+                        <div class="row d-flex justify-content-center mt-3">
+                            <div class="col-7">
+                                <form id="card-element" action="">
+                                    <div class="row">
+                                        <div class="col-12" id="cardNumber">
+                                            <input id="card" type="text" placeholder="**** **** **** 4242" class="form-control shadowBotonesIn">
+                                        </div>
+                                        <div class="col-6 mt-2" id="expira">
+                                            <b>Expira</b>
+                                            <input id="expira" type="text" placeholder="MM/AA" class="form-control shadowBotonesIn">
+                                        </div>
+                                        <div class="col-6 mt-2" id="cardCvc">
+                                            <b>CVV</b>
+                                            <input id="cvv" type="text" placeholder="CVV" class="form-control shadowBotonesIn">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <p class="mdjsend text-center">Tarjetas de debito o crédito</p>
+                        <div class="row d-flex justify-content-center mt-3">
+                            <div class="col-7">
+                                <img src="assets/images/CardTWIN.png" style="width: 100%;">
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-6">
+                                <button class="botonCancelPay mt-3" (click)="usaTarjeta = false">Cancelar</button>
+                            </div>
+                            <div class="col-6">
+                                <button class="botonSendPay mt-3" (click)="enviaTarjeta()">Añadir tarjeta</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contenidoShadow text-center" *ngIf="sendPay == 2 && usaQR && !qrGenerated">
+                        <h4 class="textHeader">Firma de retiro</h4>
+                        <p class="ouy2" style="text-align: left;">Perfil que retira</p>
+                        <div class="contenidoShadow" style="height: 85px;">
+                            <div class="row">
+                                <div class="col-2">
+                                    <img src="../assets/images/cripto/iconMXN.png" width="70px" style="position: relative;top: -9px;">
+                                </div>
+                                <div class="col-10 text-start">
+                                    <p class="monederoPer">
+                                        <b>{{nombre}}</b>
+                                        <br>
+                                        <span class="correoEnvd">{{correo}}</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="ouy2" style="text-align: left;">Ingresa la cantidad a retirar</p>
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-7">
+                                <div class="enviarMoneda d-flex justify-content-center">
+                                    <div class="input-container position-relative">
+                                        <input id="fondeaCuenta" type="number" class="form-control shadowBotonesIn" placeholder="$0.00" style="text-align: left; padding-left: 21px; width: 350px;" (input)="keypressValidaNumeroQr($event)" autocomplete="off">
+                                        <div class="monedaSend">MXN</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="ouy2">Firma del usuario que retira</p>
+                            <div class="col-12 text-center">
+                                <ul class="firmaListadoOne" #digitInputsOne>
+                                    <li class="firmaListaItemOne" *ngFor="let input of [1, 2, 3, 4, 5, 6]; let i = index">
+                                      <input
+                                        type="password"
+                                        class="firmaInputOne"
+                                        maxlength="1"
+                                        (input)="onDigitInputOne($event, i)"
+                                      />
+                                    </li>
+                                </ul> 
+                            </div>
+                        </div>
+                        <button class="botonSendPay mt-3" (click)="generarQrRetiro()" style="width: 350px;">Generar QR de retiro</button>
+                    </div>
+                    <div class="contenidoShadow" *ngIf="sendPay == 2 && qrGenerated">
+                        <h4 class="textHeader">QR de retiro</h4>
+                        <div class="contenedorQR text-center"> 
+                            <img class="QRgenerated" [src]="'data:image/png;base64,'+qrRetiro ? 'data:image/png;base64,'+qrRetiro : 'assets/images/Qr.png'">
+                        </div>
+                        <div class="row">
+                            <div class="col-12 text-center mt-3">
+                                <a href="{{qrRetiroDownload}}" class="botonSendPay mt-3" style="background: #000;padding: 10px;border-radius: 11px;color: #fff;">Descargar Qr</a>
+                            </div>
+                        </div>
+                        <p class="m02f89y30">
+                            Recuerda que tienes un máximo de 10 minutos para cobrar el dinero, de lo contrario el saldo volvera a tu cuenta. 
+                            <br>
+                            Muestra este código QR para realizar tu retiro, mostrando tu identificación oficial en tiendas autorizadas.
+                        </p>
+                    </div>
+                    <div class="contenidoShadow" *ngIf="sendPay == 1">
+                        <div class="contenidoVertical d-flex justify-content-end">
+                            <i class="fa-solid fa-ellipsis-vertical" style="cursor: pointer;" (click)="toggleSmallMenu()"></i>
+                            <div class="menuSmall" *ngIf="smallMenu">
+                                <ul class="menuSmallS">
+                                    <li class="iconMenSmall" style="display: flex;justify-content: space-between;">
+                                        <span style="font-weight: bold;">Acciones</span>
+                                        <i class="fa fa-times" (click)="toggleSmallMenu()" style="position: relative;right: -14px;cursor: pointer;"></i>
+                                    </li>
+                                    <li class="iconMenSmall">
+                                        <span (click)="forceDownloadQrS3()">
+                                            <i class="fa-solid fa-download"></i>
+                                            Descargar
+                                        </span>
+                                    </li>
+                                    <li class="iconMenSmall">
+                                        <span (click)="shareCode()">
+                                            <i class="fa-solid fa-share-nodes"></i>
+                                            Compartir
+                                        </span>
+                                    </li>
+                                    <li class="iconMenSmall">
+                                        <span (click)="forcePrintQrS3()">
+                                            <i class="fa-solid fa-print"></i>
+                                            Imprimir
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <h4 class="textHeader">Monedero {{moneda}}</h4>
+                        <div class="contenedorQR text-center">
+                            <img class="QRgenerated" [src]="qrCode ? qrCode : ''">
+                            <p class="text-center" *ngIf="cryptoAddress">Número de cuenta: {{cryptoAddress}}</p>
+                        </div>
+                        <p class="m02f89y30">Recibe pagos, remesas depósitos, envíos, transferencias</p>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="contenidoShadow" *ngIf="sendPay == 1 || usaQR == true">
+                        <h4 class="textHeader">Monedero {{moneda}}</h4>
+                        <ul class="pf29873">
+                            <li class="fo8374">
+                                <div class="row">
+                                    <div class="col-4 d-flex align-items-center justify-content-start">
+                                        N° de tarjeta
+                                    </div>
+                                    <div class="col-6  d-flex align-items-center justify-content-end">
+                                        ---- ---- ---- ----
+                                    </div>
+                                    <div class="col-2 text-end">
+                                        <i class="fa fa-copy"></i>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="fo8374">
+                                <div class="row">
+                                    <div class="col-4 d-flex align-items-center justify-content-start">
+                                        CLABE
+                                    </div>
+                                    <div class="col-6  d-flex align-items-center justify-content-end">
+                                        ------------------
+                                    </div>
+                                    <div class="col-2 text-end">
+                                        <i class="fa fa-copy"></i>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="fo8374">
+                                <div class="row">
+                                    <div class="col-4 d-flex align-items-center justify-content-start">
+                                        Cuenta
+                                    </div>
+                                    <div class="col-6  d-flex align-items-center justify-content-end">
+                                        {{cryptoAddress}}
+                                    </div>
+                                    <div class="col-2 text-end">
+                                        <i class="fa fa-copy"></i>
+                                    </div>
+                                </div>
+                            </li>
+                            <p class="od278">Saldo disponible</p>
+                            <li class="fo8374">
+                                <div class="row">
+                                    <div class="col-8 d-flex align-items-center justify-content-end p-0">
+                                        {{isCrypto ? current_balance : current_balance | currency:'':true:'1.2-2'}}&nbsp;&nbsp;&nbsp;
+                                    </div>
+                                    <div class="col-2  d-flex align-items-center justify-content-end p-0">
+                                        {{moneda}}
+                                    </div>
+                                    <div class="col-2 text-end">
+                                        <i class="fa fa-eye"></i>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <button class="botonSendPay mt-1" style="margin-right: 10px;" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">Ver monedero</button>
+                                <button class="botonSendPay mt-1" style="margin-right: 10px;" (click)="usaQR = true;sendPay = 2">QR de retiro</button>
+                                <button class="botonSendPay mt-1" [routerLink]="['/usuario/fund']">Fondear monedero</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <button class="botonCancelPay mt-3" [routerLink]="['/usuario/movements']">Movimientos de este monedero</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contenidoShadow text-center" *ngIf="sendPay == 2 && usaQR == false">
+                        <h4 class="textHeader">Monedero {{moneda}}</h4>
+                        <p class="mdjsend text-start">Monedero que recibe</p>
+                        <div class="contenidoShadow" style="height: 85px;">
+                            <div class="row">
+                                <div class="col-2">
+                                    <img src="../assets/images/cripto/iconMXN.png" class="btcTrade">
+                                </div>
+                                <div class="col-10 text-start">
+                                    <p class="monederoPer">
+                                        Monedero Personal
+                                    </p>
+                                    <p class="SaldoDisp">
+                                        Saldo disponible
+                                    </p>
+                                    <p class="saldoDispEy">
+                                        <span class="btnSlo">{{showCantidad ? (current_balance | currency:'':true:'1.2-2') : '**********'}}</span>
+                                        <span class="eyeSlo" (click)="showCantidadToggle()"><i class="fa fa-eye"></i></span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="mdjsend text-start">Comisión</p>
+                        <div class="comisionContent">
+                            <div class="row">
+                                <div class="col-4 text-center">
+                                    3%
+                                </div>
+                                <div class="col-4 text-center">
+                                    Uso de terminal 
+                                </div>
+                                <div class="col-4 text-center">
+                                    <b>MXN</b>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="mdjsend text-start">Limite de fondeo</p>
+                        <div class="comisionContent">
+                            <div class="row">
+                                <div class="col-4 text-center">
+                                    Sin Límite
+                                </div>
+                                <div class="col-4 text-center">
+                                    
+                                </div>
+                                <div class="col-4 text-center">
+                                    <b>MXN</b>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="mdjsend text-start">Monto a fondear</p>
+                        <div class="enviarMoneda d-flex justify-content-center">
+                            <div class="input-container position-relative">
+                                <input type="text" class="form-control shadowBotonesIn" value="{{cantidadFondeo | currency:'':true:'1.2-2'}}" style="text-align: left;padding-left: 21px;width: 350px;" disabled>
+                                <div class="monedaSend">MXN</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <ul class="firmaListado" #digitInputs>
+                                    <li class="firmaListaItem" *ngFor="let input of [1, 2, 3, 4, 5, 6]; let i = index">
+                                      <input
+                                        type="password"
+                                        class="firmaInput"
+                                        maxlength="1"
+                                        (input)="onDigitInput($event, i)"
+                                      />
+                                    </li>
+                                </ul> 
+                                <p class="texto-digitos text-center">Firma del usuario que fondea</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <button class="botonSendPay mt-1" (click)="fondearCuenta()">Fondear</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+      <div class="modal-content">
+        <div class="modal-header" style="justify-content: end;">
+            <button type="button" class="closeModalExchange" data-bs-dismiss="modal" aria-label="Close">
+              <span class="cierraModalExchange" aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        <div class="modal-body" style="padding-bottom: 0px;padding-bottom: 0px;position: relative;top: -30px;">
+            <div class="row">
+                <div class="col-4 text-center">
+                    <h5 class="textHeader">Tarjeta digital</h5>
+                    <img src="assets/images/CardTWIN.png" class="tarjetaTwinModal">
+                </div>
+                <div class="col-4 text-center">
+                    <h5 class="textHeader">QR de monedero {{moneda}}</h5>
+                    <img class="QRgeneratedModal" [src]="qrCode ? qrCode : ''">
+                </div>
+                <div class="col-4 text-center">
+                    <h5 class="textHeader">Datos de monedero</h5>
+                    <ul class="tablModiu">
+                        <li class="tablmf234">
+                            <div class="row">
+                                <div class="col-6">
+                                    Titular de la cuenta
+                                </div>
+                                <div class="col-6">
+                                    {{userName}}
+                                </div>
+                            </div>
+                        </li>
+                        <li class="tablmf234">
+                            <div class="row">
+                                <div class="col-6">
+                                    Tarjeta
+                                </div>
+                                <div class="col-6">
+                                    ---- ---- ---- ----
+                                </div>
+                            </div>
+                        </li>
+                        <li class="tablmf234">
+                            <div class="row">
+                                <div class="col-6">
+                                    CLABE
+                                </div>
+                                <div class="col-6">
+                                    -------------
+                                </div>
+                            </div>
+                        </li>
+                        <li class="tablmf234">
+                            <div class="row">
+                                <div class="col-6">
+                                    Número de cuenta
+                                </div>
+                                <div class="col-6">
+                                    ---------------
+                                </div>
+                            </div>
+                        </li>
+                        <li class="tablmf234">
+                            <div class="row">
+                                <div class="col-6">
+                                    Moneda
+                                </div>
+                                <div class="col-6">
+                                    MXN
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <p class="m02f89y30" style="font-size: 10px;text-align: center;padding: 0px;margin: 0px;">Realizar pagos, depósitos, envíos, y transferencias a este monedero</p>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
